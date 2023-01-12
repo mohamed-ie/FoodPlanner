@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "53224856842",
+    "project_id": "foodplanner-c8862",
+    "storage_bucket": "foodplanner-c8862.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53224856842:android:a6a2b49e5a3d889b8a2ef3",
+        "android_client_info": {
+          "package_name": "com.soha.foodplanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53224856842-husmi1inhumvue2t5lrat3i5cav750l7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFW6ObkXqQOlX8cFYV7n3MH_RNaTDcK0w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53224856842-husmi1inhumvue2t5lrat3i5cav750l7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
