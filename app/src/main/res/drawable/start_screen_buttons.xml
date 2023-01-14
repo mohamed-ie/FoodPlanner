@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    >
+    <corners android:radius="50dp"/>
+
+    <solid
+        android:color="@color/start_screen_sign"
+        />
+    <padding android:left="20dp"
+        android:right="20dp"
+        android:bottom="5dp"
+        android:top="5dp"/>
+</shape>

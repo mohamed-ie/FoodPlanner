@@ -50,12 +50,12 @@ public class SplashFragment extends Fragment {
     }
 
     private void navigateAfterInitialDelay() {
-        /*
-        TODO navigate to login
+
+        //TODO navigate to login
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            NavHostFragment.findNavController(this).navigate(Action id);
+            NavHostFragment.findNavController(this).navigate(R.id.startFragment);
         }, DELAY_MILLIS);
-        */
+
     }
 
     private void setStatusBarVisibility(boolean visible) {

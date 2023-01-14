@@ -3,4 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="splash_message">Ingredients for\n any recipe</string>
+    <string name="mail">Enter your mail</string>
+    <string name="pass">Enter Password</string>
+    <string name="confirm_password">Confirm the Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="mail_sign">Sign Up With Mail</string>
+    <string name="email_exist_error">This Email Already Exists</string>
+    <string name="sign_loading">Sign up process is loading</string>
+    <string name="cancel">Cancel</string>
 </resources>
