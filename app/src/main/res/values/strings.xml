@@ -11,4 +11,8 @@
     <string name="email_exist_error">This Email Already Exists</string>
     <string name="sign_loading">Sign up process is loading</string>
     <string name="cancel">Cancel</string>
+    <string name="weak_password_error" >"Enter Strong Password"</string>
+    <string name="invalid_mail_error" >"Invalid Email"</string>
+    <string name="network_error" >"Check Network connection"</string>
+
 </resources>

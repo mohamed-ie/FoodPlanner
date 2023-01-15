@@ -82,17 +82,22 @@ public class SignUpFragment extends Fragment implements SignUpViewListener {
                 && !enteredMail.isEmpty()
                 && !enteredPassword.isEmpty();
     }
+    private boolean passwordsIsIdentical() {
+        return enteredConfirmedPassword.equals(enteredPassword);
+    }
 
     @Override
     public void onSuccess() {
         //navController.navigate(/*homeAction*/);
+        Toast.makeText(getContext(), "Authentication success", Toast.LENGTH_SHORT).show();
         stopLoading();
     }
 
     @Override
     public void onFailure(@StringRes int message) {
-        stopLoading();
+
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        stopLoading();
     }
 
     void stopLoading(){
@@ -104,9 +109,14 @@ public class SignUpFragment extends Fragment implements SignUpViewListener {
         btnSignUp.setOnClickListener((View v)-> {
             updateEnteredStrings();
             if(validateInputs()){
-                signUpPresenter.signUp("soha",enteredMail,enteredPassword);
-                navController.navigate(R.id.loadingFragment);
-                //
+                if(passwordsIsIdentical()){
+                    signUpPresenter.signUp("soha",enteredMail,enteredPassword);
+                    navController.navigate(R.id.loadingFragment);
+                }else {
+
+                    Toast.makeText(getContext(), "Passwords must be identical", Toast.LENGTH_SHORT).show();
+                }
+
             }else showErrors();
         });
     }
