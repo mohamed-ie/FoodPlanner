@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="opacity">#80161414</color>
     <color name="cardViewColor">#B81F1919</color>
-    <color name="off_white">#FCFCFC</color>
+    <color name="hint">#A6FFFFFF</color>
     <color name="green">#8CC53F</color>
     <color name="start_screen_sign">#69F3EBEB</color>
 </resources>
