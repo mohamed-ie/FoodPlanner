@@ -1,8 +1,15 @@
 package com.soha.foodplanner.ui.login.presenter;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.soha.foodplanner.ui.common.presenter.Presenter;
 
-public interface LoginPresenter {
+public interface LoginPresenter extends Presenter {
+    String TAG = "LoginPresenter";
+
     void login(String email, String password);
+
+    boolean isInputsValid();
+
+    LoginState getLoginState();
+
+    void updateLoginState(String email, String password);
 }
