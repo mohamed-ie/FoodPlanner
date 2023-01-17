@@ -25,4 +25,15 @@
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
     <string name="retry">Retry</string>
+    <string name="mail">Enter your mail</string>
+    <string name="pass">Enter Password</string>
+    <string name="confirm_password">Confirm the Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="mail_sign">Sign Up With Mail</string>
+    <string name="email_exist_error">This Email Already Exists</string>
+    <string name="sign_loading">Sign up process is loading</string>
+    <string name="cancel">Cancel</string>
+    <string name="weak_password_error" >"Enter Strong Password"</string>
+    <string name="invalid_mail_error" >"Invalid Email"</string>
+    <string name="network_error" >"Check Network connection"</string>
 </resources>

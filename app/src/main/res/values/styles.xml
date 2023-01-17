@@ -13,6 +13,13 @@
         <item name="cardCornerRadius">@dimen/auth_card_corner_radius</item>
     </style>
 
+    <style name="Theme.FoodPlanner.LoadingDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+
+
     <style name="Theme.FoodPlanner.TextInputLayout">
         <item name="colorOnSurface">@color/white</item>
         <item name="boxStrokeWidth">2dp</item>
