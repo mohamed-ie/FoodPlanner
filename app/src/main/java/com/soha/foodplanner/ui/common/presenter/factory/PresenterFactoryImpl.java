@@ -4,8 +4,6 @@ package com.soha.foodplanner.ui.common.presenter.factory;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.ui.common.presenter.Presenter;
 import com.soha.foodplanner.ui.common.presenter.store.PresenterStore;
-import com.soha.foodplanner.ui.login.presenter.LoginPresenter;
-import com.soha.foodplanner.ui.start.presenter.StartPresenter;
 
 public class PresenterFactoryImpl<P extends Presenter> implements PresenterFactory<P> {
     private final PresenterStore presenterStore;

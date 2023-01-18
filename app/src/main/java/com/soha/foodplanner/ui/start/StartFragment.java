@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,14 +24,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Constants;
-import com.soha.foodplanner.data.repository.start.StartRepository;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactoryImpl;
 import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
-import com.soha.foodplanner.ui.login.presenter.LoginPresenter;
 import com.soha.foodplanner.ui.start.presenter.StartPresenter;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterFactory;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterListener;
@@ -67,7 +63,7 @@ public class StartFragment extends Fragment implements StartPresenterListener {
 
     private void initPresenter() {
         PresenterFactory<StartPresenter> factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
-        startPresenter = (StartPresenter) factory.create(StartPresenter.TAG, new StartPresenterFactory(FirebaseAuth.getInstance(), this));
+        startPresenter = (StartPresenter) factory.create(getTag(), new StartPresenterFactory(FirebaseAuth.getInstance(), this));
     }
 
 
@@ -119,7 +115,7 @@ public class StartFragment extends Fragment implements StartPresenterListener {
     @Override
     public void onSuccess() {
         Toast.makeText(getContext(), R.string.login_successful, Toast.LENGTH_SHORT).show();
-        navController.navigate(StartFragmentDirections.actionStartFragmentToHomeNavGraph());
+        navController.navigate(StartFragmentDirections.actionStartFragmentToMainFragment());
     }
 
     @Override

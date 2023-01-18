@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -116,7 +114,7 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
 
     private void initPresenter() {
         PresenterFactory<LoginPresenter> factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
-        presenter = factory.create(LoginPresenter.TAG, new LoginPresenterFactory(FirebaseAuth.getInstance(), this));
+        presenter = factory.create(getTag(), new LoginPresenterFactory(FirebaseAuth.getInstance(), this));
     }
 
 

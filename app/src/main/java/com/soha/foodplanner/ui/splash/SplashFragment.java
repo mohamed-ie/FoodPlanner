@@ -40,6 +40,7 @@ public class SplashFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         setListeners();
+//        updateNextDestionation();
     }
 
     private void initViews(View view) {
