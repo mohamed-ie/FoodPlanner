@@ -11,15 +11,15 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
         android:layout_width="0dp"
-        app:lottie_rawRes="@raw/error"
-        app:lottie_loop="false"
-        app:lottie_autoPlay="true"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintWidth_percent=".4" />
+        app:layout_constraintWidth_percent=".3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/error" />
 
     <TextView
         android:id="@+id/textViewMessage"
@@ -28,6 +28,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:textAlignment="center"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/buttonRetry"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -35,12 +36,13 @@
 
     <Button
         android:id="@+id/buttonRetry"
+        style="@style/Theme.FoodPlanner.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ok"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias=".5"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <androidx.constraintlayout.widget.Guideline

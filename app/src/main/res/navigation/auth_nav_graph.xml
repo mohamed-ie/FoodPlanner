@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.soha.foodplanner.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_home_nav_graph"
+            app:destination="@id/navigation3" />
+        <action
+            android:id="@+id/action_loginFragment_to_errorDialogFragment"
+            app:destination="@id/errorDialogFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_retryDialogFragment"
+            app:destination="@id/retryDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.soha.foodplanner.ui.signup.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_home_nav_graph"
+            app:destination="@id/navigation3" />
+    </fragment>
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.soha.foodplanner.ui.start.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_home_nav_graph"
+            app:destination="@id/navigation3" />
+        <action
+            android:id="@+id/action_startFragment_to_errorDialogFragment"
+            app:destination="@id/errorDialogFragment" />
+    </fragment>
+    <navigation android:id="@+id/navigation3"
+        app:startDestination="@id/home_nav_graph">
+        <include app:graph="@navigation/home_nav_graph" />
+    </navigation>
+    <dialog
+        android:id="@+id/errorDialogFragment"
+        android:name="com.soha.foodplanner.ui.common.dialogs.error.ErrorDialogFragment"
+        android:label="dialog_fragment_error"
+        tools:layout="@layout/dialog_fragment_error" >
+        <argument
+            android:name="message"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/retryDialogFragment"
+        android:name="com.soha.foodplanner.ui.common.dialogs.retry.RetryDialogFragment"
+        android:label="dialog_fragment_retry"
+        tools:layout="@layout/dialog_fragment_retry" >
+        <argument
+            android:name="message"
+            app:argType="integer" />
+    </dialog>
+    <dialog
+        android:id="@+id/loadingFragment"
+        android:name="com.soha.foodplanner.ui.signup.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" />
+</navigation>

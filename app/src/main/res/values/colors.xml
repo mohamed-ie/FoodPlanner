@@ -6,11 +6,11 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="black_50">#80000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="opacity">#80161414</color>
-    <color name="cardViewColor">#B81F1919</color>
-    <color name="hint">#A6FFFFFF</color>
+    <color name="card_view_background_auth">#B81F1919</color>
+    <color name="text_hint">#A6FFFFFF</color>
+    <color name="text_input_edit_text_stroke_color">#A6FFFFFF</color>
     <color name="green">#8CC53F</color>
     <color name="start_screen_sign">#69F3EBEB</color>
 </resources>

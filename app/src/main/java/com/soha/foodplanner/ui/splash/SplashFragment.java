@@ -2,6 +2,7 @@ package com.soha.foodplanner.ui.splash;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.soha.foodplanner.R;
@@ -47,7 +50,7 @@ public class SplashFragment extends Fragment {
         lottieAnimationView.addAnimatorListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                NavHostFragment.findNavController(SplashFragment.this).navigate(R.id.action_splashFragment_to_loginFragment);
+                NavHostFragment.findNavController(SplashFragment.this).navigate(SplashFragmentDirections.actionSplashFragmentToNavigation());
             }
         });
     }
@@ -59,10 +62,18 @@ public class SplashFragment extends Fragment {
     }
 
     private void setStatusBarVisibility(boolean visible) {
-        View decorView = requireActivity().getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        if (visible) uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-        decorView.setSystemUiVisibility(uiOptions);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsetsController windowInsetsController = requireActivity().getWindow().getDecorView().getWindowInsetsController();
+            if (visible)
+                windowInsetsController.show(WindowInsets.Type.statusBars());
+            else
+                windowInsetsController.hide(WindowInsets.Type.statusBars());
+        } else {
+            View decorView = requireActivity().getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            if (visible) uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 }

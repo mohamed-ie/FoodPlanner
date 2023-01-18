@@ -4,16 +4,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.navigation.NavController;
+import androidx.annotation.NonNull;
 
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragment;
+import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragmentWithArgs;
 
 
-public class ErrorDialogFragment extends BaseDialogFragment<ErrorDialogFragmentArgs> {
-    protected TextView textViewMessage;
+public class ErrorDialogFragment extends BaseDialogFragmentWithArgs<ErrorDialogFragmentArgs> {
     protected Button buttonOk;
-    protected NavController navController;
 
     @Override
     public int getLayoutResource() {
@@ -36,8 +34,8 @@ public class ErrorDialogFragment extends BaseDialogFragment<ErrorDialogFragmentA
     }
 
     @Override
-    public void initViews(View view) {
-        textViewMessage = view.findViewById(R.id.textViewMessage);
+    public void initViews(@NonNull View view) {
+        super.initViews(view);
         buttonOk = view.findViewById(R.id.buttonRetry);
     }
 }

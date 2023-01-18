@@ -27,9 +27,8 @@ public class LoadingFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE,R.style.Theme_FoodPlanner_LoadingDialog);
+        setStyle(DialogFragment.STYLE_NO_TITLE,R.style.Theme_FoodPlanner_Dialog);
         navController= NavHostFragment.findNavController(LoadingFragment.this);
-
     }
 
     @Override
@@ -59,6 +58,5 @@ public class LoadingFragment extends DialogFragment {
     }
     void stopLoading(){
         navController.popBackStack();
-
     }
 }

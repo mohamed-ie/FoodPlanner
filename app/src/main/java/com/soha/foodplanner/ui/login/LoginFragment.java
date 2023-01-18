@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
     private NavController navController;
     private CheckBox checkBoxRememberMe;
     private Button buttonLogin;
-    private TextView textViewSignup;
+    private ImageButton imageButtonBack;
     private TextInputEditText textInputEditTextPassword;
     private TextInputEditText textInputEditTextEmail;
 
@@ -121,10 +122,7 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
 
     private void setListeners() {
         buttonLogin.setOnClickListener(v -> login());
-
-        textViewSignup.setOnClickListener(v -> {
-        });
-
+        imageButtonBack.setOnClickListener(v->navController.popBackStack());
     }
 
     private void initViews(@NonNull View view) {
@@ -135,9 +133,9 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
         //
         buttonLogin = view.findViewById(R.id.buttonLogin);
         //
-        checkBoxRememberMe = view.findViewById(R.id.checkBoxRememberMe);
+        imageButtonBack = view.findViewById(R.id.imageButtonBack);
         //
-        textViewSignup = view.findViewById(R.id.textViewSignup);
+        checkBoxRememberMe = view.findViewById(R.id.checkBoxRememberMe);
     }
 
 

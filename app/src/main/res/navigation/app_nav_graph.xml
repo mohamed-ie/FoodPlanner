@@ -6,4 +6,22 @@
     app:startDestination="@id/splashFragment">
 
 
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.soha.foodplanner.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_navigation"
+            app:destination="@id/navigation2"
+            app:popUpTo="@id/app_nav_graph" />
+    </fragment>
+    <navigation android:id="@+id/navigation2"
+        app:startDestination="@id/navigation">
+        <navigation
+            android:id="@+id/navigation"
+            app:startDestination="@id/auth_nav_graph">
+            <include app:graph="@navigation/auth_nav_graph" />
+        </navigation>
+    </navigation>
 </navigation>

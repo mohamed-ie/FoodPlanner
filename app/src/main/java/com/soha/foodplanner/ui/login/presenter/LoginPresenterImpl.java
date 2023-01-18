@@ -2,9 +2,6 @@ package com.soha.foodplanner.ui.login.presenter;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.data.repository.login.LoginRepository;
@@ -33,7 +30,7 @@ public class LoginPresenterImpl implements LoginPresenter {
 
     @Override
     public void updateLoginState(String email, String password) {
-        if (email.isBlank()) {
+        if (email.isEmpty()) {
             state.setEmailError(true);
             state.setEmailErrorMessage(R.string.required);
         } else if (isEmailInForm(email)) {
@@ -43,7 +40,7 @@ public class LoginPresenterImpl implements LoginPresenter {
             state.setEmailError(false);
         }
 
-        if (password.isBlank()) {
+        if (password.isEmpty()) {
             state.setPasswordError(true);
             state.setPasswordErrorMessage(R.string.required);
         } else {
