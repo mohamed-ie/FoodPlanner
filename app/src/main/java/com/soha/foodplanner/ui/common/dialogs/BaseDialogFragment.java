@@ -12,14 +12,12 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.navigation.NavArgs;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.soha.foodplanner.R;
 
-public abstract class BaseDialogFragment<S extends NavArgs> extends DialogFragment {
-    protected S args;
+public abstract class BaseDialogFragment extends DialogFragment {
     protected TextView textViewMessage;
     protected NavController navController;
 
@@ -29,8 +27,8 @@ public abstract class BaseDialogFragment<S extends NavArgs> extends DialogFragme
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_FoodPlanner_Dialog);
         navController = NavHostFragment.findNavController(this);
-        args=getSafeArgs();
     }
 
     @Nullable
@@ -45,24 +43,11 @@ public abstract class BaseDialogFragment<S extends NavArgs> extends DialogFragme
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         setListeners();
-        if (args != null)
-            updateUiFromSafeArgs(args);
     }
 
-    public abstract S getSafeArgs();
-
-
-
-    public void initViews(View view) {
+    public void initViews(@NonNull View view) {
         textViewMessage = view.findViewById(R.id.textViewMessage);
     }
 
     public abstract void setListeners();
-
-    public void updateUiFromSafeArgs(S args) {
-
-    }
-
-    ;
-
 }
