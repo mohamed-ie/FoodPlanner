@@ -1,44 +1,58 @@
 package com.soha.foodplanner.data.repository;
 
 import android.content.Context;
-import androidx.lifecycle.LiveData;
+
 import com.soha.foodplanner.data.local.AppDatabase;
-import com.soha.foodplanner.data.local.FavMealDAO;
-import com.soha.foodplanner.data.local.MealsItem;
+import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.local.MealDAO;
+
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class Repository {
     private Context context;
-    private FavMealDAO favMealDAO;
-    private LiveData<List<MealsItem>> storedMeals;
+    private MealDAO mealDAO;
 
     public Repository(Context context){
         this.context=context;
         AppDatabase db= AppDatabase.getInstance(context.getApplicationContext());
-        favMealDAO=db.favMealDAO();
-        storedMeals= favMealDAO.getAllMeals();
+        mealDAO=db.mealDAO();
 
     }
 
-    public LiveData<List<MealsItem>> getStoredProducts(){
-        return storedMeals;
-
-    }
-    public void delete(MealsItem meal){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                favMealDAO.deleteMeal(meal);
-            }
-        }).start();
+    public void getAllMeals(SingleObserver<List<Meal>> singleObserver){
+        mealDAO.getAllMeals().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(singleObserver);
     }
 
-    public void insert(MealsItem meal){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                favMealDAO.insertMeal(meal);
-            }
-        }).start();
+    public void delete(Meal meal,CompletableObserver completableObserver){
+        mealDAO.deleteMeal(meal).subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(completableObserver);
+
+    }
+
+    public void insert(Meal meal,CompletableObserver completableObserver) {
+        mealDAO.insertMeal((meal)).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(completableObserver);
+    }
+    public void searchMealByArea(String mealArea,SingleObserver<List<Meal>> mealSingleObserver){
+
+        mealDAO.FindMealByArea(mealArea)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealSingleObserver);
+    }
+    public void searchMealByCategory(String mealCategory,SingleObserver<List<Meal>> singleObserver){
+        mealDAO.FindMealByCategory(mealCategory)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(singleObserver);
     }
 }

@@ -32,14 +32,13 @@
     <string name="mail_sign">Sign Up With Mail</string>
     <string name="email_exist_error">This Email Already Exists</string>
     <string name="sign_loading">Sign up process is loading</string>
+    <string name="cancel">Cancel</string>
     <string name="weak_password_error">"Enter Strong Password"</string>
     <string name="invalid_mail_error">"Invalid Email"</string>
     <string name="network_error">"Check Network connection"</string>
-    <string name="back">back</string>
-    <string name="name">Name</string>
-    <string name="home">home</string>
-    <string name="search">Search</string>
-    <string name="planned">Planned</string>
-    <string name="favourite">Favourite</string>
-    <string name="profile">Profile</string>
+    <string name="add_to_fav">Favourite</string>
+    <string name="meal_name">Meal Name</string>
+    <string name="meal_category">Meal Category</string>
+    <string name="view_all"><u>View All</u></string>
+
 </resources>

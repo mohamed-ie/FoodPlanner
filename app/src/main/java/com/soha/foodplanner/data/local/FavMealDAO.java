@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.soha.foodplanner.data.remote.network.MealsItem;
+
 import java.util.List;
 @Dao
 public interface FavMealDAO {
