@@ -114,7 +114,7 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
 
     private void initPresenter() {
         PresenterFactory<LoginPresenter> factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
-        presenter = factory.create(getTag(), new LoginPresenterFactory(FirebaseAuth.getInstance(), this));
+        presenter = factory.create(LoginPresenter.TAG, new LoginPresenterFactory(FirebaseAuth.getInstance(), this));
     }
 
 

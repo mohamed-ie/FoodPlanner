@@ -63,7 +63,7 @@ public class StartFragment extends Fragment implements StartPresenterListener {
 
     private void initPresenter() {
         PresenterFactory<StartPresenter> factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
-        startPresenter = (StartPresenter) factory.create(getTag(), new StartPresenterFactory(FirebaseAuth.getInstance(), this));
+        startPresenter = (StartPresenter) factory.create(StartPresenter.TAG, new StartPresenterFactory(FirebaseAuth.getInstance(), this));
     }
 
 
