@@ -1,4 +1,4 @@
-package com.soha.foodplanner.ui.favourite;
+package com.soha.foodplanner.ui.meal_details;
 
 import android.os.Bundle;
 
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.soha.foodplanner.R;
 
 
-public class FavouriteFragment extends Fragment {
+public class MealDetails extends Fragment {
 
 
     @Override
@@ -24,6 +24,6 @@ public class FavouriteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false);
+        return inflater.inflate(R.layout.fragment_meal_details, container, false);
     }
 }
