@@ -14,8 +14,6 @@ public class PlannedMeals {
     private long date;
     private String mealtime;
 
-    public PlannedMeals() {
-    }
 
     public PlannedMeals(long id, long mealId, long date, String mealtime) {
         this.id = id;

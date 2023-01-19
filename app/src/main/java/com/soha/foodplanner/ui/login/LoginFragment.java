@@ -26,6 +26,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Constants;
+import com.soha.foodplanner.common.Factory;
+import com.soha.foodplanner.ui.common.BaseFragment;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactoryImpl;
 import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
@@ -36,11 +38,9 @@ import com.soha.foodplanner.ui.login.presenter.LoginState;
 
 import java.util.Objects;
 
-public class LoginFragment extends Fragment implements LoginPresenterListener {
+public class LoginFragment extends BaseFragment<LoginPresenter> implements LoginPresenterListener {
     public static final String RETRY = "RETRY";
 
-    private LoginPresenter presenter;
-    private NavController navController;
     private CheckBox checkBoxRememberMe;
     private Button buttonLogin;
     private ImageButton imageButtonBack;
@@ -53,38 +53,50 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
     private SharedPreferences sharedPreferences;
 
 
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_login;
+    }
+
+    @Override
+    protected Factory<LoginPresenter> getPresenterFactory() {
+        return new LoginPresenterFactory(FirebaseAuth.getInstance(), this);
+    }
+
     //fragment lifecycle
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDependencies();
         setupObservers();
     }
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+    public void initDependencies() {
+        super.initDependencies();
+        sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_APP, Context.MODE_PRIVATE);
     }
 
+    private void setupObservers() {
+        LiveData<Boolean> retryObserver = Objects.requireNonNull(navController
+                        .getCurrentBackStackEntry())
+                .getSavedStateHandle()
+                .getLiveData(RETRY);
+
+        retryObserver.observe(this, (Observer<Boolean>) retry -> {
+            if (retry) {
+                login();
+            }
+        });
+    }
 
     //login presenter listener
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initViews(view);
-        setListeners();
-    }
-
-    @Override
     public void onSuccess() {
-        //   navController.navigate();
+        navController.navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment());
         Toast.makeText(requireContext(), R.string.login_successful, Toast.LENGTH_SHORT).show();
         updateRememberMe();
     }
-
 
     @Override
     public void onFailure(int messageResource) {
@@ -104,26 +116,15 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
         }
     }
 
-
-    //
-    private void initDependencies() {
-        navController = NavHostFragment.findNavController(this);
-        sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_APP, Context.MODE_PRIVATE);
-        initPresenter();
-    }
-
-    private void initPresenter() {
-        PresenterFactory<LoginPresenter> factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
-        presenter = factory.create(LoginPresenter.TAG, new LoginPresenterFactory(FirebaseAuth.getInstance(), this));
-    }
-
-
-    private void setListeners() {
+    @Override
+    protected void setListeners() {
         buttonLogin.setOnClickListener(v -> login());
-        imageButtonBack.setOnClickListener(v->navController.popBackStack());
+        imageButtonBack.setOnClickListener(v -> navController.popBackStack());
     }
 
-    private void initViews(@NonNull View view) {
+
+    @Override
+    protected void initViews(@NonNull View view) {
         textInputEditTextEmail = view.findViewById(R.id.textInputEditTextEmail);
         textInputEditTextPassword = view.findViewById(R.id.textInputEditTextPassword);
         textInputLayoutEmail = view.findViewById(R.id.textInputLayoutEmail);
@@ -165,8 +166,13 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
         else clearPasswordError();
     }
 
-    private void clearPasswordError() {
-        textInputLayoutPassword.setErrorEnabled(false);
+    private void showEmailError(@StringRes int message) {
+        textInputLayoutEmail.setError(getText(message));
+        textInputLayoutEmail.setErrorEnabled(true);
+    }
+
+    private void clearEmailError() {
+        textInputLayoutEmail.setErrorEnabled(false);
     }
 
     private void showPasswordError(@StringRes int message) {
@@ -174,26 +180,8 @@ public class LoginFragment extends Fragment implements LoginPresenterListener {
         textInputLayoutPassword.setErrorEnabled(true);
     }
 
-    private void clearEmailError() {
-        textInputLayoutEmail.setErrorEnabled(false);
+    private void clearPasswordError() {
+        textInputLayoutPassword.setErrorEnabled(false);
     }
 
-    private void showEmailError(@StringRes int message) {
-        textInputLayoutEmail.setError(getText(message));
-        textInputLayoutEmail.setErrorEnabled(true);
-    }
-
-
-    private void setupObservers() {
-        LiveData<Boolean> retryObserver = Objects.requireNonNull(navController
-                        .getCurrentBackStackEntry())
-                .getSavedStateHandle()
-                .getLiveData(RETRY);
-
-        retryObserver.observe(this, (Observer<Boolean>) retry -> {
-            if (retry) {
-                login();
-            }
-        });
-    }
 }

@@ -10,10 +10,6 @@ public class Ingredient {
     private String name;
     private String photoUri;
 
-
-    public Ingredient() {
-    }
-
     public Ingredient(String name, String photoUri) {
         this.name = name;
         this.photoUri=photoUri;

@@ -1,7 +1,12 @@
 package com.soha.foodplanner.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.soha.foodplanner.R;
 

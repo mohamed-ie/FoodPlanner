@@ -12,9 +12,6 @@ public class CachedMeals {
     @ColumnInfo(name = "meal_id")
     private long mealId;
 
-    public CachedMeals() {
-    }
-
     public CachedMeals(byte id, String type, long mealId, String name) {
         this.id = id;
         this.type = type;

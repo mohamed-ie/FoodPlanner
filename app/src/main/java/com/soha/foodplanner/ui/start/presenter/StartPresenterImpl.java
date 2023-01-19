@@ -15,4 +15,5 @@ public class StartPresenterImpl implements StartPresenter {
     public void login(String idToken) {
         repository.login(idToken);
     }
+
 }

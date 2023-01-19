@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Constants;
+import com.soha.foodplanner.common.Factory;
+import com.soha.foodplanner.ui.common.BaseFragment;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactoryImpl;
 import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
@@ -34,12 +36,11 @@ import com.soha.foodplanner.ui.start.presenter.StartPresenterFactory;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterListener;
 
 
-public class StartFragment extends Fragment implements StartPresenterListener {
+public class StartFragment extends BaseFragment<StartPresenter> implements StartPresenterListener {
     private Button btnSignupWithMail;
     private Button buttonGoogleSignup;
     private TextView textViewLogin;
-    private NavController navController;
-    private StartPresenter startPresenter;
+
     private SharedPreferences sharedPreferences;
     private ActivityResultLauncher<Intent> googleSignupResultLauncher;
 
@@ -50,38 +51,23 @@ public class StartFragment extends Fragment implements StartPresenterListener {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDependencies();
+    protected int getLayoutResource() {
+        return R.layout.fragment_start;
     }
 
-    private void initDependencies() {
-        navController = NavHostFragment.findNavController(StartFragment.this);
+    @Override
+    protected Factory<StartPresenter> getPresenterFactory() {
+        return new StartPresenterFactory(FirebaseAuth.getInstance(), this);
+    }
+
+    @Override
+    protected void initDependencies() {
+        super.initDependencies();
         sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_APP, Context.MODE_PRIVATE);
-        initPresenter();
-    }
-
-    private void initPresenter() {
-        PresenterFactory<StartPresenter> factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
-        startPresenter = (StartPresenter) factory.create(StartPresenter.TAG, new StartPresenterFactory(FirebaseAuth.getInstance(), this));
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_start, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initViews(view);
-        setListeners();
-    }
-
-    private void setListeners() {
+    protected void setListeners() {
         btnSignupWithMail.setOnClickListener(view ->
                 navController.navigate(StartFragmentDirections.actionStartFragmentToSignUpFragment())
         );
@@ -89,13 +75,13 @@ public class StartFragment extends Fragment implements StartPresenterListener {
         textViewLogin.setOnClickListener(v -> navController.navigate(StartFragmentDirections.actionStartFragmentToLoginFragment()));
     }
 
-    private void initViews(View view) {
+    @Override
+    protected void initViews(View view) {
         btnSignupWithMail = view.findViewById(R.id.buttonSignUpWithMail);
         buttonGoogleSignup = view.findViewById(R.id.buttonGoogleSignup);
         //
         textViewLogin = view.findViewById(R.id.textViewLogin);
     }
-
 
     private Intent getGoogleSignInIntent() {
         return GoogleSignIn.getClient(requireContext(),
@@ -108,8 +94,7 @@ public class StartFragment extends Fragment implements StartPresenterListener {
     private void login(Task<GoogleSignInAccount> result) {
         if (result == null)
             return;
-        startPresenter.login(result.getResult().getIdToken());
-
+        presenter.login(result.getResult().getIdToken());
     }
 
     @Override

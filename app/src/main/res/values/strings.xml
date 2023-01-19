@@ -22,7 +22,6 @@
     <string name="email_valid_digits">qwertyuiopasdfghjklzxcvbnm._@0123456789</string>
     <string name="already_have_an_account">Already have an account ?</string>
     <string name="dont_have_an_account">Don\'t have an account ?</string>
-    <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="retry">Retry</string>
     <string name="mail">Enter your mail</string>
@@ -40,5 +39,12 @@
     <string name="meal_name">Meal Name</string>
     <string name="meal_category">Meal Category</string>
     <string name="view_all"><u>View All</u></string>
+    <string name="favourite">Favourite</string>
+    <string name="home">Home</string>
+    <string name="planned">Planned</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="name">Name</string>
+    <string name="back">Back</string>
 
 </resources>

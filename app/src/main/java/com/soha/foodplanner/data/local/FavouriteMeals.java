@@ -11,9 +11,6 @@ public class FavouriteMeals {
     @ColumnInfo(name = "meal_id")
     private long mealId;
 
-    public FavouriteMeals() {
-    }
-
     public FavouriteMeals(long id, long mealId) {
         this.id = id;
         this.mealId = mealId;

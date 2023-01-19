@@ -51,4 +51,5 @@ public class LoginPresenterImpl implements LoginPresenter {
     private boolean isEmailInForm(@NonNull String email) {
         return !email.matches(Constants.PATTERN_EMAIL);
     }
+
 }

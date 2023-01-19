@@ -14,8 +14,6 @@ public class Meal {
     private  String photoUri;
     private  String videoUri;
 
-    public Meal() {
-    }
 
     public Meal(long id, String name, String category, String area, String instructions, String photoUri, String videoUri) {
         this.id = id;

@@ -15,38 +15,38 @@ import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface MealDAO {
-    @Query("SELECT * FROM meal")
-    Single<List<Meal>> getAllMeals();
-
-
-    @Query("SELECT * FROM meal WHERE category LIKE :mealCategory")
-    Single<List<Meal>> FindMealByCategory(String mealCategory);
-
-    @Query("SELECT * FROM meal WHERE area LIKE :mealArea")
-    Single<List<Meal>> FindMealByArea(String mealArea);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable insertMeal(Meal meal);
-
-    @Delete
-    Completable deleteMeal(Meal meal);
-
-    @Transaction
-    @Query("SELECT * FROM meal")
-    public Single<List<FavouriteMealsWithMeal>> getFavouriteMealsWithMeal();
-
-    @Transaction
-    @Query("SELECT * FROM meal")
-    public Single<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
-
-    @Transaction
-    @Query("SELECT * FROM ingredient")
-    public Single<List<IngredientWithMeal>> getIngredientWithMeal();
-
-    @Transaction
-    @Query("SELECT * FROM meal")
-    public Single<List<MealWithIngredient>> getMealWithIngredient();
-
+//    @Query("SELECT * FROM meal")
+//    Single<List<Meal>> getAllMeals();
+//
+//
+//    @Query("SELECT * FROM meal WHERE category LIKE :mealCategory")
+//    Single<List<Meal>> FindMealByCategory(String mealCategory);
+//
+//    @Query("SELECT * FROM meal WHERE area LIKE :mealArea")
+//    Single<List<Meal>> FindMealByArea(String mealArea);
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    Completable insertMeal(Meal meal);
+//
+//    @Delete
+//    Completable deleteMeal(Meal meal);
+//
+//    @Transaction
+//    @Query("SELECT * FROM meal")
+//    public Single<List<FavouriteMealsWithMeal>> getFavouriteMealsWithMeal();
+//
+//    @Transaction
+//    @Query("SELECT * FROM meal")
+//    public Single<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
+//
+//    @Transaction
+//    @Query("SELECT * FROM ingredient")
+//    public Single<List<IngredientWithMeal>> getIngredientWithMeal();
+//
+//    @Transaction
+//    @Query("SELECT * FROM meal")
+//    public Single<List<MealWithIngredient>> getMealWithIngredient();
+//
 
 
 }

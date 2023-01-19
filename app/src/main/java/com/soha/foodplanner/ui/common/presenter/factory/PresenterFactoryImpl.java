@@ -21,18 +21,18 @@ public class PresenterFactoryImpl<P extends Presenter> implements PresenterFacto
     }
 
     @Override
-    public P create(String key, Factory<P> factory) {
+    public P create(int key, Factory<P> factory) {
         Presenter presenter = presenterStore.get(key);
         if (presenter == null) {
             presenter = factory.create();
+            presenterStore.store(key, presenter);
         }
-        presenterStore.store(key, presenter);
 
         return (P) presenter;
     }
 
     @Override
-    public void onDestroy(String key, boolean isChangingConfigurations) {
+    public void onDestroy(int key, boolean isChangingConfigurations) {
         if (isChangingConfigurations)
             return;
 

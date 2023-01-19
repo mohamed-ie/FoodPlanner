@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class PresenterStoreImpl implements PresenterStore {
     private static PresenterStoreImpl instance;
-    private final Map<String, Presenter> presenterHashMap;
+    private final Map<Integer, Presenter> presenterHashMap;
 
     private PresenterStoreImpl() {
         presenterHashMap = new HashMap<>();
@@ -20,17 +20,17 @@ public class PresenterStoreImpl implements PresenterStore {
     }
 
     @Override
-    public void remove(String key) {
+    public void remove(int key) {
         presenterHashMap.remove(key);
     }
 
     @Override
-    public Presenter get(String key) {
+    public Presenter get(int key) {
         return presenterHashMap.get(key);
     }
 
     @Override
-    public void store(String key, Presenter presenter) {
+    public void store(int key, Presenter presenter) {
         presenterHashMap.put(key, presenter);
     }
 

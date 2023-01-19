@@ -5,7 +5,7 @@ import com.soha.foodplanner.ui.common.presenter.Presenter;
 
 public interface PresenterFactory<P extends Presenter> {
 
-    P create(String key, Factory<P> factory);
+    P create(int key, Factory<P> factory);
 
-    void onDestroy(String key,boolean isChangingConfigurations);
+    void onDestroy(int key,boolean isChangingConfigurations);
 }
