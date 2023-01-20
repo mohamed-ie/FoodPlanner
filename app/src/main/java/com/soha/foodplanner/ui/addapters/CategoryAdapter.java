@@ -22,26 +22,27 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private  final Context context;
     private String categoryName;
-    private List<List<Meal>> values;
+    private List<List<Meal>> meals;
     private static final String Tag="Recycler";
 
 
     public CategoryAdapter(Context con,String categName,List<List<Meal>> myList){
         context=con;
         categoryName=categName;
-        values=myList;
+        meals=myList;
 
     }
 
     @Override
     public int getItemViewType(int position) {
-        //return position==0?R.layout.category_list_item:R.layout.category_list_item;
+        return position==0?R.layout.slider_item:R.layout.recycler_view_category_list_item;
+        /*
         if(position==0){
-           // return R.layout.inspiration_item
+            return R.layout.slider_item;
         }else {
             return R.layout.recycler_view_category_list_item;
         }
-        return super.getItemViewType(position);
+        return super.getItemViewType(position);*/
     }
 
     @NonNull
@@ -57,14 +58,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.mealCategoryName.setText(categoryName);
-        holder.recyclerView.setAdapter(new MealAdapter(values.get(position)));
+        holder.recyclerView.setAdapter(new MealAdapter(meals.get(position)));
 
     }
 
 
     @Override
     public int getItemCount() {
-        return values.size();
+        return meals.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
