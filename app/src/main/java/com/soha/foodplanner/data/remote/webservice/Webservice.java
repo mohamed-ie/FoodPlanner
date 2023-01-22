@@ -1,5 +1,7 @@
 package com.soha.foodplanner.data.remote.webservice;
 
+import com.soha.foodplanner.common.Constants;
+
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -8,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Webservice {
     private static Webservice instance;
     private final Retrofit.Builder builder;
+    private TheMealDBWebService theMealDBWebService;
 
     private Webservice() {
         builder = new Retrofit
@@ -23,7 +26,12 @@ public class Webservice {
         return instance;
     }
 
-    public <T> T build(String baseUrl, Class<T> clazz) {
-        return builder.baseUrl(baseUrl).build().create(clazz);
+    public TheMealDBWebService getTheMealDBWebService() {
+        if (theMealDBWebService == null)
+            theMealDBWebService = builder
+                    .baseUrl(Constants.BASE_URL_THE_MEAL_DB)
+                    .build()
+                    .create(TheMealDBWebService.class);
+        return theMealDBWebService;
     }
 }
