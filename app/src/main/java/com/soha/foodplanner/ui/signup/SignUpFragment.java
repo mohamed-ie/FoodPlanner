@@ -104,6 +104,7 @@ public class SignUpFragment extends Fragment implements SignUpViewListener {
     }
 
     void stopLoading() {
+
         navController.popBackStack();
     }
 

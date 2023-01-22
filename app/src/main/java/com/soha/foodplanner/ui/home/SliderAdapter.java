@@ -59,8 +59,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         public SliderViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mealImage=itemView.findViewById(R.id.item_image);
-            mealName=itemView.findViewById(R.id.meal_name);
+            mealImage=itemView.findViewById(R.id.imageViewThumbnail);
+            mealName=itemView.findViewById(R.id.textViewName);
         }
 
         void setMealName(String name){

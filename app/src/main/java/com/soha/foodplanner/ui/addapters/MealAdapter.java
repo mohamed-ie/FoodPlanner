@@ -63,9 +63,9 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         public ViewHolder(View v){
             super(v);
             layout=v;
-            mealName=v.findViewById(R.id.meal_name);
-            mealImage=v.findViewById(R.id.item_image);
-            constraintLayout=v.findViewById(R.id.total_view);
+            mealName=v.findViewById(R.id.textViewName);
+            mealImage=v.findViewById(R.id.imageViewThumbnail);
+//            constraintLayout=v.findViewById(R.id.total_view);
 
         }
 

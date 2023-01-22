@@ -62,16 +62,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/meal_detailed_instructions"
-            android:textSize="18sp"
-            android:paddingVertical="20dp"
-            android:text="instructions"
             app:layout_constraintTop_toBottomOf="@id/meal_detailed_area"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/instructions"
+            android:elevation="20dp"
+            android:padding="20dp"
+            android:id="@+id/instruction_cardview"
+            app:cardCornerRadius="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/meal_detailed_instructions"
+                android:textSize="18sp"
+                android:paddingVertical="20dp"
+                android:text="instructions"
+                />
+
+        </androidx.cardview.widget.CardView>
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instruction_cardview"
+            />
+
+
+
 
 
 

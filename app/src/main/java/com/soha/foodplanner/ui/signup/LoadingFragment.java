@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.ui.signup.presenter.SignUpPresenterImpl;
 
 
 public class LoadingFragment extends DialogFragment {

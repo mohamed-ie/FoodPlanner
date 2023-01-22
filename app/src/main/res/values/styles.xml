@@ -29,7 +29,7 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:lines">1</item>
         <item name="android:textColor">@color/white</item>
-        <item name="minHeight">48dp</item>
+        <item name="minHeight">36dp</item>
     </style>
 
     <style name="Theme.FoodPlanner.ImageButton_Back" parent="Widget.AppCompat.ImageButton">

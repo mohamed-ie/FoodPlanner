@@ -5,6 +5,7 @@ import android.util.Log;
 import com.soha.foodplanner.data.mapper.Mapper;
 import com.soha.foodplanner.data.model.CompleteMeal;
 import com.soha.foodplanner.data.remote.dto.MealDto;
+import com.soha.foodplanner.data.remote.dto.category.CategoryDto;
 import com.soha.foodplanner.data.remote.webservice.TheMealDBWebService;
 
 import org.reactivestreams.Subscription;
@@ -63,5 +64,38 @@ public class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
                     }
                 });
+    }
+
+    @Override
+    public CategoryDto getCategories() {
+        final CategoryDto[] resultCategoryDto = new CategoryDto[1];
+        webService
+                .getAllCategories()
+                .subscribeOn(Schedulers.io())
+                .repeat()
+                .distinct()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new FlowableSubscriber<CategoryDto>() {
+                    @Override
+                    public void onSubscribe(@NonNull Subscription s) {
+
+                    }
+
+                    @Override
+                    public void onNext(CategoryDto categoryDto) {
+                        resultCategoryDto[0] =categoryDto;
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        return resultCategoryDto[0];
     }
 }

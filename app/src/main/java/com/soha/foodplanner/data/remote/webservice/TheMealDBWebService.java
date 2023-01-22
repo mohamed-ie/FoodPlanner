@@ -28,4 +28,6 @@ public interface TheMealDBWebService {
 
     @GET("list.php?i=list")
     Single<IngredientDto> getAllIngredients();
+
+
 }
