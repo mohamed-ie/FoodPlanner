@@ -38,14 +38,19 @@
     <string name="add_to_fav">Favourite</string>
     <string name="meal_name">Meal Name</string>
     <string name="meal_category">Meal Category</string>
-    <string name="view_all"><u>View All</u></string>
+    <string name="view_all"><u>VIEW ALL</u></string>
     <string name="favourite">Favourite</string>
     <string name="home">Home</string>
     <string name="planned">Planned</string>
     <string name="profile">Profile</string>
+    <string name="search_recipe">Search Recipe</string>
     <string name="search">Search</string>
     <string name="name">Name</string>
     <string name="back">Back</string>
+    <string name="search_by_ingredients">Search by Ingredients</string>
+    <string name="search_by_categories">Search by Categories</string>
+    <string name="search_by_countries">Search by Countries</string>
+    <string name="search_by_user_meals">Search by User Meals</string>
     <string name="add">Add</string>
     <string name="make_your_plan">Make your Plan</string>
 

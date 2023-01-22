@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        room_version = '2.4.3'
+        room_version = '2.5.0'
         retrofit = '2.9.0'
         nav_version = "2.5.3"
         lottie_version = '3.4.0'
@@ -10,11 +10,11 @@ buildscript {
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
-        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 
 plugins {
-    id 'com.android.application' version '7.3.1' apply false
-    id 'com.android.library' version '7.3.1' apply false
+    id 'com.android.application' version '7.4.0' apply false
+    id 'com.android.library' version '7.4.0' apply false
 }

@@ -1,9 +1,9 @@
-package com.soha.foodplanner.data.remote.dto.meal;
+package com.soha.foodplanner.data.remote.dto;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class RandomMealDto{
+public class MealDto {
 
 	@SerializedName("meals")
 	private List<MealsItem> meals;

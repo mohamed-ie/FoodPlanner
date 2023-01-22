@@ -1,13 +1,14 @@
 package com.soha.foodplanner.data.remote.dto.category;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class CategoryDto {
+public class CategoryDto{
 
-	@SerializedName("strCategory")
-	private String strCategory;
+	@SerializedName("meals")
+	private List<CategoryItem> meals;
 
-	public String getStrCategory(){
-		return strCategory;
+	public List<CategoryItem> getMeals(){
+		return meals;
 	}
 }

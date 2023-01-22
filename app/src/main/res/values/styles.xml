@@ -25,7 +25,7 @@
         <item name="endIconTint">@color/selector_text_input_layout_end_icon_tint</item>
     </style>
 
-    <style name="Theme.FoodPlanner.TextInputEditText"  parent="ThemeOverlay.Material3.TextInputEditText">
+    <style name="Theme.FoodPlanner.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:lines">1</item>
         <item name="android:textColor">@color/white</item>
@@ -52,6 +52,38 @@
         <item name="android:minWidth">150dp</item>
     </style>
 
+    <style name="Theme.FoodPlanner.ShapeableImageView_Rounded_20" parent="">
+        <item name="cornerSize">20%</item>
+    </style>
 
+    <style name="Theme.FoodPlanner.ShapeableImageView_Rounded_50" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.SearchView" parent="">
+        <item name="android:background">@drawable/shape_search_view</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:queryBackground">@android:color/transparent</item>
+        <item name="android:searchIcon">@drawable/ic_baseline_search_24</item>
+        <item name="android:iconifiedByDefault">false</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.CardView_Meal" parent="Widget.MaterialComponents.CardView">
+        <item name="android:elevation">1dp</item>
+        <item name="shapeAppearanceOverlay">@style/Theme.FoodPlanner.ShapeAppearanceOverlay</item>
+    </style>
+    <style name="Theme.FoodPlanner.ShapeAppearanceOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.Button_CancelSearchView" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/shape_rounded_corners</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:backgroundTint">@color/search_view_background</item>
+    </style>
 
 </resources>
