@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.soha.foodplanner.data.mapper.Mapper;
 import com.soha.foodplanner.data.model.CompleteMeal;
-import com.soha.foodplanner.data.remote.dto.meal.RandomMealDto;
+import com.soha.foodplanner.data.remote.dto.MealDto;
 import com.soha.foodplanner.data.remote.webservice.TheMealDBWebService;
 
 import org.reactivestreams.Subscription;
@@ -16,11 +16,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     private final TheMealDBWebService webService;
-    private final Mapper<RandomMealDto, CompleteMeal> mapper;
+    private final Mapper<MealDto, CompleteMeal> mapper;
     private final HomeRemoteDataSourceListener homeRemoteDataSourceListener;
 
     public HomeRemoteDataSourceImpl(TheMealDBWebService webService,
-                                    Mapper<RandomMealDto, CompleteMeal> mapper,
+                                    Mapper<MealDto, CompleteMeal> mapper,
                                     HomeRemoteDataSourceListener homeRemoteDataSourceListener
     ) {
         this.webService = webService;

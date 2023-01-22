@@ -14,4 +14,5 @@
     <color name="green">#8CC53F</color>
     <color name="start_screen_sign">#69F3EBEB</color>
     <color name="grey_text">#787272</color>
+    <color name="search_view_background">#EAE9E9</color>
 </resources>

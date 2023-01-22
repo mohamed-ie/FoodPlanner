@@ -1,4 +1,4 @@
-package com.soha.foodplanner.data.remote.dto.meal;
+package com.soha.foodplanner.data.remote.dto;
 
 import com.google.gson.annotations.SerializedName;
 
