@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="20dp"
     android:layout_margin="5dp"
+    android:layout_marginStart="16dp"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -19,13 +20,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Day Name" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/add_chart_button"
         android:drawableStart="@drawable/add_24"
@@ -36,8 +37,24 @@
         android:paddingHorizontal="10dp"
         app:layout_constraintHorizontal_bias="0.966"
         app:layout_constraintStart_toEndOf="@+id/day_name"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/day_name"
+        app:layout_constraintBottom_toBottomOf="@id/day_name"
         app:layout_constraintVertical_bias="0.49" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_planned_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/day_name"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        tools:listitem="@layout/recycler_view_meal_item"
+        tools:itemCount="20"
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

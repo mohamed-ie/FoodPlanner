@@ -10,16 +10,20 @@ public class PlannedMeals {
     @PrimaryKey(autoGenerate = true)
     private long id;
     @ColumnInfo(name = "meal_id")
+
     private long mealId;
-    private long date;
-    private String mealtime;
+    //private long date;
+    private String mealDay;
 
 
-    public PlannedMeals(long id, long mealId, long date, String mealtime) {
+    public PlannedMeals(long id, long mealId,  String mealDay) {
         this.id = id;
         this.mealId = mealId;
-        this.date = date;
-        this.mealtime = mealtime;
+        //this.date = date;
+        this.mealDay = mealDay;
+    }
+    public PlannedMeals() {
+
     }
 
     public long getId() {
@@ -38,19 +42,19 @@ public class PlannedMeals {
         this.mealId = mealId;
     }
 
-    public long getDate() {
-        return date;
+//    public long getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(long date) {
+//        this.date = date;
+//    }
+
+    public String getMealDay() {
+        return mealDay;
     }
 
-    public void setDate(long date) {
-        this.date = date;
-    }
-
-    public String getMealtime() {
-        return mealtime;
-    }
-
-    public void setMealtime(String mealtime) {
-        this.mealtime = mealtime;
+    public void setMealDay(String mealDay) {
+        this.mealDay = mealDay;
     }
 }

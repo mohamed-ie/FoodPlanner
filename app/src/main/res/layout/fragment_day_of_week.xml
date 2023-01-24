@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="50dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:elevation="10dp"
+    android:paddingVertical="10dp"
+    android:background="@drawable/add_plan_button"
+    tools:context=".ui.day_of_week.DayOfWeekFragment">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Select Day"
+        android:id="@+id/selection_text"
+        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/week_list"
+        android:entries="@array/day_of_week"
+        android:layout_marginTop="16dp"
+        android:divider="@color/green"
+        android:dividerHeight="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selection_text"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

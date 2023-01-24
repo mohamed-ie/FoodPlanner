@@ -43,7 +43,6 @@ public class LoadingFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        //view.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         initViews(view);
         setListeners();
     }

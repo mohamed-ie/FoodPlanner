@@ -48,7 +48,15 @@
         android:label="fragment_meal_details"
         tools:layout="@layout/fragment_meal_details" >
         <argument
-            android:name="mealArgs"
-            app:argType="com.soha.foodplanner.data.remote.dto.MealsItem" />
+            android:name="mealId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mealDetails_to_dayOfWeekFragment"
+            app:destination="@id/dayOfWeekFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/dayOfWeekFragment"
+        android:name="com.soha.foodplanner.ui.day_of_week.DayOfWeekFragment"
+        android:label="fragment_day_of_week"
+        tools:layout="@layout/fragment_day_of_week" />
 </navigation>

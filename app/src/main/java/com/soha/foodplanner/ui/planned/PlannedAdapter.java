@@ -14,28 +14,39 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.local.PlannedMeals;
+import com.soha.foodplanner.data.model.CompleteMeal;
+import com.soha.foodplanner.ui.addapters.MealAdapter;
 import com.soha.foodplanner.ui.addapters.OnItemClickListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 
 public class PlannedAdapter extends RecyclerView.Adapter<PlannedAdapter.ViewHolder> {
     private List<String> weekDays;
+    List<PlannedMeals> dayOfWeekMeals;
+
     private static final String Tag="Recycler";
 
 
-    public PlannedAdapter(List<String> myList){
+    public PlannedAdapter(List<String> myList
+    ,List<PlannedMeals> dayWeekMeals
+                          ){
         weekDays=myList;
+        dayOfWeekMeals=dayWeekMeals;
 
 
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView dayName;
+        private TextView dayName;
+        private RecyclerView recyclerViewPlannedItem;
 
         public ViewHolder(View v) {
             super(v);
             dayName = v.findViewById(R.id.day_name);
+            v.findViewById(R.id.recycler_planned_item);
 
 
         }
@@ -52,6 +63,7 @@ public class PlannedAdapter extends RecyclerView.Adapter<PlannedAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.dayName.setText(weekDays.get(position));
+       // holder.recyclerViewPlannedItem.setAdapter(new MealAdapter(PlannedItemAdapter(List<>)));
 
     }
 

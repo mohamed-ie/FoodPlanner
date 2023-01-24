@@ -11,4 +11,19 @@ public class PlanedMealWithMeal {
     @Relation(parentColumn = "meal_id",entityColumn = "id")
     public List<Meal> meals;
 
+    public PlannedMeals getPlannedMeals() {
+        return plannedMeals;
+    }
+
+    public void setPlannedMeals(PlannedMeals plannedMeals) {
+        this.plannedMeals = plannedMeals;
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+    }
 }

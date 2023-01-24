@@ -11,6 +11,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
@@ -22,26 +23,35 @@ public interface MealDAO {
 //    @Query("SELECT * FROM meal WHERE category LIKE :mealCategory")
 //    Single<List<Meal>> FindMealByCategory(String mealCategory);
 //
-//    @Query("SELECT * FROM meal WHERE area LIKE :mealArea")
+ //  @Query("SELECT * FROM meal WHERE area LIKE :mealArea")
 //    Single<List<Meal>> FindMealByArea(String mealArea);
 //
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    Completable insertMeal(Meal meal);
-//
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertMeal(Meal meal);
+
+    @Insert(onConflict =OnConflictStrategy.REPLACE)
+    Completable insertIngredients(List<Ingredient> ingredients);
+    @Insert(onConflict =OnConflictStrategy.IGNORE)
+    Completable insertMealIngredientsRef(List<MealIngredientsRef> mealIngredientsRefs);
+    @Insert(onConflict =OnConflictStrategy.REPLACE)
+    Completable insertPlannedMeal(PlannedMeals mealIngredientsRefs);
+
+
+
 //    @Delete
 //    Completable deleteMeal(Meal meal);
 //
-//    @Transaction
-//    @Query("SELECT * FROM meal")
-//    public Single<List<FavouriteMealsWithMeal>> getFavouriteMealsWithMeal();
-//
-//    @Transaction
-//    @Query("SELECT * FROM meal")
-//    public Single<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
-//
+    @Transaction
+    @Query("SELECT * FROM favourite_meals")
+    Flowable<List<FavouriteMealsWithMeal>> getFavouriteMealsWithMeal();
+
+    @Transaction
+    @Query("SELECT * FROM planed_meals")
+    Flowable<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
+
 //    @Transaction
 //    @Query("SELECT * FROM ingredient")
-//    public Single<List<IngredientWithMeal>> getIngredientWithMeal();
+//    Single<List<IngredientWithMeal>> getIngredientWithMeal();
 //
 //    @Transaction
 //    @Query("SELECT * FROM meal")

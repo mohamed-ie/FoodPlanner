@@ -1,11 +1,15 @@
 package com.soha.foodplanner.data.remote.webservice;
 
+import com.soha.foodplanner.data.remote.dto.MealsItem;
 import com.soha.foodplanner.data.remote.dto.area.AreaDto;
 import com.soha.foodplanner.data.remote.dto.category.CategoryDto;
 import com.soha.foodplanner.data.remote.dto.ingredient.IngredientDto;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
 import com.soha.foodplanner.data.remote.dto.MealDto;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -28,6 +32,12 @@ public interface TheMealDBWebService {
 
     @GET("list.php?i=list")
     Single<IngredientDto> getAllIngredients();
+
+    @GET("filter.php")
+    Single<MinMealDto> getMealsByCategory(@Query("c") String categoryMeal);
+
+    @GET("lookup.php")
+    Single<MealDto> getMealDetailsById(@Query("i") long mealId);
 
 
 }

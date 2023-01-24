@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/recycler_view_meal_item"
-        android:id="@+id/recycler_category"
+        android:id="@+id/recycler_category_fav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
