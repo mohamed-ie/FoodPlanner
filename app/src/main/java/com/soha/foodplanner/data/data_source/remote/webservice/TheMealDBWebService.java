@@ -1,10 +1,10 @@
-package com.soha.foodplanner.data.data_source.remote.webservice;
+package com.soha.foodplanner.data.remote.webservice;
 
-import com.soha.foodplanner.data.dto.area.AreaDto;
-import com.soha.foodplanner.data.dto.category.CategoryDto;
-import com.soha.foodplanner.data.dto.ingredient.IngredientDto;
-import com.soha.foodplanner.data.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.dto.meal.MealDto;
+import com.soha.foodplanner.data.remote.dto.area.AreaDto;
+import com.soha.foodplanner.data.remote.dto.category.CategoryDto;
+import com.soha.foodplanner.data.remote.dto.ingredient.IngredientDto;
+import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
+import com.soha.foodplanner.data.remote.dto.MealDto;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
@@ -28,6 +28,14 @@ public interface TheMealDBWebService {
 
     @GET("list.php?i=list")
     Single<IngredientDto> getAllIngredients();
+
+    @GET("filter.php")
+    Single<MinMealDto> getMealsByCategory(@Query("c") String categoryMeal);
+
+    @GET("lookup.php")
+    Single<MealDto> getMealDetailsById(@Query("i") long mealId);
+
+
 
     @GET("filter.php")
     Single<MinMealDto> getAllMealsByCategory(@Query("c") String category);

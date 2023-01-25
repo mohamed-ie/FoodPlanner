@@ -1,4 +1,4 @@
-package com.soha.foodplanner.data.local;
+package com.soha.foodplanner.data.remote.network;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

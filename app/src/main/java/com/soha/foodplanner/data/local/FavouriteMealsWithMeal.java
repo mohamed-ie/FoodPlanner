@@ -5,7 +5,23 @@ import androidx.room.Relation;
 
 public class FavouriteMealsWithMeal {
     @Embedded
-    public FavouriteMeals favouriteMeals;
+    private FavouriteMeals favouriteMeals;
     @Relation(parentColumn = "meal_id",entityColumn = "id")
-    public Meal meal;
+    private Meal meal;
+
+    public FavouriteMeals getFavouriteMeals() {
+        return favouriteMeals;
+    }
+
+    public void setFavouriteMeals(FavouriteMeals favouriteMeals) {
+        this.favouriteMeals = favouriteMeals;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
+    }
 }
