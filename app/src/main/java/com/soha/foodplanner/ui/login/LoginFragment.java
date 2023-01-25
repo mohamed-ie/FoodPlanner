@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -15,32 +13,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.ui.common.BaseFragment;
-import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
-import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactoryImpl;
-import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
+import com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment;
+import com.soha.foodplanner.ui.common.dialogs.retry.RetryDialogFragment;
 import com.soha.foodplanner.ui.login.presenter.LoginPresenter;
 import com.soha.foodplanner.ui.login.presenter.LoginPresenterFactory;
 import com.soha.foodplanner.ui.login.presenter.LoginPresenterListener;
 import com.soha.foodplanner.ui.login.presenter.LoginState;
 
-import java.util.Objects;
-
 public class LoginFragment extends BaseFragment<LoginPresenter> implements LoginPresenterListener {
-    public static final String RETRY = "RETRY";
-
     private CheckBox checkBoxRememberMe;
     private Button buttonLogin;
     private ImageButton imageButtonBack;
@@ -60,16 +49,27 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     @Override
     protected Factory<LoginPresenter> getPresenterFactory() {
-        return new LoginPresenterFactory(FirebaseAuth.getInstance(), this);
+        return new LoginPresenterFactory(((MyApp) requireActivity().getApplication()).getAuthRepository(), this);
     }
 
     //fragment lifecycle
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupObservers();
     }
 
+    @Override
+    protected void onDialogCancel(boolean cancel) {
+        if (cancel)
+            presenter.cancelLogin();
+    }
+
+    @Override
+    protected void onDialogRetry(boolean retry) {
+        if (retry) {
+            login();
+        }
+    }
 
     @Override
     public void initDependencies() {
@@ -77,40 +77,15 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_APP, Context.MODE_PRIVATE);
     }
 
-    private void setupObservers() {
-        LiveData<Boolean> retryObserver = Objects.requireNonNull(navController
-                        .getCurrentBackStackEntry())
-                .getSavedStateHandle()
-                .getLiveData(RETRY);
-
-        retryObserver.observe(this, (Observer<Boolean>) retry -> {
-            if (retry) {
-                login();
-            }
-        });
-    }
-
-    //login presenter listener
-    @Override
-    public void onSuccess() {
-        navController.navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment());
-        Toast.makeText(requireContext(), R.string.login_successful, Toast.LENGTH_SHORT).show();
-        updateRememberMe();
-    }
-
-    @Override
-    public void onFailure(int messageResource) {
-        showErrorDialog(messageResource);
-    }
 
     //    @SuppressLint("NonConstantResourceId")
     @SuppressLint("NonConstantResourceId")
     private void showErrorDialog(int messageResource) {
         switch (messageResource) {
-            case R.string.email_or_password_incorrect:
-            case R.string.no_user_with_this_email:
-                navController.navigate(LoginFragmentDirections.actionLoginFragmentToErrorDialogFragment(messageResource));
-                break;
+//            case R.string.email_or_password_incorrect:
+//            case R.string.no_user_with_this_email:
+//                navController.navigate(LoginFragmentDirections.actionLoginFragmentToErrorDialogFragment(messageResource));
+//                break;
             default:
                 navController.navigate(LoginFragmentDirections.actionLoginFragmentToRetryDialogFragment(messageResource));
         }
@@ -149,12 +124,6 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         } else showFieldsErrors();
     }
 
-    private void updateRememberMe() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Constants.SHARED_PREFERENCES_KEY_REMEMBER_ME, checkBoxRememberMe.isChecked());
-        editor.apply();
-    }
-
     private void showFieldsErrors() {
         LoginState state = presenter.getLoginState();
         if (state.isEmailError())
@@ -184,4 +153,22 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         textInputLayoutPassword.setErrorEnabled(false);
     }
 
+    @Override
+    public void loginWithEmailAndPasswordLoading() {
+        navController.navigate(LoginFragmentDirections.actionLoginFragmentToLoadingFragment());
+    }
+
+    @Override
+    public void loginWithEmailAndPasswordSuccess() {
+        navController.popBackStack();
+        navController.navigate(LoginFragmentDirections.actionLoginFragmentToMainFragment());
+        Toast.makeText(requireContext(), R.string.login_successful, Toast.LENGTH_SHORT).show();
+        presenter.updateRememberMe(checkBoxRememberMe.isChecked());
+    }
+
+    @Override
+    public void loginWithEmailAndPasswordError(String message) {
+        navController.popBackStack();
+        showErrorDialog(R.string.unexpected_error_try_again);
+    }
 }

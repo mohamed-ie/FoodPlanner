@@ -1,27 +1,21 @@
 package com.soha.foodplanner.ui.start.presenter;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.soha.foodplanner.common.Factory;
-import com.soha.foodplanner.data.remote.start.StartRemoteDataSource;
-import com.soha.foodplanner.data.remote.start.StartRemoteDataSourceImpl;
-import com.soha.foodplanner.data.repository.start.StartRepository;
-import com.soha.foodplanner.data.repository.start.StartRepositoryImpl;
-import com.soha.foodplanner.ui.common.presenter.Presenter;
+import com.soha.foodplanner.data.repository.auth.AuthRepository;
 
-public class StartPresenterFactory implements Factory<StartPresenter>{
-    private final FirebaseAuth firebaseAuth;
-    private final StartPresenterListener startPresenterListener;
+public class StartPresenterFactory implements Factory<StartPresenter> {
 
-    public StartPresenterFactory(FirebaseAuth firebaseAuth, StartPresenterListener startPresenterListener) {
-        this.firebaseAuth = firebaseAuth;
-        this.startPresenterListener = startPresenterListener;
+    private final AuthRepository repository;
+    private final StartPresenterListener listener;
+
+    public StartPresenterFactory(AuthRepository repository, StartPresenterListener listener) {
+        this.repository = repository;
+        this.listener = listener;
     }
 
 
     @Override
     public StartPresenter create() {
-        StartRemoteDataSource remoteDataSource = new StartRemoteDataSourceImpl(firebaseAuth,startPresenterListener);
-        StartRepository startRepository = new StartRepositoryImpl(remoteDataSource);
-        return new StartPresenterImpl(startRepository);
+      return new StartPresenterImpl(repository, listener);
     }
 }

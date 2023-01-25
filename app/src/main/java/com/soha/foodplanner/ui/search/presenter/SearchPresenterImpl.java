@@ -1,9 +1,8 @@
 package com.soha.foodplanner.ui.search.presenter;
 
-import androidx.annotation.NonNull;
 
-import com.soha.foodplanner.data.model.MinIngredient;
-import com.soha.foodplanner.data.repository.search.SearchRepository;
+import com.soha.foodplanner.data.local.model.MinIngredient;
+import com.soha.foodplanner.data.repository.meals.MealsRepository;
 import com.soha.foodplanner.ui.search.SearchState;
 
 import java.util.ArrayList;
@@ -11,31 +10,33 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchPresenterImpl implements SearchPresenter {
-    private final SearchRepository searchRepository;
-    private final SearchPresenterListener searchPresenterListener;
+    private final MealsRepository repository;
+    private final SearchPresenterListener listener;
     private final SearchState state = new SearchState();
 
-    public SearchPresenterImpl(SearchRepository searchRepository, SearchPresenterListener searchPresenterListener) {
-        this.searchRepository = searchRepository;
-        this.searchPresenterListener = searchPresenterListener;
+    public SearchPresenterImpl(MealsRepository repository, SearchPresenterListener listener) {
+        this.repository = repository;
+        this.listener = listener;
     }
 
     @Override
-    public void searchByName(@NonNull String name, @NonNull List<String> names) {
+    public void searchByName(String name, List<String> names) {
         if (name.isEmpty()) {
-            searchPresenterListener.onSearchSuccess(new ArrayList<>());
+            listener.onSearchSuccess(new ArrayList<>());
             state.setSearch(new ArrayList<>());
             return;
         }
 
         if (state.getSearch().isEmpty()) {
             if (names.isEmpty()) {
-                searchRepository.searchByFirstLetter(name.charAt(0));
+                searchByFirstLetter(name.charAt(0));
                 return;
             }
 
@@ -47,34 +48,116 @@ public class SearchPresenterImpl implements SearchPresenter {
             return;
         }
 
-        searchRepository.searchByFirstLetter(name.charAt(0));
+        searchByFirstLetter(name.charAt(0));
         state.setSearch(new ArrayList<>());
+    }
+
+    private void searchByFirstLetter(char c) {
+        repository.searchByFirstLetter(c)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SearchObserver());
     }
 
     @Override
     public void loadAreas() {
-        searchRepository.getAllAres();
+        repository.getAllAres()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new LoadAllAreasObserver());
     }
 
     @Override
     public void loadIngredients() {
-        searchRepository.getAllIngredients();
+        repository.getAllIngredients()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new LoadAllIngredientsObserver());
     }
 
     @Override
     public void loadCategories() {
-        searchRepository.getAllCategories();
+        repository.getAllCategories()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new LoadAllCategoriesObserver());
     }
 
     private void performSearch(String key) {
-        Disposable searchDisposable = Flowable
-                .fromIterable(state.getSearch())
+        Flowable.fromIterable(state.getSearch())
                 .subscribeOn(Schedulers.computation())
                 .filter(name -> name.toLowerCase(Locale.ROOT).startsWith(key.toLowerCase(Locale.ROOT)))
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(searchPresenterListener::onSearchSuccess,
-                        throwable -> searchPresenterListener.onFailed(throwable.getMessage()));
+                .subscribe(new SearchObserver());
 
     }
+
+    private class LoadAllAreasObserver implements SingleObserver<List<String>> {
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+            listener.onGetAllAreasLoading();
+        }
+
+        @Override
+        public void onSuccess(@NonNull List<String> strings) {
+            listener.onGetAllAreasSuccess(strings);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            listener.onGetAllAreasError(e.getMessage());
+        }
+    }
+
+    private class LoadAllCategoriesObserver implements SingleObserver<List<String>> {
+
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+            listener.onGetAllCategoriesLoading();
+        }
+
+        @Override
+        public void onSuccess(@NonNull List<String> strings) {
+            listener.onGetAllCategoriesSuccess(strings);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            listener.onGetAllCategoriesError(e.getMessage());
+        }
+    }
+
+    private class LoadAllIngredientsObserver implements SingleObserver<List<MinIngredient>> {
+
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+            listener.onGetAllIngredientLoading();
+        }
+
+        @Override
+        public void onSuccess(@NonNull List<MinIngredient> strings) {
+            listener.onGetAllIngredientSuccess(strings);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            listener.onGetAllIngredientError(e.getMessage());
+        }
+    }
+
+    private class SearchObserver implements SingleObserver<List<String>> {
+
+        @Override
+        public void onSubscribe(@NonNull Disposable d) {
+            listener.onSearchLoading();
+        }
+
+        @Override
+        public void onSuccess(@NonNull List<String> strings) {
+            listener.onSearchSuccess(strings);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            listener.onSearchError(e.getMessage());
+        }
+    }
+
 }

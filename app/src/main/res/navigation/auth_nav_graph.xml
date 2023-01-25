@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_startFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
     </fragment>
     <dialog
         android:id="@+id/errorDialogFragment"
@@ -70,7 +73,7 @@
     </dialog>
     <dialog
         android:id="@+id/loadingFragment"
-        android:name="com.soha.foodplanner.ui.signup.LoadingFragment"
+        android:name="com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment"
         android:label="fragment_loading"
         tools:layout="@layout/fragment_loading" />
     <fragment

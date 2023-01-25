@@ -15,8 +15,8 @@
 
     <style name="Theme.FoodPlanner.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowMinWidthMajor">80%</item>
-        <item name="android:windowMinWidthMinor">40%</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
     </style>
 
     <style name="Theme.FoodPlanner.TextInputLayout" parent="">
@@ -80,10 +80,9 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
-    <style name="Theme.FoodPlanner.Button_CancelSearchView" parent="TextAppearance.AppCompat.Button">
-        <item name="android:background">@drawable/shape_rounded_corners</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:backgroundTint">@color/search_view_background</item>
+    <style name="Theme.FoodPlanner.Label_CancelSearchView" parent="">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:textColorHint</item>
     </style>
 
 </resources>

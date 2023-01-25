@@ -14,8 +14,19 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.common.Constants;
+import com.soha.foodplanner.data.mapper.MealMapper;
+import com.soha.foodplanner.data.mapper.MealMapperImpl;
+import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
+import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSourceImpl;
+import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
+import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
+import com.soha.foodplanner.data.repository.meals.MealsRepository;
+import com.soha.foodplanner.data.repository.meals.MealsRepositoryImpl;
 
 public class MainFragment extends Fragment {
+    private NavController navController;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -29,12 +40,29 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupBottomNavigationWithNavController(view);
+        manageBottomNavigationVisibility();
+    }
+
+    private void manageBottomNavigationVisibility() {
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            boolean showAppBar = false;
+            if (arguments != null) {
+                showAppBar = arguments.getBoolean(Constants.ARGUMENT_BOTTOM_APP_BAR_VISIBILITY, false);
+            }
+            if (showAppBar) {
+                bottomNavigationView.setVisibility(View.GONE);
+            } else {
+                bottomNavigationView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void setupBottomNavigationWithNavController(View view) {
         NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        NavController navController = navHostFragment.getNavController();
-        BottomNavigationView bottomNav = view.findViewById(R.id.bottomNavigationView);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        navController = navHostFragment.getNavController();
+        bottomNavigationView = view.findViewById(R.id.bottomNavigationView);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
     }
+
+
 }

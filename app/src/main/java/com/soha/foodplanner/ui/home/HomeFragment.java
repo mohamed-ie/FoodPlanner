@@ -1,32 +1,22 @@
 package com.soha.foodplanner.ui.home;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.common.Constants;
-import com.soha.foodplanner.data.mapper.MealMapper;
-import com.soha.foodplanner.data.model.CompleteMeal;
-import com.soha.foodplanner.data.remote.home.HomeRemoteDataSourceImpl;
-import com.soha.foodplanner.data.remote.home.HomeRemoteDataSourceListener;
-import com.soha.foodplanner.data.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.remote.webservice.Webservice;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements HomeRemoteDataSourceListener {
+public class HomeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,20 +69,5 @@ public class HomeFragment extends Fragment implements HomeRemoteDataSourceListen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //   new HomeRemoteDataSourceImpl(Webservice.getInstance().build(Constants.BASE_URL_THE_MEAL_DB, TheMealDBWebService.class), new MealMapper(), this).getRandomMeals(10);
-    }
-
-    @Override
-    public void onFailed(String message) {
-
-    }
-
-    @Override
-    public void onLoading() {
-
-    }
-
-    @Override
-    public void onNextRandomMeal(CompleteMeal completeMeal) {
-        Log.i("TAG", "onNextRandomMeal: ");
     }
 }

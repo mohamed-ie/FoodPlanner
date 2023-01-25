@@ -11,4 +11,7 @@ public interface LoginPresenter extends Presenter {
     LoginState getLoginState();
 
     void updateLoginState(String email, String password);
+
+    void cancelLogin();
+    void updateRememberMe(boolean rememberMe);
 }

@@ -7,6 +7,8 @@ buildscript {
         nav_version = "2.5.3"
         lottie_version = '3.4.0'
         glide_version = '4.14.2'
+        lifecycle_version = "2.5.1"
+
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"

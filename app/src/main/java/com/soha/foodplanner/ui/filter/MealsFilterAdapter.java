@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.model.MinMeal;
+import com.soha.foodplanner.data.local.model.MinMeal;
 
 import java.util.List;
 
@@ -48,12 +48,16 @@ public class MealsFilterAdapter extends RecyclerView.Adapter<MealsFilterAdapter.
     @Override
     public void onBindViewHolder(@NonNull MealsFilterAdapter.ViewHolder holder, int position) {
         MinMeal minMeal = minMeals.get(position);
-        Glide
-                .with(holder.textViewName)
+
+        Glide.with(holder.textViewName)
                 .load(minMeal.getThumbnailUrl())
                 .into(holder.imageViewThumbnail);
-        holder.imageButtonFavourite.setOnClickListener(v -> listener.onClick(minMeal.getId()));
-        holder.constraintLayout.setOnClickListener(v -> listener.onClick(minMeal.getId()));
+
+        holder.textViewName.setText(minMeal.getName());
+
+        holder.imageButtonFavourite.setOnClickListener(v -> listener.onMealItemClick(minMeal.getId()));
+        holder.constraintLayout.setOnClickListener(v -> listener.onMealItemClick(minMeal.getId()));
+        holder.imageButtonFavourite.setOnClickListener(v -> listener.onFavouriteClick(minMeal.getId()));
     }
 
     @Override
@@ -66,6 +70,7 @@ public class MealsFilterAdapter extends RecyclerView.Adapter<MealsFilterAdapter.
         private final ImageButton imageButtonFavourite;
         private final ImageView imageViewThumbnail;
         private final ConstraintLayout constraintLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewName);

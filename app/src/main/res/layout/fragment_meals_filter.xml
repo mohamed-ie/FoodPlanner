@@ -6,27 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".ui.filter.MealsFilterFragment">
 
-    <SearchView
-        android:id="@+id/searchView"
-        style="@style/Theme.FoodPlanner.SearchView"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSearch"
         android:layout_width="0dp"
-        android:searchIcon="@drawable/ic_baseline_search_arrow_back_24"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:queryHint="@string/search_recipe"
+        android:layout_margin="16dp"
+        android:hint="@string/search_recipe"
+        app:boxStrokeWidth="0dp"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/ic_baseline_search_arrow_back_24"
+        app:startIconTint="?attr/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_rounded_corners"
+            android:backgroundTint="@android:color/transparent"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMeals"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSearch"
+        app:spanCount="2"
         tools:listitem="@layout/recycler_view_meal_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

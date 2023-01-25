@@ -1,7 +1,5 @@
 package com.soha.foodplanner.ui.search;
 
-import com.soha.foodplanner.data.model.MinIngredient;
-
 import java.util.ArrayList;
 import java.util.List;
 

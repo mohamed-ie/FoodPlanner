@@ -20,7 +20,7 @@ public class ErrorDialogFragment extends BaseDialogFragmentWithArgs<ErrorDialogF
 
     @Override
     public ErrorDialogFragmentArgs getSafeArgs() {
-        return ErrorDialogFragmentArgs.fromBundle(getArguments());
+        return ErrorDialogFragmentArgs.fromBundle(requireArguments());
     }
 
     @Override

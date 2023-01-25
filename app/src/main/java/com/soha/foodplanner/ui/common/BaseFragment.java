@@ -1,5 +1,6 @@
 package com.soha.foodplanner.ui.common;
 
+import android.database.Observable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +10,24 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.soha.foodplanner.common.Factory;
+import com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment;
+import com.soha.foodplanner.ui.common.dialogs.retry.RetryDialogFragment;
 import com.soha.foodplanner.ui.common.presenter.Presenter;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
-import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactoryImpl;
 import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
+
+import java.util.Objects;
 
 public abstract class BaseFragment<P extends Presenter> extends Fragment {
     protected NavController navController;
     protected P presenter;
-    private PresenterFactory<P> factory;
+    private final PresenterFactory<P> factory = PresenterFactory.getInstance(PresenterStoreImpl.getInstance());
 
     @LayoutRes
     protected abstract int getLayoutResource();
@@ -30,15 +36,29 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencies();
+        setupObservers();
+    }
+
+    private void setupObservers() {
+        getBackStackLiveData(RetryDialogFragment.RETRY)
+                .observe(this, (Observer<Boolean>) this::onDialogRetry);
+
+        getBackStackLiveData(LoadingDialogFragment.CANCEL)
+                .observe(this, (Observer<Boolean>) this::onDialogCancel);
+    }
+
+    protected void onDialogRetry(boolean retry){
+
+    }
+    protected void onDialogCancel(boolean cancel){
+
     }
 
     protected void initDependencies() {
         navController = NavHostFragment.findNavController(this);
-        initPresenter();
     }
 
     private void initPresenter() {
-        factory = PresenterFactoryImpl.getInstance(PresenterStoreImpl.getInstance());
         presenter = factory.create(getLayoutResource(), getPresenterFactory());
     }
 
@@ -47,6 +67,7 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(getLayoutResource(), container, false);
+        initPresenter();
         initViews(view);
         setListeners();
         return view;
@@ -64,5 +85,13 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
     public void onDestroy() {
         factory.onDestroy(getLayoutResource(), requireActivity().isChangingConfigurations());
         super.onDestroy();
+    }
+
+    protected LiveData getBackStackLiveData(String key) {
+        return Objects.requireNonNull(navController
+                        .getCurrentBackStackEntry())
+                .getSavedStateHandle()
+                .getLiveData(key);
+
     }
 }

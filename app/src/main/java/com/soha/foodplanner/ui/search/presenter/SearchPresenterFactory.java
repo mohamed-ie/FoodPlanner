@@ -1,19 +1,19 @@
 package com.soha.foodplanner.ui.search.presenter;
 
 import com.soha.foodplanner.common.Factory;
-import com.soha.foodplanner.data.repository.search.SearchRepository;
+import com.soha.foodplanner.data.repository.meals.MealsRepository;
 
 public class SearchPresenterFactory implements Factory<SearchPresenter> {
-    private final SearchRepository searchRepository;
+    private final MealsRepository repository;
     private final SearchPresenterListener searchPresenterListener;
 
-    public SearchPresenterFactory(SearchRepository searchRepository, SearchPresenterListener searchPresenterListener) {
-        this.searchRepository = searchRepository;
+    public SearchPresenterFactory(MealsRepository repository, SearchPresenterListener searchPresenterListener) {
+        this.repository = repository;
         this.searchPresenterListener = searchPresenterListener;
     }
 
     @Override
     public SearchPresenter create() {
-        return new SearchPresenterImpl(searchRepository, searchPresenterListener);
+        return new SearchPresenterImpl(repository, searchPresenterListener);
     }
 }

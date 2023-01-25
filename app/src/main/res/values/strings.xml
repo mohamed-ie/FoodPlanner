@@ -51,5 +51,7 @@
     <string name="search_by_categories">Search by Categories</string>
     <string name="search_by_countries">Search by Countries</string>
     <string name="search_by_user_meals">Search by User Meals</string>
+    <string name="select_thumbnail">select thumbnail</string>
+    <string name="instructions">Instructions</string>
 
 </resources>

@@ -14,7 +14,11 @@
         android:id="@+id/searchFragment"
         android:name="com.soha.foodplanner.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_mealsFilterFragment"
+            app:destination="@id/mealsFilterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.soha.foodplanner.ui.favourite.FavouriteFragment"
@@ -30,4 +34,22 @@
         android:name="com.soha.foodplanner.ui.planned.PlannedFragment"
         android:label="fragment_planned"
         tools:layout="@layout/fragment_planned" />
+    <fragment
+        android:id="@+id/mealsFilterFragment"
+        android:name="com.soha.foodplanner.ui.filter.MealsFilterFragment"
+        android:label="fragment_meals_filter"
+        tools:layout="@layout/fragment_meals_filter" >
+        <argument
+            android:name="bottom_app_bar_visibility"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="area"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

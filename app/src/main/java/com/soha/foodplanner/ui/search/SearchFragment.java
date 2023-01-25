@@ -1,34 +1,25 @@
 package com.soha.foodplanner.ui.search;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.utils.widget.MotionLabel;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
-import com.soha.foodplanner.data.mapper.AreaMapper;
-import com.soha.foodplanner.data.mapper.CategoryMapper;
-import com.soha.foodplanner.data.mapper.Mapper;
-import com.soha.foodplanner.data.mapper.MealNameMapper;
-import com.soha.foodplanner.data.mapper.MinIngredientMapper;
-import com.soha.foodplanner.data.model.MinIngredient;
-import com.soha.foodplanner.data.remote.dto.MealDto;
-import com.soha.foodplanner.data.remote.dto.area.AreaDto;
-import com.soha.foodplanner.data.remote.dto.category.CategoryDto;
-import com.soha.foodplanner.data.remote.dto.ingredient.IngredientDto;
-import com.soha.foodplanner.data.remote.search.SearchRemoteDataSource;
-import com.soha.foodplanner.data.remote.search.SearchRemoteDataSourceImpl;
-import com.soha.foodplanner.data.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.remote.webservice.Webservice;
-import com.soha.foodplanner.data.repository.search.SearchRepository;
-import com.soha.foodplanner.data.repository.search.SearchRepositoryImpl;
+import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.ui.common.BaseFragment;
+import com.soha.foodplanner.ui.main.MainFragment;
+import com.soha.foodplanner.ui.search.adapter.area.AreaAdapter;
+import com.soha.foodplanner.ui.search.adapter.area.OnAreaItemClickListener;
+import com.soha.foodplanner.ui.search.adapter.category.CategoryAdapter;
+import com.soha.foodplanner.ui.search.adapter.category.OnCategoryItemClickListener;
+import com.soha.foodplanner.ui.search.adapter.ingredient.IngredientAdapter;
+import com.soha.foodplanner.ui.search.adapter.ingredient.OnIngredientItemClickListener;
+import com.soha.foodplanner.ui.search.adapter.search_by_name.SearchByNameAdapter;
 import com.soha.foodplanner.ui.search.presenter.SearchPresenter;
 import com.soha.foodplanner.ui.search.presenter.SearchPresenterFactory;
 import com.soha.foodplanner.ui.search.presenter.SearchPresenterListener;
@@ -56,18 +47,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
 
     @Override
     protected Factory<SearchPresenter> getPresenterFactory() {
-        TheMealDBWebService theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
-        Mapper<MealDto, List<String>> mapper = new MealNameMapper();
-        Mapper<AreaDto, List<String>> areaMapper = new AreaMapper();
-        Mapper<IngredientDto, List<MinIngredient>> ingredientMapper = new MinIngredientMapper();
-        Mapper<CategoryDto, List<String>> categoryMapper = new CategoryMapper();
-        SearchRemoteDataSource searchPRemoteDataSource = new SearchRemoteDataSourceImpl(
-                theMealDBWebService,
-                mapper,
-                areaMapper,
-                categoryMapper, ingredientMapper, this);
-        SearchRepository searchRepository = new SearchRepositoryImpl(searchPRemoteDataSource);
-        return new SearchPresenterFactory(searchRepository, this);
+        return new SearchPresenterFactory(((MyApp) requireActivity().getApplication()).getMealsRepository(), this);
     }
 
     @Override
@@ -142,24 +122,49 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     }
 
     @Override
-    public void onFailed(String message) {
-
-    }
-
-    @Override
     public void onSearchSuccess(List<String> names) {
         adapterSearchByName.setNames(names);
     }
 
     @Override
+    public void onSearchError(String message) {
+
+    }
+
+    @Override
+    public void onSearchLoading() {
+
+    }
+
+    @Override
     public void onGetAllAreasSuccess(List<String> areas) {
         adapterArea.setAreas(areas);
-  }
+    }
+
+    @Override
+    public void onGetAllAreasLoading() {
+
+    }
+
+    @Override
+    public void onGetAllAreasError(String message) {
+
+    }
 
     @Override
     public void onGetAllIngredientSuccess(List<MinIngredient> ingredients) {
         adapterIngredient.setMinIngredients(ingredients);
-  }
+    }
+
+    @Override
+    public void onGetAllIngredientError(String message) {
+
+    }
+
+    @Override
+    public void onGetAllIngredientLoading() {
+
+    }
 
     @Override
     public void onGetAllCategoriesSuccess(List<String> categories) {
@@ -167,12 +172,19 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     }
 
     @Override
-    public void onLoading() {
+    public void onGetAllCategoriesError(String message) {
 
     }
 
     @Override
+    public void onGetAllCategoriesLoading() {
+
+    }
+
+
+    @Override
     public void onAreaItemClick(String area) {
+        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(null, area));
 
     }
 
@@ -183,6 +195,6 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
 
     @Override
     public void onCategoryClick(String category) {
-
+        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(category, null));
     }
 }

@@ -1,7 +1,6 @@
 package com.soha.foodplanner.ui.filter;
 
-import com.soha.foodplanner.ui.addapters.OnItemClickListener;
-
-public interface OnMealItemClickListener extends OnItemClickListener<String> {
+public interface OnMealItemClickListener{
     void onFavouriteClick(String id);
+    void onMealItemClick(String id);
 }

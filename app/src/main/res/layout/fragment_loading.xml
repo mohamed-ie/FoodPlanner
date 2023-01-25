@@ -8,7 +8,7 @@
     app:cardCornerRadius="30dp"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.signup.LoadingFragment"
+    tools:context=".ui.common.dialogs.loading.LoadingDialogFragment"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout

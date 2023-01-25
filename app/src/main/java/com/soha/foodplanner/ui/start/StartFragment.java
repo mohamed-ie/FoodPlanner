@@ -2,19 +2,11 @@ package com.soha.foodplanner.ui.start;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +15,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.ui.common.BaseFragment;
-import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
-import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactoryImpl;
-import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
 import com.soha.foodplanner.ui.start.presenter.StartPresenter;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterFactory;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterListener;
@@ -41,7 +29,6 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
     private Button buttonGoogleSignup;
     private TextView textViewLogin;
 
-    private SharedPreferences sharedPreferences;
     private ActivityResultLauncher<Intent> googleSignupResultLauncher;
 
     @Override
@@ -57,13 +44,15 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
 
     @Override
     protected Factory<StartPresenter> getPresenterFactory() {
-        return new StartPresenterFactory(FirebaseAuth.getInstance(), this);
+        return new StartPresenterFactory(
+                ((MyApp) requireActivity().getApplication()).getAuthRepository(),
+                this
+        );
     }
 
     @Override
     protected void initDependencies() {
         super.initDependencies();
-        sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_APP, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -98,13 +87,19 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
     }
 
     @Override
-    public void onSuccess() {
+    public void onLoginWithGoogleLoading() {
+        navController.navigate(StartFragmentDirections.actionStartFragmentToLoadingFragment());
+    }
+
+    @Override
+    public void onLoginWithGoogleSuccess() {
+        navController.popBackStack();
         Toast.makeText(getContext(), R.string.login_successful, Toast.LENGTH_SHORT).show();
         navController.navigate(StartFragmentDirections.actionStartFragmentToMainFragment());
     }
 
     @Override
-    public void onFailure(int messageResource) {
-        navController.navigate(StartFragmentDirections.actionStartFragmentToErrorDialogFragment(messageResource));
+    public void onLoginWithGoogleError(String message) {
+        navController.navigate(StartFragmentDirections.actionStartFragmentToErrorDialogFragment(R.string.unexpected_error_try_again));
     }
 }
