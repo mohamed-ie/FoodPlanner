@@ -15,6 +15,7 @@ import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.local.Meal;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
+import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
 import com.soha.foodplanner.data.repository.Repository;
 import com.soha.foodplanner.ui.addapters.MealAdapter;
 
@@ -32,7 +33,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FavouriteFragment extends Fragment {
     Repository repo;
-    MealAdapter mealAdapter;
+    FavAdapter favAdapter;
     RecyclerView recyclerView;
 
 
@@ -59,15 +60,15 @@ public class FavouriteFragment extends Fragment {
 
         repo=new Repository(requireContext());
         repo.getFavMeal().subscribeOn(Schedulers.io())
-                .map(favouriteMealsWithMeals -> favouriteMealsWithMeals.stream().map(e->e.getMeal()).collect(Collectors.toList()))
+                //.map(favouriteMealsWithMeals -> favouriteMealsWithMeals.stream().map(e->e.getMeal()).collect(Collectors.toList()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Meal>>() {
+                .subscribe((Consumer<? super List<FavouriteMealsWithMeal>>) new Consumer<List<FavouriteMealsWithMeal>>() {
                     @SuppressLint("CheckResult")
                     @Override
-                    public void accept(List<Meal> meals) throws Throwable {
-                        mealAdapter=new MealAdapter(meals);
-                        mealAdapter.notifyDataSetChanged();
-                        recyclerView.setAdapter(mealAdapter);
+                    public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
+                       favAdapter=new FavAdapter(meals);
+                       favAdapter.notifyDataSetChanged();
+                       recyclerView.setAdapter(favAdapter);
                     }
                 });
 

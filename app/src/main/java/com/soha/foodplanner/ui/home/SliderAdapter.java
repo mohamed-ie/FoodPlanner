@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.model.CompleteMeal;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
 import com.soha.foodplanner.data.repository.Repository;
@@ -57,7 +58,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             @Override
             public void onClick(View v) {
                 repo=new Repository(context);
-                //repo.insert(sliderItems.getMeals().get(position));
+                repo.insertFavMeal(sliderItems.getMeals().get(position));
             }
         });
 

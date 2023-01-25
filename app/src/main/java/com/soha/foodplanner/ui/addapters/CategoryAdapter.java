@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -18,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.mapper.MinMealMapper;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
 import com.soha.foodplanner.ui.home.SliderAdapter;
 
@@ -61,12 +63,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        Log.e("TAG", "onBindViewHolder: "+ meals.size() );
             if(position==0){
                 holder.random.setText(categoryName);
                 viewPager2.setAdapter(new SliderAdapter(meals.get(0),viewPager2));
-            }else{
-                //holder.mealCategoryName.setText(categoryName);
-                //holder.recyclerView.setAdapter(new MealAdapter(meals));
+            }
+            else {
+                holder.mealCategoryName.setText(categoryName);
+                holder.recyclerView.setAdapter(new MealAdapter(meals.get(position)));
 
             }
     }
@@ -81,7 +86,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         private TextView mealCategoryName;
         private RecyclerView recyclerView;
-        private ConstraintLayout constraintLayout;
         private View layout;
         private TextView random;
 
@@ -115,10 +119,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             layout=v;
             random=v.findViewById(R.id.tv_meal_category);
-            viewPager2=v.findViewById(R.id.recycler);
+            viewPager2=v.findViewById(R.id.recycler_pager);
             mealCategoryName=v.findViewById(R.id.category_meal);
-            recyclerView=v.findViewById(R.id.recycler_category);
-            constraintLayout=v.findViewById(R.id.all_category_view);
+            recyclerView=v.findViewById(R.id.recycler_category_item);
         }
         private void viewPagerSetUp(){
             viewPager2.setClipToPadding(false);

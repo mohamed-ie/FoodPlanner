@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.model.MinMeal;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
 import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
 
@@ -19,12 +20,12 @@ import java.util.List;
 
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
-    private List<Meal> values;
+    private MinMealDto values;
     private static final String Tag="Recycler";
-    private OnItemClickListener<Meal> onItemClickListener;
+    private OnItemClickListener<MinMeal> onItemClickListener;
 
 
-    public MealAdapter(List<Meal> myList){
+    public MealAdapter(MinMealDto myList){
         values=myList;
 
 
@@ -41,10 +42,10 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Meal meal=values.get(position);
-        holder.mealName.setText(meal.getName());
+        List<MinMealsItem> meal=values.getMeals();
+        holder.mealName.setText(meal.get(position).getStrMeal());
         Glide.with(holder.itemView)
-                .load(values.get(position).getPhotoUri())
+                .load(meal.get(position).getStrMealThumb())
                 .into(holder.mealImage);
 
 
@@ -53,7 +54,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return values.size();
+        return values.getMeals().size();
     }
 
     protected static class ViewHolder extends RecyclerView.ViewHolder{

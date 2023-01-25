@@ -3,6 +3,7 @@ package com.soha.foodplanner.data.repository;
 import android.content.Context;
 
 import com.soha.foodplanner.data.local.AppDatabase;
+import com.soha.foodplanner.data.local.FavouriteMeals;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.local.Ingredient;
 import com.soha.foodplanner.data.local.Meal;
@@ -11,6 +12,7 @@ import com.soha.foodplanner.data.local.MealIngredientsRef;
 import com.soha.foodplanner.data.local.PlanedMealWithMeal;
 import com.soha.foodplanner.data.local.PlannedMeals;
 import com.soha.foodplanner.data.model.CompleteMeal;
+import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
 
 import java.util.List;
 
@@ -82,6 +84,14 @@ public class Repository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(completableObserver);
+    }
+
+    public void insertFavMeal(MinMealsItem mealFav){
+
+        mealDAO.insertFavMeal(new FavouriteMeals(Long.parseLong(mealFav.getIdMeal())))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
 

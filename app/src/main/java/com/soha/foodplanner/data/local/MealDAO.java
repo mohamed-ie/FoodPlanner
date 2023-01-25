@@ -8,6 +8,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
+
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -28,6 +30,9 @@ public interface MealDAO {
 //
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertMeal(Meal meal);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertFavMeal(FavouriteMeals meal);
 
     @Insert(onConflict =OnConflictStrategy.REPLACE)
     Completable insertIngredients(List<Ingredient> ingredients);
