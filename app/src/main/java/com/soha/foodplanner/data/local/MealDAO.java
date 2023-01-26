@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
 
 import java.util.List;
 
@@ -35,9 +34,9 @@ public interface MealDAO {
     Completable insertFavMeal(FavouriteMeals meal);
 
     @Insert(onConflict =OnConflictStrategy.REPLACE)
-    Completable insertIngredients(List<Ingredient> ingredients);
+    Completable insertIngredients(Ingredient ... ingredients);
     @Insert(onConflict =OnConflictStrategy.IGNORE)
-    Completable insertMealIngredientsRef(List<MealIngredientsRef> mealIngredientsRefs);
+    Completable insertMealIngredientsRef(MealIngredientsRef ... mealIngredientsRefs);
     @Insert(onConflict =OnConflictStrategy.REPLACE)
     Completable insertPlannedMeal(PlannedMeals mealIngredientsRefs);
 
@@ -53,6 +52,7 @@ public interface MealDAO {
     @Transaction
     @Query("SELECT * FROM planed_meals")
     Flowable<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
+
 
 //    @Transaction
 //    @Query("SELECT * FROM ingredient")

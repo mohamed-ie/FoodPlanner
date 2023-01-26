@@ -17,12 +17,11 @@ public class InternalStorageUtils {
     public static String saveImage(Context context, Bitmap bitmap, String name) {
         File directory = context.getDir(INTERNAL_STORAGE_IMAGE_DIRECTORY, Context.MODE_PRIVATE);
         File file = new File(directory, name + ".jpg");
-        String uri = null;
+        String uri = file.getAbsolutePath();
         if (!file.exists()) {
             try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
                 fileOutputStream.flush();
-                uri = file.getAbsolutePath();
             } catch (java.io.IOException e) {
                 e.printStackTrace();
             }

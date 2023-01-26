@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.Meal;
-import com.soha.foodplanner.data.model.CompleteMeal;
+import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.ui.addapters.OnItemClickListener;
 
 import java.util.List;

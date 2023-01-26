@@ -46,17 +46,16 @@ public class FirestoreRestoreStrategy implements RestoreStrategy {
                     if (task.isCanceled())
                         publisher.onError(task.getException());
 
-
                     else if (task.isSuccessful())
                         if (task.getResult() != null)
                             task.getResult()
                                     .getDocuments()
                                     .forEach(documentSnapshot ->
                                             publisher.onNext(new PlannedMeals(
-                                            0,
-                                            (Long) documentSnapshot.get("meal_id"),
-                                            (Long) documentSnapshot.get("date"),
-                                            (String) documentSnapshot.get("meal_time"))));
+                                                    0,
+                                                    (Long) documentSnapshot.get("meal_id"),
+                                                    (Long) documentSnapshot.get("date"),
+                                                    (String) documentSnapshot.get("meal_time"))));
                 }));
     }
 }

@@ -39,8 +39,6 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
 
-    private SharedPreferences sharedPreferences;
-
 
     @Override
     protected int getLayoutResource() {
@@ -74,7 +72,6 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     @Override
     public void initDependencies() {
         super.initDependencies();
-        sharedPreferences = requireContext().getSharedPreferences(Constants.SHARED_PREFERENCES_APP, Context.MODE_PRIVATE);
     }
 
 

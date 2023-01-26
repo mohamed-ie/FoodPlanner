@@ -13,21 +13,14 @@ import android.view.ViewGroup;
 
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.local.Meal;
-import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
+
 import com.soha.foodplanner.data.repository.Repository;
-import com.soha.foodplanner.ui.addapters.MealAdapter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
+
 import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
@@ -60,7 +53,6 @@ public class FavouriteFragment extends Fragment {
 
         repo=new Repository(requireContext());
         repo.getFavMeal().subscribeOn(Schedulers.io())
-                //.map(favouriteMealsWithMeals -> favouriteMealsWithMeals.stream().map(e->e.getMeal()).collect(Collectors.toList()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((Consumer<? super List<FavouriteMealsWithMeal>>) new Consumer<List<FavouriteMealsWithMeal>>() {
                     @SuppressLint("CheckResult")

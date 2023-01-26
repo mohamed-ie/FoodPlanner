@@ -19,7 +19,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.ui.signup.LoadingFragment;
 
 
 public class DayOfWeekFragment extends DialogFragment {

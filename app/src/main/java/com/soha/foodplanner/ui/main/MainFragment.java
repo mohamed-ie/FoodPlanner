@@ -47,12 +47,13 @@ public class MainFragment extends Fragment {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             boolean showAppBar = false;
             if (arguments != null) {
-                showAppBar = arguments.getBoolean(Constants.ARGUMENT_BOTTOM_APP_BAR_VISIBILITY, false);
+                showAppBar = arguments.getBoolean(Constants.ARGUMENT_BOTTOM_APP_BAR_VISIBILITY, true);
             }
-            if (showAppBar) {
-                bottomNavigationView.setVisibility(View.GONE);
-            } else {
+            if (!showAppBar) {
                 bottomNavigationView.setVisibility(View.VISIBLE);
+            } else {
+                bottomNavigationView.setVisibility(View.GONE);
+
             }
         });
     }

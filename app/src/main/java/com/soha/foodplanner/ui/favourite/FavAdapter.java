@@ -6,17 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.remote.dto.min_meal.MinMealsItem;
 import com.soha.foodplanner.data.repository.Repository;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             super(v);
             mealName=v.findViewById(R.id.textViewName);
             favIcon=v.findViewById(R.id.imageButtonFavourite);
-            favIcon.setBackgroundResource(R.drawable.fav_checked);
+            favIcon.setImageResource(R.drawable.fav_checked);
             mealImage=v.findViewById(R.id.imageViewThumbnail);
 
         }

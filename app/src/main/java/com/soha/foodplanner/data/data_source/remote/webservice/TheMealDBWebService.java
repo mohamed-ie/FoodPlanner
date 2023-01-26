@@ -1,10 +1,11 @@
-package com.soha.foodplanner.data.remote.webservice;
+package com.soha.foodplanner.data.data_source.remote.webservice;
 
-import com.soha.foodplanner.data.remote.dto.area.AreaDto;
-import com.soha.foodplanner.data.remote.dto.category.CategoryDto;
-import com.soha.foodplanner.data.remote.dto.ingredient.IngredientDto;
-import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.remote.dto.MealDto;
+
+import com.soha.foodplanner.data.dto.area.AreaDto;
+import com.soha.foodplanner.data.dto.category.CategoryDto;
+import com.soha.foodplanner.data.dto.ingredient.IngredientDto;
+import com.soha.foodplanner.data.dto.meal.MealDto;
+import com.soha.foodplanner.data.dto.min_meal.MinMealDto;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;

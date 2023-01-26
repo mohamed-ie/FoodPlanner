@@ -21,6 +21,7 @@ public class FirestoreBackupStrategy implements BackupStrategy {
     private final DocumentReference backupDocument;
     @SuppressWarnings("FieldCanBeLocal")
     private final String FAVOURITE_MEALS_ARRAY = "favourite_meals";
+    @SuppressWarnings("FieldCanBeLocal")
     private final String LAST_UPDATE = "last_update";
     @SuppressWarnings("FieldCanBeLocal")
     private final String BACKUP_COLLECTION = "backup";
@@ -29,7 +30,7 @@ public class FirestoreBackupStrategy implements BackupStrategy {
 
     public FirestoreBackupStrategy(FirebaseFirestore firestore, String userId) {
         backupDocument = firestore.collection(BACKUP_COLLECTION).document(userId);
-        backupDocument.set(Collections.singletonMap(LAST_UPDATE,FieldValue.serverTimestamp()));
+        backupDocument.set(Collections.singletonMap(LAST_UPDATE, FieldValue.serverTimestamp()));
     }
 
     @Override
@@ -51,7 +52,7 @@ public class FirestoreBackupStrategy implements BackupStrategy {
     public Completable addPlannedMeal(PlannedMeals plannedMeals) {
         Map<String, Object> data = new HashMap<>();
         data.put("meal_id", plannedMeals.getMealId());
-        data.put("meal_time", plannedMeals.getMealtime());
+        data.put("meal_time", plannedMeals.getMealTime());
         data.put("date", plannedMeals.getDate());
 
         return Completable.fromPublisher(publisher ->

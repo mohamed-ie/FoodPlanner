@@ -14,11 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.Meal;
 import com.soha.foodplanner.data.local.PlannedMeals;
-import com.soha.foodplanner.data.model.CompleteMeal;
 import com.soha.foodplanner.data.repository.Repository;
-import com.soha.foodplanner.ui.addapters.MealAdapter;
 
 import java.util.Arrays;
 import java.util.List;

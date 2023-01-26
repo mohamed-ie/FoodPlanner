@@ -2,26 +2,29 @@ package com.soha.foodplanner.data.local;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
+
 @Entity(tableName = "planed_meals")
 public class PlannedMeals {
     @PrimaryKey(autoGenerate = true)
     private long id;
     @ColumnInfo(name = "meal_id")
-
     private long mealId;
     private long date;
     private String mealTime;
 
 
-    public PlannedMeals(long id, long mealId,  String mealTime) {
+    @Ignore
+    public PlannedMeals(long id, long mealId, long date, String mealTime) {
         this.id = id;
         this.mealId = mealId;
-        //this.date = date;
+        this.date = date;
         this.mealTime = mealTime;
     }
+
     public PlannedMeals() {
 
     }

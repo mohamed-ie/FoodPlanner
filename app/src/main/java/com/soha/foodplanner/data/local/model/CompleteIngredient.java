@@ -1,18 +1,18 @@
 package com.soha.foodplanner.data.local.model;
 
 public class CompleteIngredient {
-    private final String ingredient;
+    private final String name;
     private final String thumbnailUrl;
     private final String measure;
 
-    public CompleteIngredient(String ingredient, String thumbnailUrl, String measure) {
-        this.ingredient = ingredient;
+    public CompleteIngredient(String name, String thumbnailUrl, String measure) {
+        this.name = name;
         this.thumbnailUrl = thumbnailUrl;
         this.measure = measure;
     }
 
-    public String getIngredient() {
-        return ingredient;
+    public String getName() {
+        return name;
     }
 
     public String getThumbnailUrl() {

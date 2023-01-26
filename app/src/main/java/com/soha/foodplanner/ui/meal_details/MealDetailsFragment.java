@@ -2,14 +2,6 @@ package com.soha.foodplanner.ui.meal_details;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleObserver;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,33 +10,30 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 import com.bumptech.glide.Glide;
+
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.mapper.CategoryMapper;
-import com.soha.foodplanner.data.mapper.MealMapper;
-import com.soha.foodplanner.data.remote.dto.MealDto;
-import com.soha.foodplanner.data.remote.dto.MealsItem;
-import com.soha.foodplanner.data.remote.dto.category.CategoryDto;
-import com.soha.foodplanner.data.remote.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.remote.webservice.Webservice;
-import com.soha.foodplanner.ui.login.LoginFragmentDirections;
-import com.soha.foodplanner.ui.signup.SignUpFragment;
+import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
+import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
+import com.soha.foodplanner.data.dto.meal.MealDto;
+import com.soha.foodplanner.data.dto.meal.MealsItem;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.ObservableSource;
-import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class MealDetails extends Fragment {
+public class MealDetailsFragment extends Fragment {
     TextView mealName,areaName,instructions;
     ImageView mealPhoto;
     YouTubePlayerView mealVideo;
@@ -55,7 +44,7 @@ public class MealDetails extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        navController = NavHostFragment.findNavController(MealDetails.this);
+        navController = NavHostFragment.findNavController(MealDetailsFragment.this);
 
     }
 
@@ -71,7 +60,7 @@ public class MealDetails extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String mealIdStr=MealDetailsArgs.fromBundle(requireArguments()).getMealId();
+        String mealIdStr=MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
 
 
         theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
@@ -91,7 +80,7 @@ public class MealDetails extends Fragment {
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(MealDetailsDirections.actionMealDetailsToDayOfWeekFragment());
+                navController.navigate(MealDetailsFragmentDirections.actionMealDetailsToDayOfWeekFragment());
 
             }
         });
@@ -110,7 +99,7 @@ public class MealDetails extends Fragment {
         planButton=view.findViewById(R.id.plan_btn);
 
     }
-    private void setMealValues(MealsItem mealsItem,View view){
+    private void setMealValues(MealsItem mealsItem, View view){
 
         mealName.setText(mealsItem.getStrMeal());
         Log.e("error",mealsItem.getStrMeal()+"");
