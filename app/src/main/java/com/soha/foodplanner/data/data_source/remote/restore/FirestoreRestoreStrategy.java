@@ -52,7 +52,6 @@ public class FirestoreRestoreStrategy implements RestoreStrategy {
                                     .getDocuments()
                                     .forEach(documentSnapshot ->
                                             publisher.onNext(new PlannedMeals(
-                                                    0,
                                                     (Long) documentSnapshot.get("meal_id"),
                                                     (Long) documentSnapshot.get("date"),
                                                     (String) documentSnapshot.get("meal_time"))));

@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +44,12 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         FavouriteMealsWithMeal favouriteMealsWithMeal=values.get(position);
         holder.mealName.setText(favouriteMealsWithMeal.getMeal().getName());
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +69,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
         private TextView mealName;
         private ImageButton favIcon;
+        private FrameLayout itemLayout;
         private ImageView mealImage;
         public ViewHolder(View v){
             super(v);
@@ -68,6 +77,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             favIcon=v.findViewById(R.id.imageButtonFavourite);
             favIcon.setImageResource(R.drawable.fav_checked);
             mealImage=v.findViewById(R.id.imageViewThumbnail);
+            itemLayout=v.findViewById(R.id.item_fav_layout);
 
         }
 

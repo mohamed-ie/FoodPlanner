@@ -28,6 +28,7 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
     private Button btnSignupWithMail;
     private Button buttonGoogleSignup;
     private TextView textViewLogin;
+    private TextView guestTextView;
 
     private ActivityResultLauncher<Intent> googleSignupResultLauncher;
 
@@ -62,12 +63,21 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
         );
         buttonGoogleSignup.setOnClickListener(v -> googleSignupResultLauncher.launch(getGoogleSignInIntent()));
         textViewLogin.setOnClickListener(v -> navController.navigate(StartFragmentDirections.actionStartFragmentToLoginFragment()));
+
+        guestTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(StartFragmentDirections.actionStartFragmentToMainFragment());
+
+            }
+        });
     }
 
     @Override
     protected void initViews(View view) {
         btnSignupWithMail = view.findViewById(R.id.buttonSignUpWithMail);
         buttonGoogleSignup = view.findViewById(R.id.buttonGoogleSignup);
+        guestTextView=view.findViewById(R.id.guest_button);
         //
         textViewLogin = view.findViewById(R.id.textViewLogin);
     }

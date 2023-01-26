@@ -27,7 +27,11 @@
         android:id="@+id/favouriteFragment"
         android:name="com.soha.foodplanner.ui.favourite.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_localDetailsFragment"
+            app:destination="@id/localDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.soha.foodplanner.ui.profile.ProfileFragment"
@@ -77,4 +81,12 @@
         android:name="com.soha.foodplanner.ui.day_of_week.DayOfWeekFragment"
         android:label="fragment_day_of_week"
         tools:layout="@layout/fragment_day_of_week" />
+    <fragment
+        android:id="@+id/localDetailsFragment"
+        android:name="com.soha.foodplanner.ui.local_details.LocalDetailsFragment"
+        android:label="LocalDetailsFragment" >
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+    </fragment>
 </navigation>

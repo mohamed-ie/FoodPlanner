@@ -42,9 +42,12 @@ public interface MealDAO {
 
 
 
-//    @Delete
-//    Completable deleteMeal(Meal meal);
-//
+    @Delete
+    Completable deleteFavouriteMeal(Meal meal);
+
+    @Delete
+    Completable deletePlanMeal(Meal meal);
+
     @Transaction
     @Query("SELECT * FROM favourite_meals")
     Flowable<List<FavouriteMealsWithMeal>> getFavouriteMealsWithMeal();

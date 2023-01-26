@@ -11,28 +11,26 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.dto.min_meal.MinMealsItem;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.ui.common.AddToFavourite;
 
-import java.util.Collection;
 import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 
     private List<MinMeal> minMeals;
+    private final AddToFavourite addToFavourite;
+
 
     Context context;
-    Repository repo;
 
-    public SliderAdapter(List<MinMeal> minMeals) {
+    public SliderAdapter(List<MinMeal> minMeals, AddToFavourite addToFavourite) {
         this.minMeals = minMeals;
 
+        this.addToFavourite = addToFavourite;
     }
 
     @NonNull
@@ -57,8 +55,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repo = new Repository(context);
-                repo.insertFavMeal(minMeals.get(position));
+                addToFavourite.addFavouriteMeal(minMeals.get(position));
+                //homeAdapterPresenter=new HomeAdapterPresenter();
+                //homeAdapterPresenter.insertToFav(context,minMeals.get(position));
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });
@@ -66,9 +65,10 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.sliderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v)
-                        .navigate(HomeFragmentDirections
-                                .actionHomeFragmentToMealDetails(minMeals.get(position).getId()));
+
+                Navigation.findNavController(v).navigate(HomeFragmentDirections
+                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId()));
+
             }
         });
 

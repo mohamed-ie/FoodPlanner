@@ -15,6 +15,7 @@ public class Meal {
     private  String videoUri;
 
 
+
     public Meal(long id, String name, String category, String area, String instructions, String photoUri, String videoUri) {
         this.id = id;
         this.name = name;

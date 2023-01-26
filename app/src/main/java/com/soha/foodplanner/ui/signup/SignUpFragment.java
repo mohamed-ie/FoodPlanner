@@ -15,13 +15,10 @@ import androidx.annotation.StringRes;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.ui.home.HomeFragment;
-import com.soha.foodplanner.ui.login.LoginFragmentDirections;
 import com.soha.foodplanner.ui.signup.presenter.SignUpPresenterImpl;
 import com.soha.foodplanner.ui.signup.presenter.SignUpViewListener;
 

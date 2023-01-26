@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favourite_meals")
 public class FavouriteMeals {
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    @PrimaryKey
     @ColumnInfo(name = "meal_id")
     private long mealId;
 
@@ -16,14 +15,7 @@ public class FavouriteMeals {
         this.mealId = mealId;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
+    
     public long getMealId() {
         return mealId;
     }

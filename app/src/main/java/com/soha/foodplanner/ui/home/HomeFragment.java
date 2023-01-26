@@ -2,60 +2,44 @@ package com.soha.foodplanner.ui.home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
-import com.soha.foodplanner.data.dto.category.CategoryDto;
-import com.soha.foodplanner.data.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.local.CachedMealsWithMeal;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.data.mapper.MealMapper;
-import com.soha.foodplanner.data.mapper.MealMapperImpl;
-import com.soha.foodplanner.ui.MainActivity;
+import com.soha.foodplanner.data.repository.Repository;
 import com.soha.foodplanner.ui.addapters.CategoryAdapter;
-import com.soha.foodplanner.ui.search.adapter.category.OnCategoryItemClickListener;
-
-import org.reactivestreams.Publisher;
+import com.soha.foodplanner.ui.common.AddToFavourite;
+import com.soha.foodplanner.ui.home.presenter.HomePresenterListener;
+import com.soha.foodplanner.ui.home.presenter.HomePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableSource;
-import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.functions.Function;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
-
-public class HomeFragment extends Fragment implements OnCategoryItemClickListener {
+public class HomeFragment extends Fragment implements HomePresenterListener , AddToFavourite {
     RecyclerView recyclerView;
     CategoryAdapter categoryAdapter;
     List<String> categoryItemList = new ArrayList<String>();
     List<CategoryWithMeals> mealsListItem = new ArrayList<>();
     TheMealDBWebService theMealDBWebService;
+    HomePresenter homePresenter;
+    Repository repo;
 
 
     @SuppressLint("CheckResult")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        repo = new Repository(requireContext());
 
 
     }
@@ -67,34 +51,14 @@ public class HomeFragment extends Fragment implements OnCategoryItemClickListene
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+
+        homePresenter =new HomePresenter(this);
+
         recyclerView = view.findViewById(R.id.recycler);
-        categoryAdapter = new CategoryAdapter(mealsListItem);
+        categoryAdapter = new CategoryAdapter(mealsListItem,this);
         recyclerView.setAdapter(categoryAdapter);
-        theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
-        Single<CategoryDto> single = theMealDBWebService.getAllCategories();
-        MealMapper mapper = new MealMapperImpl();
-        single.subscribeOn(Schedulers.io())
-                .map(mapper::map)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<String>>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
-                    }
-
-                    @Override
-                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<String> strings) {
-                        categoryItemList = strings;
-                        getMeals(strings);
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-
-                    }
-                });
-
-
+        getCategories();
         return view;
     }
 
@@ -105,36 +69,30 @@ public class HomeFragment extends Fragment implements OnCategoryItemClickListene
     }
 
 
-    void getMeals(List<String> categoryItemList) {
+    @Override
+    public void getCategories() {
+        homePresenter.getCategories();
+        getCategoryMeals(categoryItemList);
 
-        MealMapper mapper = new MealMapperImpl();
-        Disposable disposable = Flowable.fromIterable(categoryItemList)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> theMealDBWebService.getMealsByCategory(s)
-                        .subscribeOn(Schedulers.io())
-                        .map(mapper::map)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new SingleObserver<List<MinMeal>>() {
-                            @Override
-                            public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<MinMeal> minMeals) {
-                                categoryAdapter.addNewCategory(minMeals, s);
-                            }
-
-                            @Override
-                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-
-                            }
-                        }));
     }
 
     @Override
-    public void onCategoryClick(String category) {
+    public void getCategoryMeals(List<String> categoryItemList) {
+        homePresenter.getMealsOfCategory(categoryItemList);
+    }
+
+    @Override
+    public void addMealToAdapter(List<MinMeal> minMeals,String s) {
+        categoryAdapter.addNewCategory(minMeals, s);
+
+    }
+
+    @Override
+    public void addFavouriteMeal(MinMeal minMeal){
+        Toast.makeText(requireContext(), "tag"+minMeal.getId(), Toast.LENGTH_SHORT).show();
+        homePresenter.insertToFav(repo,minMeal);
+
+
 
     }
 }

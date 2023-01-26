@@ -18,8 +18,7 @@ public class PlannedMeals {
 
 
     @Ignore
-    public PlannedMeals(long id, long mealId, long date, String mealTime) {
-        this.id = id;
+    public PlannedMeals(long mealId, long date, String mealTime) {
         this.mealId = mealId;
         this.date = date;
         this.mealTime = mealTime;

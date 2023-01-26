@@ -15,6 +15,9 @@ import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
 
 import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenter;
+import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenterListener;
+import com.soha.foodplanner.ui.home.presenter.HomePresenter;
 
 import java.util.List;
 
@@ -24,10 +27,11 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class FavouriteFragment extends Fragment {
+public class FavouriteFragment extends Fragment implements FavouritePresenterListener {
     Repository repo;
     FavAdapter favAdapter;
     RecyclerView recyclerView;
+    FavouritePresenter favouritePresenter;
 
 
     @Override
@@ -49,21 +53,36 @@ public class FavouriteFragment extends Fragment {
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        favouritePresenter =new FavouritePresenter(this);
         recyclerView=view.findViewById(R.id.recycler_category_fav);
 
         repo=new Repository(requireContext());
-        repo.getFavMeal().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((Consumer<? super List<FavouriteMealsWithMeal>>) new Consumer<List<FavouriteMealsWithMeal>>() {
-                    @SuppressLint("CheckResult")
-                    @Override
-                    public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
-                       favAdapter=new FavAdapter(meals);
-                       favAdapter.notifyDataSetChanged();
-                       recyclerView.setAdapter(favAdapter);
-                    }
-                });
+        getAllFavouriteMeals();
+
+//        repo.getFavMeal().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe((Consumer<? super List<FavouriteMealsWithMeal>>) new Consumer<List<FavouriteMealsWithMeal>>() {
+//                    @SuppressLint("CheckResult")
+//                    @Override
+//                    public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
+//                       favAdapter=new FavAdapter(meals);
+//                       favAdapter.notifyDataSetChanged();
+//                       recyclerView.setAdapter(favAdapter);
+//                    }
+//                });
 
 
+    }
+
+    @Override
+    public void getAllFavouriteMeals() {
+        favouritePresenter.getFavourites(repo);
+    }
+
+    @Override
+    public void addFavMealToAdapter(List<FavouriteMealsWithMeal> meals) {
+        favAdapter=new FavAdapter(meals);
+        favAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(favAdapter);
     }
 }
