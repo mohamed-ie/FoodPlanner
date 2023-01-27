@@ -28,8 +28,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     Context context;
 
     public SliderAdapter(List<MinMeal> minMeals, AddToFavourite addToFavourite) {
-        this.minMeals = minMeals;
 
+        this.minMeals = minMeals;
         this.addToFavourite = addToFavourite;
     }
 

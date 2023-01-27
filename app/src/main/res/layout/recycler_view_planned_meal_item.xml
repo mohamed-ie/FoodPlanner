@@ -15,7 +15,7 @@
         android:fontFamily="@font/belgrano"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,9 +24,8 @@
         tools:text="Day Name" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="100dp"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/add_chart_button"
         android:drawableStart="@drawable/add_24"
