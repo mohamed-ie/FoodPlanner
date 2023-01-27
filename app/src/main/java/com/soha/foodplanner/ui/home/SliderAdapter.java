@@ -98,7 +98,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         }
 
         void setMealName(String name) {
-
             mealName.setText(name);
         }
 

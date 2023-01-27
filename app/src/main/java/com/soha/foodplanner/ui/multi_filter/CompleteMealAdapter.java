@@ -1,6 +1,5 @@
 package com.soha.foodplanner.ui.multi_filter;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.Meal;
-import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.ui.filter.MealsFilterAdapter;
+import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.ui.filter.OnMealItemClickListener;
 
 import java.util.List;

@@ -29,7 +29,7 @@ public class MealsLocalDataSource {
     }
 
 
-    public Single<Meal> selectMealById(String id) {
+    public Single<Meal> selectMealById(long id) {
         return mealDAO.FindMealById(id)
                 .subscribeOn(Schedulers.io());
     }

@@ -35,7 +35,7 @@ public class LocalDetailsFragment extends Fragment implements LocalDetailsListen
     ImageView mealPhoto;
     YouTubePlayerView mealVideo;
     LocalDetailsPresenter localDetailsPresenter;
-    private String mealIdStr;
+    private long mealIdStr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

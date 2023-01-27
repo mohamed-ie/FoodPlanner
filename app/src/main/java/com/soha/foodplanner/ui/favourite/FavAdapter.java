@@ -48,7 +48,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(FavouriteFragmentDirections
-                        .actionFavouriteFragmentToLocalDetailsFragment(String.valueOf(favouriteMealsWithMeal.getMeal().getId())));
+                        .actionFavouriteFragmentToLocalDetailsFragment(favouriteMealsWithMeal.getMeal().getId()));
 
             }
         });

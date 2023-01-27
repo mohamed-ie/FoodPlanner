@@ -17,7 +17,7 @@ public class LocalDetailsPresenter {
         this.repository = repository;
     }
 
-    public void getLocalDetails(String mealIdStr) {
+    public void getLocalDetails(long mealIdStr) {
         repository.selectMealById(mealIdStr)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<>() {

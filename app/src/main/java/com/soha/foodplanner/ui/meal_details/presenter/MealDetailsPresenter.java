@@ -24,8 +24,8 @@ public class MealDetailsPresenter {
     View view;
     MealDetailsListener mealDetailsListener;
     @SuppressLint("CheckResult")
-    public void getDetails(String mealIdStr){
-        Single<MealDto> single = theMealDBWebService.getMealDetailsById(Long.parseLong(mealIdStr));
+    public void getDetails(long mealIdStr){
+        Single<MealDto> single = theMealDBWebService.getMealDetailsById(mealIdStr);
         single
                 .subscribeOn(Schedulers.io())
                 .map(t->t.getMeals().get(0))

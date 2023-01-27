@@ -44,7 +44,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     private Button planButton;
     protected NavController navController;
     private MealDetailsPresenter mealDetailsPresenter;
-    private String mealIdStr;
+    private long mealIdStr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

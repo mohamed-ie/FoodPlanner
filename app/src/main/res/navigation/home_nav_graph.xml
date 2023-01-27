@@ -88,7 +88,7 @@
         tools:layout="@layout/fragment_meal_details" >
         <argument
             android:name="mealId"
-            app:argType="string" />
+            app:argType="long" />
         <action
             android:id="@+id/action_mealDetails_to_dayOfWeekFragment"
             app:destination="@id/dayOfWeekFragment" />
@@ -150,7 +150,7 @@
         android:label="LocalDetailsFragment" >
         <argument
             android:name="mealId"
-            app:argType="string" />
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/veiwAllCatFragment"
