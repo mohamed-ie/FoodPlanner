@@ -10,7 +10,6 @@ public class SearchState {
         search = new ArrayList<>();
     }
 
-
     public List<String> getSearch() {
         return search;
     }

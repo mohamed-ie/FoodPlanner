@@ -44,7 +44,6 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        requireDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return inflater.inflate(getLayoutResource(), container, false);
     }
 
@@ -66,15 +65,15 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Contract(pure = true)
     private LifecycleEventObserver createNavBackStackEntryObserver(NavBackStackEntry navBackStackEntry, Map<String, ?> data) {
         return (LifecycleEventObserver) (source, event) -> {
-            if (event.equals(Lifecycle.Event.ON_RESUME) ) {
+            if (event.equals(Lifecycle.Event.ON_RESUME))
                 for (String key : data.keySet())
-                    navBackStackEntry.getSavedStateHandle().set(key, data.get(key));
-            }
+                        navBackStackEntry.getSavedStateHandle().set(key, data.get(key));
+
         };
     }
 
 
-    protected void sendDataViaBackStackEntry(Map<String,Object> data) {
+    protected void sendDataViaBackStackEntry(Map<String, Object> data) {
 //        NavBackStackEntry navBackStackEntry = navController.getBackStackEntry(R.id.loginFragment);
         NavBackStackEntry navBackStackEntry = navController.getPreviousBackStackEntry();
         //data to be sent via backstack entry
@@ -84,17 +83,14 @@ public abstract class BaseDialogFragment extends DialogFragment {
         //register observer
         navBackStackEntry.getLifecycle().addObserver(observer);
         //remove observer
-        removeNavStackEntryObserver(navBackStackEntry, observer, data);
+        removeNavStackEntryObserver(navBackStackEntry, observer);
         navController.popBackStack();
     }
 
     private void removeNavStackEntryObserver(NavBackStackEntry navBackStackEntry,
-                                             LifecycleEventObserver observer,
-                                             Map<String, Object> data) {
+                                             LifecycleEventObserver observer) {
         getViewLifecycleOwner().getLifecycle().addObserver((LifecycleEventObserver) (source, event) -> {
             if (event.equals(Lifecycle.Event.ON_DESTROY)) {
-                for (String key : data.keySet())
-                    navBackStackEntry.getSavedStateHandle().set(key, data.get(key));
                 navBackStackEntry.getLifecycle().removeObserver(observer);
             }
         });

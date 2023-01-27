@@ -66,4 +66,13 @@ public class MainFragment extends Fragment {
     }
 
 
+    public void hideBottomNavigation(){
+        bottomNavigationView.setVisibility(View.GONE);
+    }
+
+    public void showBottomNavigation(){
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
+
 }

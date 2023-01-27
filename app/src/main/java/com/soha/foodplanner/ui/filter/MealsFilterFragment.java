@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
@@ -22,8 +20,6 @@ import com.soha.foodplanner.ui.filter.presenter.MealsFilterFactory;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenter;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenterListener;
 import com.soha.foodplanner.ui.main.MainFragment;
-import com.soha.foodplanner.ui.splash.SplashFragment;
-import com.soha.foodplanner.ui.splash.SplashFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +45,13 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(args.getCategory()!=null)
+        if (args.getCategory() != null)
             presenter.loadByCategory(args.getCategory());
-        else if(args.getArea()!=null)
+        else if (args.getArea() != null)
             presenter.loadByArea(args.getArea());
+        else if (args.getIngredient() != null) {
+            presenter.loadByIngredient(args.getIngredient());
+        }
     }
 
     @Override
@@ -85,15 +84,15 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
     }
 
     @Override
-    public void onFavouriteClick(String name) {
+    public void onFavouriteClick(long name) {
 
     }
 
     @Override
-    public void onMealItemClick(String id) {
+    public void onMealItemClick(long id) {
+//            navController.navigate();
 
-        NavHostFragment.findNavController(MealsFilterFragment.this)
-                .navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id));
+        navController.navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id));
     }
 
     @Override

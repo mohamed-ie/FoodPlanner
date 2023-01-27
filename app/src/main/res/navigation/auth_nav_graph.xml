@@ -21,7 +21,8 @@
             app:destination="@id/retryDialogFragment" />
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/auth_nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -30,7 +31,8 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragment_to_mainFragment2"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/auth_nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/startFragment"
@@ -48,7 +50,8 @@
             app:destination="@id/errorDialogFragment" />
         <action
             android:id="@+id/action_startFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/auth_nav_graph" />
         <action
             android:id="@+id/action_startFragment_to_loadingFragment"
             app:destination="@id/loadingFragment" />

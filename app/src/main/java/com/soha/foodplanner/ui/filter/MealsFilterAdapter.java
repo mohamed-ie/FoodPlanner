@@ -73,7 +73,7 @@ public class MealsFilterAdapter extends RecyclerView.Adapter<MealsFilterAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.editTextName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
             imageButtonFavourite = itemView.findViewById(R.id.imageButtonFavourite);
             constraintLayout = itemView.findViewById(R.id.constraintLayout);

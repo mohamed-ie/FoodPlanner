@@ -1,9 +1,5 @@
 package com.soha.foodplanner.data.repository.meals;
 
-import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.local.entities.Meal;
-import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
-import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
@@ -106,4 +102,14 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
 
+
+    @Override
+    public Single<List<MinMeal>> getMealsByIngredient(String ingredient) {
+        return mealsRemoteDataSource.getAllMealsByIngredient(ingredient);
+    }
+
+    @Override
+    public Flowable<Pair<CompleteMeal, Integer>> getAllCompleteMeals() {
+        return mealsRemoteDataSource.getAllCompleteMeals();
+    }
 }

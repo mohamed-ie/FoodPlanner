@@ -53,7 +53,7 @@ public class SearchByNameAdapter extends RecyclerView.Adapter<SearchByNameAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.editTextName);
         }
     }
 }

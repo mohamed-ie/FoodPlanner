@@ -56,6 +56,21 @@
     <string name="add">Add</string>
     <string name="make_your_plan">Make Plan Of Week</string>
     <string name="guest"><u>Guest</u></string>
+    <string name="logout">Logout</string>
+    <string name="profile_image">profile image</string>
+    <string name="change_password">Change Password</string>
+    <string name="upload_profile_image">Upload profile image</string>
+    <string name="sign_out_successfully">Sign-out successfully</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="logout_confirm">Are you sure you want to logout?</string>
+    <string name="multi_filter">multi_filter</string>
+    <string name="percent">%1$d\%%</string>
+    <string name="filter_list">filter list</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="areas">Areas</string>
+    <string name="categories">Categories</string>
+    <string name="filter">Filter</string>
 
     <string-array name="day_of_week">
         <item>Saturday</item>

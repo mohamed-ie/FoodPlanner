@@ -69,7 +69,7 @@ public class PlannedItemAdapter extends RecyclerView.Adapter<PlannedItemAdapter.
         public ViewHolder(View v){
             super(v);
             layout=v;
-            mealName=v.findViewById(R.id.textViewName);
+            mealName=v.findViewById(R.id.editTextName);
             mealImage=v.findViewById(R.id.imageViewThumbnail);
 //            constraintLayout=v.findViewById(R.id.total_view);
 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.multi_filter.MultiFilterFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSearch"
+        style="@style/Theme.FoodPlanner.TextInputLayout_Search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@id/imageButtonFilter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextSearch"
+            style="@style/Theme.FoodPlanner.TextInputEditText_Search"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:backgroundTint="@android:color/transparent" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMeals"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPercent"
+        app:spanCount="2"
+        tools:listitem="@layout/recycler_view_filter_meal_item" />
+
+    <ImageButton
+        android:id="@+id/imageButtonFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ripple_rounded_corners"
+        android:backgroundTint="?colorButtonNormal"
+        android:foreground="@drawable/ripple_rounded_corners"
+        android:src="@drawable/twotone_filter_alt_24"
+        app:layout_constraintBottom_toBottomOf="@id/textInputLayoutSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/textInputLayoutSearch"
+        app:layout_constraintTop_toTopOf="@id/textInputLayoutSearch"
+        android:contentDescription="@string/filter_list" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:progressTint="?colorPrimary"
+        android:secondaryProgress="100"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPercent"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutSearch"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutSearch"
+        app:layout_constraintTop_toTopOf="@+id/textViewPercent" />
+
+    <TextView
+        android:id="@+id/textViewPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/percent"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonFilter"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonFilter"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonFilter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

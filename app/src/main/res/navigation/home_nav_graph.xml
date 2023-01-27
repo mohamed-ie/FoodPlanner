@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_searchFragment_to_mealsFilterFragment"
             app:destination="@id/mealsFilterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_multiFilterFragment"
+            app:destination="@id/multiFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -39,7 +42,15 @@
         android:id="@+id/profileFragment"
         android:name="com.soha.foodplanner.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_auth_nav_graph"
+            app:destination="@id/auth_nav_graph"
+            app:popUpTo="@id/home_nav_graph" />
+        <action
+            android:id="@+id/action_profileFragment_to_confirmDialogFragment"
+            app:destination="@id/confirmDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/plannedFragment"
         android:name="com.soha.foodplanner.ui.planned.PlannedFragment"
@@ -60,6 +71,10 @@
             app:nullable="true" />
         <argument
             android:name="area"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="ingredient"
             app:argType="string"
             app:nullable="true" />
         <action
@@ -87,6 +102,48 @@
         android:name="com.soha.foodplanner.ui.day_of_week.DayOfWeekFragment"
         android:label="fragment_day_of_week"
         tools:layout="@layout/fragment_day_of_week" />
+    <include app:graph="@navigation/auth_nav_graph" />
+    <dialog
+        android:id="@+id/confirmDialogFragment"
+        android:name="com.soha.foodplanner.ui.common.dialogs.confirm.ConfirmDialogFragment"
+        android:label="dialog_fragment_confirm"
+        tools:layout="@layout/dialog_fragment_confirm" >
+        <argument
+            android:name="message"
+            app:argType="integer" />
+        <argument
+            android:name="bottom_app_bar_visibility"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </dialog>
+    <dialog
+        android:id="@+id/loadingDialogFragment"
+        android:name="com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" />
+    <fragment
+        android:id="@+id/multiFilterFragment"
+        android:name="com.soha.foodplanner.ui.multi_filter.MultiFilterFragment"
+        android:label="fragment_multi_filter"
+        tools:layout="@layout/fragment_multi_filter" >
+        <argument
+            android:name="bottom_app_bar_visibility"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_multiFilterFragment_to_filterDialogFragment"
+            app:destination="@id/filterDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/filterDialogFragment"
+        tools:layout="@layout/dialog_fragment_filter"
+        android:name="com.soha.foodplanner.ui.multi_filter.filter_dialog.FilterDialogFragment"
+        android:label="FilterDialogFragment" >
+        <argument
+            android:name="filters"
+            app:argType="com.soha.foodplanner.ui.multi_filter.Filters"
+            app:nullable="true" />
+    </dialog>
     <fragment
         android:id="@+id/localDetailsFragment"
         android:name="com.soha.foodplanner.ui.local_details.LocalDetailsFragment"

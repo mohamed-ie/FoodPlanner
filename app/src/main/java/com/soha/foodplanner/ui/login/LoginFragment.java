@@ -57,7 +57,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     }
 
     @Override
-    protected void onDialogCancel(boolean cancel) {
+    protected void onDialogLoading(boolean cancel) {
         if (cancel)
             presenter.cancelLogin();
     }

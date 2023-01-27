@@ -43,4 +43,7 @@ public interface TheMealDBWebService {
 
     @GET("filter.php")
     Single<MinMealDto> getAllMealsByArea(@Query("a") String area);
+
+    @GET("filter.php")
+    Single<MinMealDto> getAllMealsByIngredient(@Query("i") String ingredient);
 }

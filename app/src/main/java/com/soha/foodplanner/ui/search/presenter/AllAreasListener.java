@@ -8,4 +8,5 @@ public interface AllAreasListener {
     void onGetAllAreasLoading();
 
     void onGetAllAreasError(String message);
+
 }

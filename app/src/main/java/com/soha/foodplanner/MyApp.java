@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.data.data_source.remote.auth.AuthRemoteDataSource;
 import com.soha.foodplanner.data.data_source.remote.auth.AuthRemoteDataSourceImpl;
@@ -55,4 +57,13 @@ public class MyApp extends Application {
         MealsRemoteDataSource remoteDataSource = new MealsRemoteDataSourceImpl(theMealDBWebService, mealMapper);
         mealsRepository = new MealsRepositoryImpl(remoteDataSource, localDataSource);
     }
+
+    private void updateFirestoreSettings() {
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(false)
+                .build();
+        FirebaseFirestore.getInstance().setFirestoreSettings(settings);
+    }
+
+
 }
