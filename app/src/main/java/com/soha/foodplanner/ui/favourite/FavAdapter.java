@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,14 +19,15 @@ import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenterListener;
 
 import java.util.List;
 
 public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     private List<FavouriteMealsWithMeal> values;
     private static final String Tag="Recycler";
-    Repository rep;
     Context context;
+    private final FavouritePresenterListener favouritePresenterListener;
 
     @NonNull
     @Override
@@ -59,8 +58,8 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rep=new Repository(context);
-                rep.deleteFavMeal(favouriteMealsWithMeal);
+                favouritePresenterListener.deleteMealFromFav(favouriteMealsWithMeal);
+
             }
         });
     }
@@ -87,10 +86,11 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
 
     }
-    public FavAdapter(List<FavouriteMealsWithMeal> myList){
+    public FavAdapter(List<FavouriteMealsWithMeal> myList, FavouritePresenterListener favouritePresenterListener){
         values=myList;
 
 
+        this.favouritePresenterListener = favouritePresenterListener;
     }
 }
 

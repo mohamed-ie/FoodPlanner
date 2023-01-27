@@ -51,8 +51,9 @@ public interface MealDAO {
 
 
 
-    @Delete
-    Completable deleteFavouriteMeal(Meal meal);
+    @Transaction
+    @Query("DELETE FROM favourite_meals WHERE meal_id=:id")
+    Completable deleteFavouriteMeal(long id);
 
     @Delete
     Completable deleteIngredients(Ingredient ... ingredients);

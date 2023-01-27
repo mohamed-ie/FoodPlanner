@@ -8,4 +8,5 @@ import java.util.List;
 public interface FavouritePresenterListener {
     void getAllFavouriteMeals();
     void addFavMealToAdapter(List<FavouriteMealsWithMeal> minMeals);
+    void deleteMealFromFav(FavouriteMealsWithMeal favouriteMealsWithMeal);
 }

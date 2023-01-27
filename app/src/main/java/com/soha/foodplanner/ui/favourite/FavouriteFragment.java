@@ -12,26 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
+import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
 
 import com.soha.foodplanner.data.repository.Repository;
 import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenter;
 import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenterListener;
-import com.soha.foodplanner.ui.home.presenter.HomePresenter;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-
 
 public class FavouriteFragment extends Fragment implements FavouritePresenterListener {
-    Repository repo;
-    FavAdapter favAdapter;
-    RecyclerView recyclerView;
-    FavouritePresenter favouritePresenter;
+    private Repository repo;
+    private FavAdapter favAdapter;
+    private RecyclerView recyclerView;
+    private FavouritePresenter favouritePresenter;
+    private TheMealDBWebService theMealDBWebService;
+
 
 
     @Override
@@ -44,7 +42,6 @@ public class FavouriteFragment extends Fragment implements FavouritePresenterLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
 
@@ -53,23 +50,14 @@ public class FavouriteFragment extends Fragment implements FavouritePresenterLis
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        favouritePresenter =new FavouritePresenter(this);
+
         recyclerView=view.findViewById(R.id.recycler_category_fav);
 
         repo=new Repository(requireContext());
-        getAllFavouriteMeals();
+        theMealDBWebService= Webservice.getInstance().getTheMealDBWebService();
+        favouritePresenter =new FavouritePresenter(this,theMealDBWebService,repo);
 
-//        repo.getFavMeal().subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe((Consumer<? super List<FavouriteMealsWithMeal>>) new Consumer<List<FavouriteMealsWithMeal>>() {
-//                    @SuppressLint("CheckResult")
-//                    @Override
-//                    public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
-//                       favAdapter=new FavAdapter(meals);
-//                       favAdapter.notifyDataSetChanged();
-//                       recyclerView.setAdapter(favAdapter);
-//                    }
-//                });
+        getAllFavouriteMeals();
 
 
     }
@@ -81,8 +69,13 @@ public class FavouriteFragment extends Fragment implements FavouritePresenterLis
 
     @Override
     public void addFavMealToAdapter(List<FavouriteMealsWithMeal> meals) {
-        favAdapter=new FavAdapter(meals);
+        favAdapter=new FavAdapter(meals, this);
         favAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(favAdapter);
+    }
+
+    @Override
+    public void deleteMealFromFav(FavouriteMealsWithMeal favouriteMealsWithMeal) {
+        favouritePresenter.deleteFromFavourite(favouriteMealsWithMeal);
     }
 }

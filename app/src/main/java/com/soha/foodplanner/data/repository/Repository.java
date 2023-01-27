@@ -78,12 +78,8 @@ public class Repository {
 
     @SuppressLint("CheckResult")
     public void deleteFavMeal(FavouriteMealsWithMeal mealFav) {
-        mealDAO.deleteMealIngredientsRef(mealFav.getMeal().getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
 
-        mealDAO.deleteFavouriteMeal(mealFav.getMeal())
+        mealDAO.deleteFavouriteMeal(mealFav.getMeal().getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
@@ -193,17 +189,4 @@ public class Repository {
     }
 
 
-//    public void searchMealByArea(String mealArea,SingleObserver<List<Meal>> mealSingleObserver){
-//
-//        mealDAO.FindMealByArea(mealArea)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(mealSingleObserver);
-//    }
-//    public void searchMealByCategory(String mealCategory,SingleObserver<List<Meal>> singleObserver){
-//        mealDAO.FindMealByCategory(mealCategory)
-//                .subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(singleObserver);
-//    }
 }

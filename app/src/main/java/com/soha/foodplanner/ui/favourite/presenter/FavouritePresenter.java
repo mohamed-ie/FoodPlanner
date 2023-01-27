@@ -18,10 +18,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class FavouritePresenter {
     FavouritePresenterListener favouritePresenterListener;
     TheMealDBWebService theMealDBWebService;
+    Repository repo;
 
-    public FavouritePresenter(FavouritePresenterListener favouritePresenterListener) {
+    public FavouritePresenter(FavouritePresenterListener favouritePresenterListener,TheMealDBWebService theMealDBWebService,Repository repo) {
         this.favouritePresenterListener = favouritePresenterListener;
-        theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
+        this.theMealDBWebService = theMealDBWebService;
+        this.repo=repo;
+
     }
 
     @SuppressLint("CheckResult")
@@ -37,5 +40,8 @@ public class FavouritePresenter {
 
                     }
                 });
+    }
+    public void deleteFromFavourite(FavouriteMealsWithMeal favouriteMealsWithMeal){
+        repo.deleteFavMeal(favouriteMealsWithMeal);
     }
 }
