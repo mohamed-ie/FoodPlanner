@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             context = parent.getContext();
         return new ViewHolder(
                 LayoutInflater.from(context)
-                        .inflate(R.layout.recycler_view_ingredient_item, parent, false)
+                        .inflate(R.layout.recycler_view_filter_item, parent, false)
         );
     }
 
@@ -53,7 +54,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         context.getPackageName());
         if (resource == 0)
             resource = R.drawable.unknown_meal;
-        holder.imageViewThumbnail.setImageResource(resource);
+
+        Glide.with(holder.itemView)
+                .load(resource)
+                .circleCrop()
+                .into(holder.imageViewThumbnail);
+
         holder.textViewName.setText(category);
 
         holder.textViewName.setOnClickListener(v -> listener.onCategoryClick(category));

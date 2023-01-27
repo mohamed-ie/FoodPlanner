@@ -27,7 +27,6 @@ public class LoginPresenterImpl implements LoginPresenter {
     public void login(String email, String password) {
         repository.loginWithEmailAndPassword(email, password)
                 .subscribeOn(Schedulers.io())
-                .delay(2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new LoginWithEmailAndPasswordObserver());
     }

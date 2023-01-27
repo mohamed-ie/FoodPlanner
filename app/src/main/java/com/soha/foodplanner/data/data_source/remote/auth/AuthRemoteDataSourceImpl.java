@@ -6,8 +6,10 @@ import com.google.firebase.auth.FirebaseAuthEmailException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWebException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.data.local.model.User;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -62,5 +64,15 @@ public class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
             return R.string.server_busy_try_again;
         else
             return R.string.unexpected_error_try_again;
+    }
+
+    @Override
+    public User getUser() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        assert user != null;
+        String photoUri = null;
+        if (user.getPhotoUrl() != null)
+            photoUri = user.getPhotoUrl().toString();
+        return new User(user.getDisplayName(), user.getEmail(), photoUri);
     }
 }

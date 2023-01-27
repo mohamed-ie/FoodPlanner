@@ -73,13 +73,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@id/recyclerViewIngredients"
+            app:layout_constraintBottom_toTopOf="@id/recyclerViewCategories"
             app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@+id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewIngredients"
+            android:id="@+id/recyclerViewCategories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

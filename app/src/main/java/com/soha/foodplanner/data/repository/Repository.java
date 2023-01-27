@@ -98,7 +98,7 @@ public class Repository {
     }
 
     public void insertFavMeal(MinMeal mealFav) {
-        Webservice.getInstance().getTheMealDBWebService().getMealDetailsById(Long.parseLong(mealFav.getId()))
+        Webservice.getInstance().getTheMealDBWebService().getMealDetailsById(mealFav.getId())
                 .subscribeOn(Schedulers.io())
                 .map(t -> new MealMapperImpl().mapToCompleteMeal(t))
                 .subscribe(new Consumer<CompleteMeal>() {
@@ -118,7 +118,7 @@ public class Repository {
                                             ingredient.setPhotoUri(s);
                                             System.out.println(s);
                                             mealDAO.insertIngredients(ingredient).subscribeOn(Schedulers.io()).subscribe();
-                                            mealDAO.insertMealIngredientsRef(new MealIngredientsRef(Long.parseLong(mealFav.getId()), completeIngredient.getName(), completeIngredient.getMeasure())).subscribeOn(Schedulers.io()).subscribe();
+                                            mealDAO.insertMealIngredientsRef(new MealIngredientsRef(mealFav.getId(), completeIngredient.getName(), completeIngredient.getMeasure())).subscribeOn(Schedulers.io()).subscribe();
                                         }
 
                                         @Override
@@ -130,7 +130,7 @@ public class Repository {
                         });
                     }
                 });
-        mealDAO.insertFavMeal(new FavouriteMeals(Long.parseLong(mealFav.getId())))
+        mealDAO.insertFavMeal(new FavouriteMeals(mealFav.getId()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();

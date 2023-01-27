@@ -1,6 +1,5 @@
 package com.soha.foodplanner.ui.common;
 
-import android.database.Observable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.soha.foodplanner.common.Factory;
+import com.soha.foodplanner.ui.common.dialogs.confirm.ConfirmDialogFragment;
 import com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment;
 import com.soha.foodplanner.ui.common.dialogs.retry.RetryDialogFragment;
 import com.soha.foodplanner.ui.common.presenter.Presenter;
@@ -44,13 +44,21 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
                 .observe(this, (Observer<Boolean>) this::onDialogRetry);
 
         getBackStackLiveData(LoadingDialogFragment.CANCEL)
-                .observe(this, (Observer<Boolean>) this::onDialogCancel);
+                .observe(this, (Observer<Boolean>) this::onDialogLoading);
+
+        getBackStackLiveData(ConfirmDialogFragment.YES)
+                .observe(this, (Observer<Boolean>) this::onDialogConfirm);
     }
 
-    protected void onDialogRetry(boolean retry){
+    protected void onDialogConfirm(Boolean yes) {
 
     }
-    protected void onDialogCancel(boolean cancel){
+
+    protected void onDialogRetry(boolean retry) {
+
+    }
+
+    protected void onDialogLoading(boolean cancel) {
 
     }
 
@@ -69,6 +77,7 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
         View view = inflater.inflate(getLayoutResource(), container, false);
         initPresenter();
         initViews(view);
+        updateUi();
         setListeners();
         return view;
     }
@@ -76,6 +85,9 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
     protected void initViews(View view) {
     }
 
+    protected void updateUi(){
+
+    }
     protected void setListeners() {
     }
 

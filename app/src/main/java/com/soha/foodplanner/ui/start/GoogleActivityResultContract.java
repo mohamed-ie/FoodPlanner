@@ -19,7 +19,6 @@ public class GoogleActivityResultContract extends ActivityResultContract<Intent,
     public Intent createIntent(@NonNull Context context, Intent intent) {
         return intent;
     }
-
     @Override
     public Task<GoogleSignInAccount> parseResult(int i, @Nullable Intent intent) {
         if (i != Activity.RESULT_OK)

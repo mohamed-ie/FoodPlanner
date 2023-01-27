@@ -49,6 +49,9 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
             presenter.loadByCategory(args.getCategory());
         else if(args.getArea()!=null)
             presenter.loadByArea(args.getArea());
+        else if (args.getIngredient()!=null) {
+            presenter.loadByIngredient(args.getIngredient());
+        }
     }
 
     @Override
@@ -81,12 +84,12 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
     }
 
     @Override
-    public void onFavouriteClick(String name) {
+    public void onFavouriteClick(long name) {
 
     }
 
     @Override
-    public void onMealItemClick(String id) {
+    public void onMealItemClick(long id) {
 //            navController.navigate();
     }
 

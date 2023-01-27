@@ -64,7 +64,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         private ImageView mealImage;
         public ViewHolder(View v){
             super(v);
-            mealName=v.findViewById(R.id.textViewName);
+            mealName=v.findViewById(R.id.editTextName);
             favIcon=v.findViewById(R.id.imageButtonFavourite);
             favIcon.setImageResource(R.drawable.fav_checked);
             mealImage=v.findViewById(R.id.imageViewThumbnail);

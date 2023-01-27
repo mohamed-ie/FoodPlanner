@@ -11,28 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.dto.min_meal.MinMealDto;
-import com.soha.foodplanner.data.dto.min_meal.MinMealsItem;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.repository.Repository;
 
-import java.util.Collection;
 import java.util.List;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderViewHolder> {
 
     private List<MinMeal> minMeals;
-
+//    private ViewPager2 viewPager2;
     Context context;
     Repository repo;
 
     public SliderAdapter(List<MinMeal> minMeals) {
         this.minMeals = minMeals;
-
+//        this.viewPager2 = viewPager2;
     }
 
     @NonNull
@@ -59,7 +55,6 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             public void onClick(View v) {
                 repo = new Repository(context);
                 repo.insertFavMeal(minMeals.get(position));
-                holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });
 
@@ -68,11 +63,13 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             public void onClick(View v) {
                 Navigation.findNavController(v)
                         .navigate(HomeFragmentDirections
-                                .actionHomeFragmentToMealDetails(minMeals.get(position).getId()));
+                                .actionHomeFragmentToMealDetails(minMeals.get(position).getId()+""));
             }
         });
 
-
+//        if (position == minMeals.size() - 2) {
+//            viewPager2.post(runnable);
+//        }
     }
 
     @Override
@@ -90,7 +87,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
             super(itemView);
 
             mealImage = itemView.findViewById(R.id.imageViewThumbnail);
-            mealName = itemView.findViewById(R.id.textViewName);
+            mealName = itemView.findViewById(R.id.editTextName);
             favIcon = itemView.findViewById(R.id.imageButtonFavourite);
             sliderLayout = itemView.findViewById(R.id.slider_item_layout);
         }
@@ -106,5 +103,11 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
     }
 
-
+//    private Runnable runnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            sliderItems.getMeals().addAll((Collection<? extends MinMealsItem>) sliderItems);
+//            notifyDataSetChanged();
+//        }
+//    };
 }

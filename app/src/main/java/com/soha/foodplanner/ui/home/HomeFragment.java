@@ -107,6 +107,39 @@ public class HomeFragment extends Fragment implements OnCategoryItemClickListene
 
     void getMeals(List<String> categoryItemList) {
 
+//        Observable.fromIterable(categoryItemList)
+//                .subscribeOn(Schedulers.io())
+//                .flatMap(new Function<String, ObservableSource<MinMealDto>>() {
+//                    @Override
+//                    public ObservableSource<MinMealDto> apply(String s) throws Throwable {
+//                        return (ObservableSource<MinMealDto>) theMealDBWebService.getMealsByCategory(s).toObservable();
+//                    }
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Observer<MinMealDto>() {
+//                    @Override
+//                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(@io.reactivex.rxjava3.annotations.NonNull MinMealDto minMealDto) {
+//                        mealsListItem.add(minMealDto);
+//                    }
+//
+//                    @Override
+//                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+//                        Log.e("TAG", "onError: ");
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        recyclerView.setAdapter(new CategoryAdapter("Random", mealsListItem));
+//                    }
+//                });
+//
+//
+
         MealMapper mapper = new MealMapperImpl();
         Disposable disposable = Flowable.fromIterable(categoryItemList)
                 .subscribeOn(Schedulers.io())
@@ -123,7 +156,7 @@ public class HomeFragment extends Fragment implements OnCategoryItemClickListene
 
                             @Override
                             public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<MinMeal> minMeals) {
-                                categoryAdapter.addNewCategory(minMeals, s);
+                                categoryAdapter.addNewCategory(minMeals, "hh");
                             }
 
                             @Override

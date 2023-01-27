@@ -2,8 +2,10 @@ package com.soha.foodplanner.data.repository.auth;
 
 import android.content.SharedPreferences;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.data.data_source.remote.auth.AuthRemoteDataSource;
+import com.soha.foodplanner.data.local.model.User;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
@@ -45,4 +47,8 @@ public class AuthRepositoryImpl implements AuthRepository {
                 .apply();
     }
 
+    @Override
+    public User getUser() {
+        return authRemoteDataSource.getUser();
+    }
 }

@@ -14,6 +14,7 @@
 <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
 <!--        <item name="android:windowLightStatusBar">true</item>-->
         <!-- Customize your theme here. -->
-        <item name="colorAccent">@color/green</item>
+        <item name="rippleColor">@color/white_35</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 </resources>

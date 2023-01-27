@@ -1,6 +1,7 @@
 package com.soha.foodplanner.ui.search;
 
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.constraintlayout.motion.widget.MotionLayout;
@@ -40,6 +41,8 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     private CategoryAdapter adapterCategory;
     private AreaAdapter adapterArea;
 
+    private ImageButton imageButtonMultiFilter;
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_search;
@@ -62,7 +65,8 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     protected void initViews(View view) {
         searchView = view.findViewById(R.id.searchView);
         motionLayout = view.findViewById(R.id.motionLayout);
-        buttonCancel = view.findViewById(R.id.buttonCancel);
+        buttonCancel = view.findViewById(R.id.motionLabelCancel);
+        imageButtonMultiFilter = view.findViewById(R.id.imageButtonMultiFilter);
         initSearchByNameRecyclerView(view);
         initAreasRecyclerView(view);
         initIngredientsRecyclerView(view);
@@ -71,10 +75,9 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
 
     private void initCategoriesRecyclerView(View view) {
         adapterCategory = new CategoryAdapter(new ArrayList<>(), this);
-        RecyclerView recyclerViewCategories = view.findViewById(R.id.recyclerViewCategories);
+        RecyclerView recyclerViewCategories = view.findViewById(R.id.recyclerViewIngredients);
 //        recyclerViewCategories.setLayoutManager(new GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false));
         recyclerViewCategories.setAdapter(adapterCategory);
-
     }
 
     private void initIngredientsRecyclerView(View view) {
@@ -98,8 +101,10 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     @Override
     protected void setListeners() {
         searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus)
+            if (hasFocus) {
                 motionLayout.transitionToEnd();
+                ((MainFragment) requireParentFragment().requireParentFragment()).hideBottomNavigation();
+            }
         });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -118,7 +123,11 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
         buttonCancel.setOnClickListener(v -> {
             motionLayout.transitionToStart();
             searchView.clearFocus();
+            ((MainFragment) requireParentFragment().requireParentFragment()).showBottomNavigation();
         });
+
+        imageButtonMultiFilter.setOnClickListener(v -> navController.navigate(SearchFragmentDirections.actionSearchFragmentToMultiFilterFragment()));
+
     }
 
     @Override
@@ -184,17 +193,17 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
 
     @Override
     public void onAreaItemClick(String area) {
-        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(null, area));
-
+        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(null, area, null));
     }
 
     @Override
-    public void onIngredientClick(String name) {
-
+    public void onIngredientClick(String ingredient) {
+        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(null, null, ingredient));
     }
 
     @Override
     public void onCategoryClick(String category) {
-        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(category, null));
+        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(category, null, null));
     }
+
 }

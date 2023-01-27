@@ -36,7 +36,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public IngredientAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.recycler_view_ingredient_item, parent, false)
+                        .inflate(R.layout.recycler_view_filter_item, parent, false)
         );
     }
 
@@ -45,6 +45,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
         MinIngredient ingredient = minIngredients.get(position);
         Glide.with(holder.itemView)
                 .load(ingredient.getThumbnailUrl())
+                .circleCrop()
                 .into(holder.imageViewThumbnail);
 
         holder.textViewName.setText(ingredient.getName());

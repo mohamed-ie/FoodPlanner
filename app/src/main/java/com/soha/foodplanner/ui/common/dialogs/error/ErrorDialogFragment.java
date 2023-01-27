@@ -2,7 +2,6 @@ package com.soha.foodplanner.ui.common.dialogs.error;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -36,6 +35,6 @@ public class ErrorDialogFragment extends BaseDialogFragmentWithArgs<ErrorDialogF
     @Override
     public void initViews(@NonNull View view) {
         super.initViews(view);
-        buttonOk = view.findViewById(R.id.buttonRetry);
+        buttonOk = view.findViewById(R.id.buttonYes);
     }
 }

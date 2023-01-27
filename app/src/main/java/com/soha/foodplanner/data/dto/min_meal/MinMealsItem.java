@@ -8,7 +8,7 @@ public class MinMealsItem {
 	private String strMealThumb;
 
 	@SerializedName("idMeal")
-	private String idMeal;
+	private long idMeal;
 
 	@SerializedName("strMeal")
 	private String strMeal;
@@ -17,7 +17,7 @@ public class MinMealsItem {
 		return strMealThumb;
 	}
 
-	public String getIdMeal(){
+	public long getIdMeal(){
 		return idMeal;
 	}
 

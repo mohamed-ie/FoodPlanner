@@ -18,7 +18,6 @@ public class MealsFilterPresenterImpl implements MealsFilterPresenter {
     private final MealsRepository repository;
     private final MealsFilterPresenterListener listener;
     private final MealsFilterState state = new MealsFilterState();
-    private Disposable disposable;
 
     public MealsFilterPresenterImpl(MealsRepository repository, MealsFilterPresenterListener listener) {
         this.repository = repository;
@@ -46,7 +45,14 @@ public class MealsFilterPresenterImpl implements MealsFilterPresenter {
                 .subscribeOn(Schedulers.computation())
                 .filter(meal -> meal.getName().toLowerCase().startsWith(name.toString().toLowerCase()))
                 .toList()
-                .doOnSubscribe(d -> disposable = d)
+                .doOnSubscribe(disposables::add)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new MealsByCategoryObserver());
+    }
+
+    @Override
+    public void loadByIngredient(String ingredient) {
+        repository.getMealsByIngredient(ingredient)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MealsByCategoryObserver());
     }
@@ -69,13 +75,6 @@ public class MealsFilterPresenterImpl implements MealsFilterPresenter {
         public void onError(@NonNull Throwable e) {
             listener.onGetMealsByCategoryError(e.getMessage());
         }
-    }
-
-    @Override
-    public void destroy() {
-        MealsFilterPresenter.super.destroy();
-        if (disposable != null)
-            disposable.dispose();
     }
 }
 
