@@ -18,27 +18,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.data.repository.MealsLocalDataSource;
 import com.soha.foodplanner.ui.common.AddToFavourite;
 
 import java.util.List;
 
 public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHolder> {
-    private List<MinMeal> values;
-    private static final String Tag="Recycler";
+    private final List<MinMeal> values;
     private final AddToFavourite addToFavourite;
-    Repository rep;
-    Context context;
+
+    public ViewAllAdapter(List<MinMeal> myList, AddToFavourite addToFavourite){
+        values=myList;
+        this.addToFavourite = addToFavourite;
+    }
+
 
     @NonNull
     @Override
     public ViewAllAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View view=inflater.inflate(R.layout.recycler_view_filter_meal_item,parent,false);
-        ViewAllAdapter.ViewHolder vHolder=new ViewHolder(view);
-        context=parent.getContext();
-        Log.i(Tag,"onCreateViewHolder");
-
+        ViewAllAdapter.ViewHolder vHolder= new ViewHolder(view);
         return vHolder;
     }
 
@@ -55,12 +55,10 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
             }
         });
 
-        Glide.with(holder.mealImage.getContext()).load(minMeal.getThumbnailUrl()).into(holder.mealImage);
+        Glide.with(holder.itemView).load(minMeal.getThumbnailUrl()).into(holder.mealImage);
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                rep=new Repository(context);
                 addToFavourite.addFavouriteMeal(minMeal);
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
@@ -71,12 +69,12 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
     public int getItemCount() {
         return values.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    protected static class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView mealName;
-        private ImageButton favIcon;
-        private FrameLayout itemLayout;
-        private ImageView mealImage;
+        private final TextView mealName;
+        private final ImageButton favIcon;
+        private final FrameLayout itemLayout;
+        private final ImageView mealImage;
         public ViewHolder(View v){
             super(v);
             mealName=v.findViewById(R.id.textViewName);
@@ -85,15 +83,8 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
             itemLayout=v.findViewById(R.id.item_fav_layout);
 
         }
-
-
     }
-    public ViewAllAdapter(List<MinMeal> myList, AddToFavourite addToFavourite){
-        values=myList;
 
-
-        this.addToFavourite = addToFavourite;
-    }
 }
 
 

@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
-import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
+import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
 
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.data.repository.MealsLocalDataSource;
+import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenter;
 import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenterListener;
 
@@ -24,19 +26,16 @@ import java.util.List;
 
 
 public class FavouriteFragment extends Fragment implements FavouritePresenterListener {
-    private Repository repo;
     private FavAdapter favAdapter;
     private RecyclerView recyclerView;
     private FavouritePresenter favouritePresenter;
-    private TheMealDBWebService theMealDBWebService;
 
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        favouritePresenter =new FavouritePresenter(this, ((MyApp) ((MainActivity) requireHost()).getApplication()).getMealsRepository());
     }
 
     @Override
@@ -49,22 +48,14 @@ public class FavouriteFragment extends Fragment implements FavouritePresenterLis
     @Override
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         recyclerView=view.findViewById(R.id.recycler_category_fav);
 
-        repo=new Repository(requireContext());
-        theMealDBWebService= Webservice.getInstance().getTheMealDBWebService();
-        favouritePresenter =new FavouritePresenter(this,theMealDBWebService,repo);
-
         getAllFavouriteMeals();
-
-
     }
 
     @Override
     public void getAllFavouriteMeals() {
-        favouritePresenter.getFavourites(repo);
+        favouritePresenter.getFavourites();
     }
 
     @Override

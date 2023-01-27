@@ -1,10 +1,9 @@
 package com.soha.foodplanner.ui.view_all_categories.presenter;
 
-import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.mapper.MealMapper;
 import com.soha.foodplanner.data.mapper.MealMapperImpl;
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.data.repository.meals.MealsRepository;
 
 import java.util.List;
 
@@ -14,23 +13,18 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class VeiwAllCatPresenter {
-    ViewAllCatListener viewAllCatListener;
-    Repository repo;
-    TheMealDBWebService theMealDBWebService;
+    private final ViewAllCatListener viewAllCatListener;
+    private final MealsRepository repository;
 
-    public VeiwAllCatPresenter(ViewAllCatListener viewAllCatListener, TheMealDBWebService theMealDBWebService,Repository repo) {
+    public VeiwAllCatPresenter(ViewAllCatListener viewAllCatListener, MealsRepository repository) {
         this.viewAllCatListener = viewAllCatListener;
-        this.theMealDBWebService = theMealDBWebService;
-        this.repo=repo;
+        this.repository = repository;
     }
 
-    public void getMealsOfCategory(String categoryName){
-        MealMapper mapper = new MealMapperImpl();
-        theMealDBWebService.getMealsByCategory(categoryName)
-                .subscribeOn(Schedulers.io())
-                .map(mapper::map)
+    public void getMealsOfCategory(String categoryName) {
+        repository.getMealsByCategory(categoryName)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<MinMeal>>() {
+                .subscribe(new SingleObserver<>() {
                     @Override
                     public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
@@ -39,7 +33,6 @@ public class VeiwAllCatPresenter {
                     @Override
                     public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull List<MinMeal> minMeals) {
                         viewAllCatListener.addCategoryMealsToAdapter(minMeals);
-                        //categoryAdapter.addNewCategory(minMeals, s);
                     }
 
                     @Override
@@ -47,10 +40,9 @@ public class VeiwAllCatPresenter {
 
                     }
                 });
-
-
     }
-    public void insertToFav(MinMeal minMeal){
-        repo.insertFavMeal(minMeal);
+
+    public void insertToFav(MinMeal minMeal) {
+        repository.insertFavMeal(minMeal);
     }
 }

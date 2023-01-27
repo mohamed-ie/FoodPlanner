@@ -1,12 +1,10 @@
 package com.soha.foodplanner.data.data_source.remote.restore;
 
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.soha.foodplanner.data.local.PlannedMeals;
+import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import io.reactivex.rxjava3.core.Flowable;
 

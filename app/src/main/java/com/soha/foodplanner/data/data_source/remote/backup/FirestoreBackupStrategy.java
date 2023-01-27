@@ -1,16 +1,10 @@
 package com.soha.foodplanner.data.data_source.remote.backup;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.soha.foodplanner.data.local.PlannedMeals;
+import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

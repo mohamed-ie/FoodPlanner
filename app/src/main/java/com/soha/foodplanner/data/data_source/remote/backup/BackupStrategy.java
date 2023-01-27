@@ -1,6 +1,6 @@
 package com.soha.foodplanner.data.data_source.remote.backup;
 
-import com.soha.foodplanner.data.local.PlannedMeals;
+import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
 import io.reactivex.rxjava3.core.Completable;
 

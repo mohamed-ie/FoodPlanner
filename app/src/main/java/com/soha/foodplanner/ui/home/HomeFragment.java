@@ -5,17 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.data.repository.MealsLocalDataSource;
+import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.addapters.CategoryAdapter;
 import com.soha.foodplanner.ui.common.AddToFavourite;
 import com.soha.foodplanner.ui.home.presenter.HomePresenterListener;
@@ -31,16 +31,13 @@ public class HomeFragment extends Fragment implements HomePresenterListener , Ad
     List<String> categoryItemList = new ArrayList<String>();
     List<CategoryWithMeals> mealsListItem = new ArrayList<>();
     HomePresenter homePresenter;
-    Repository repo;
+    MealsLocalDataSource repo;
 
 
     @SuppressLint("CheckResult")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        repo = new Repository(requireContext());
-
-
     }
 
     @Override
@@ -50,7 +47,7 @@ public class HomeFragment extends Fragment implements HomePresenterListener , Ad
 
 
 
-        homePresenter =new HomePresenter(this,repo);
+        homePresenter =new HomePresenter(this, ((MyApp) ((MainActivity) requireHost()).getApplication()).getMealsRepository());
 
         recyclerView = view.findViewById(R.id.recycler);
         categoryAdapter = new CategoryAdapter(mealsListItem,this);

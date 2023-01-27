@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -14,8 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.PlannedMeals;
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.data.local.AppDatabase;
+import com.soha.foodplanner.data.local.entities.PlannedMeals;
+import com.soha.foodplanner.data.repository.MealsLocalDataSource;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +29,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class PlannedFragment extends Fragment {
 
 
-    Repository repo;
+    MealsLocalDataSource repo;
     RecyclerView recyclerView;
     List<String> data;
     PlannedAdapter plannedAdapter;
@@ -51,26 +51,26 @@ public class PlannedFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView=view.findViewById(R.id.planned_fragment_recycler);
+        recyclerView = view.findViewById(R.id.planned_fragment_recycler);
 
-        data= Arrays.asList("Saturday"
-                ,"Sunday"
-                ,"Monday"
-                ,"Tuesday"
-                ,"Wednesday"
-                ,"Thursday"
-                ,"Friday");
+        data = Arrays.asList("Saturday"
+                , "Sunday"
+                , "Monday"
+                , "Tuesday"
+                , "Wednesday"
+                , "Thursday"
+                , "Friday");
 
 
-        repo=new Repository(requireContext());
+        repo = new MealsLocalDataSource(AppDatabase.getInstance(requireContext()));
         repo.getPlanedMeal().subscribeOn(Schedulers.io())
-                .map(plannedMealsWithMeals -> plannedMealsWithMeals.stream().map(e->e.getPlannedMeals()).collect(Collectors.toList()))
+                .map(plannedMealsWithMeals -> plannedMealsWithMeals.stream().map(e -> e.getPlannedMeals()).collect(Collectors.toList()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<PlannedMeals>>() {
                     @SuppressLint("CheckResult")
                     @Override
                     public void accept(List<PlannedMeals> meals) throws Throwable {
-                        plannedAdapter=new PlannedAdapter(data,meals);
+                        plannedAdapter = new PlannedAdapter(data, meals);
                         recyclerView.setAdapter(plannedAdapter);
                     }
                 });

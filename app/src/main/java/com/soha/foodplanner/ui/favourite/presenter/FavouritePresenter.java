@@ -2,12 +2,9 @@ package com.soha.foodplanner.ui.favourite.presenter;
 
 import android.annotation.SuppressLint;
 
-import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
-import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.repository.Repository;
-import com.soha.foodplanner.ui.favourite.FavAdapter;
-import com.soha.foodplanner.ui.home.presenter.HomePresenterListener;
+import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
+import com.soha.foodplanner.data.repository.MealsLocalDataSource;
+import com.soha.foodplanner.data.repository.meals.MealsRepository;
 
 import java.util.List;
 
@@ -16,32 +13,31 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FavouritePresenter {
-    FavouritePresenterListener favouritePresenterListener;
-    TheMealDBWebService theMealDBWebService;
-    Repository repo;
+    private final FavouritePresenterListener favouritePresenterListener;
+    private final MealsRepository mealsRepository;
 
-    public FavouritePresenter(FavouritePresenterListener favouritePresenterListener,TheMealDBWebService theMealDBWebService,Repository repo) {
+    public FavouritePresenter(FavouritePresenterListener favouritePresenterListener, MealsRepository mealsRepository) {
         this.favouritePresenterListener = favouritePresenterListener;
-        this.theMealDBWebService = theMealDBWebService;
-        this.repo=repo;
-
+        this.mealsRepository = mealsRepository;
     }
 
+
     @SuppressLint("CheckResult")
-    public void getFavourites(Repository repo){
-        repo.getFavMeal().subscribeOn(Schedulers.io())
+    public void getFavourites() {
+        mealsRepository.getFavMeal().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((Consumer<? super List<FavouriteMealsWithMeal>>) new Consumer<List<FavouriteMealsWithMeal>>() {
                     @SuppressLint("CheckResult")
                     @Override
                     public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
-
                         favouritePresenterListener.addFavMealToAdapter(meals);
-
                     }
                 });
     }
-    public void deleteFromFavourite(FavouriteMealsWithMeal favouriteMealsWithMeal){
-        repo.deleteFavMeal(favouriteMealsWithMeal);
+
+    public void deleteFromFavourite(FavouriteMealsWithMeal favouriteMealsWithMeal) {
+        mealsRepository.deleteFavMeal(favouriteMealsWithMeal)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 }

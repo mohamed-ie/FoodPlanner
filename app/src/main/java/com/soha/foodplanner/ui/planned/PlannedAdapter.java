@@ -1,23 +1,17 @@
 package com.soha.foodplanner.ui.planned;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.Meal;
-import com.soha.foodplanner.data.local.PlannedMeals;
+import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
 
-import java.util.HashMap;
 import java.util.List;
 
 

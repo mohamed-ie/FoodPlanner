@@ -1,4 +1,4 @@
-package com.soha.foodplanner.data.local;
+package com.soha.foodplanner.data.local.entities;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

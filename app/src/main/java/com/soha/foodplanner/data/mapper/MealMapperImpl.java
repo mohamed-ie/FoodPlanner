@@ -1,7 +1,7 @@
 package com.soha.foodplanner.data.mapper;
 
 import com.soha.foodplanner.common.Constants;
-import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.model.CompleteIngredient;
 import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;

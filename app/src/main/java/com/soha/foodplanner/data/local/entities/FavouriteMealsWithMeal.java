@@ -1,7 +1,6 @@
-package com.soha.foodplanner.data.local;
+package com.soha.foodplanner.data.local.entities;
 
 import androidx.room.Embedded;
-import androidx.room.Entity;
 import androidx.room.Relation;
 
 public class FavouriteMealsWithMeal {

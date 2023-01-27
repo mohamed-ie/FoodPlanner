@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
 import com.soha.foodplanner.ui.favourite.presenter.FavouritePresenterListener;
 
 import java.util.List;

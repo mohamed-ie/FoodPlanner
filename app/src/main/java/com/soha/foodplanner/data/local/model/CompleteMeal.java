@@ -1,6 +1,6 @@
 package com.soha.foodplanner.data.local.model;
 
-import com.soha.foodplanner.data.local.Meal;
+import com.soha.foodplanner.data.local.entities.Meal;
 
 import java.util.List;
 

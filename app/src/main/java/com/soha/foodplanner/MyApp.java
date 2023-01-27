@@ -12,8 +12,10 @@ import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
 import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSourceImpl;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
+import com.soha.foodplanner.data.local.AppDatabase;
 import com.soha.foodplanner.data.mapper.MealMapper;
 import com.soha.foodplanner.data.mapper.MealMapperImpl;
+import com.soha.foodplanner.data.repository.MealsLocalDataSource;
 import com.soha.foodplanner.data.repository.auth.AuthRepository;
 import com.soha.foodplanner.data.repository.auth.AuthRepositoryImpl;
 import com.soha.foodplanner.data.repository.meals.MealsRepository;
@@ -36,6 +38,7 @@ public class MyApp extends Application {
         AuthRemoteDataSource authRemoteDataSource = new AuthRemoteDataSourceImpl(firebaseAuth);
         authRepository = new AuthRepositoryImpl(authRemoteDataSource, sharedPreferences);
     }
+
     public MealsRepository getMealsRepository() {
         if (mealsRepository == null)
             initMealsRepository();
@@ -43,9 +46,13 @@ public class MyApp extends Application {
     }
 
     private void initMealsRepository() {
+        //
+        AppDatabase appDatabase = AppDatabase.getInstance(this);
+        MealsLocalDataSource localDataSource = new MealsLocalDataSource(appDatabase);
+        //
         MealMapper mealMapper = new MealMapperImpl();
         TheMealDBWebService theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
         MealsRemoteDataSource remoteDataSource = new MealsRemoteDataSourceImpl(theMealDBWebService, mealMapper);
-        mealsRepository = new MealsRepositoryImpl(remoteDataSource);
+        mealsRepository = new MealsRepositoryImpl(remoteDataSource, localDataSource);
     }
 }
