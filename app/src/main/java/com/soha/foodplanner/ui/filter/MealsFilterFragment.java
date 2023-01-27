@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
@@ -20,6 +22,8 @@ import com.soha.foodplanner.ui.filter.presenter.MealsFilterFactory;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenter;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenterListener;
 import com.soha.foodplanner.ui.main.MainFragment;
+import com.soha.foodplanner.ui.splash.SplashFragment;
+import com.soha.foodplanner.ui.splash.SplashFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +91,9 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
 
     @Override
     public void onMealItemClick(String id) {
-//            navController.navigate();
+
+        NavHostFragment.findNavController(MealsFilterFragment.this)
+                .navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id));
     }
 
     @Override

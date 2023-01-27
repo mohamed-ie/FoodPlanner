@@ -27,9 +27,10 @@ public class HomePresenter {
     TheMealDBWebService theMealDBWebService;
 
 
-    public HomePresenter(HomePresenterListener homePresenterListener) {
+    public HomePresenter(HomePresenterListener homePresenterListener,Repository repo) {
         this.homePresenterListener = homePresenterListener;
         theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
+        this.repo=repo;
     }
 
     public void getMealsOfCategory(List<String> categoryItemList) {
@@ -88,7 +89,7 @@ public class HomePresenter {
                 });
     }
 
-    public void insertToFav(Repository repo,MinMeal minMeal){
+    public void insertToFav(MinMeal minMeal){
 
         repo.insertFavMeal(minMeal);
     }

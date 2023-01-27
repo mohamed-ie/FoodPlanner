@@ -1,11 +1,14 @@
 package com.soha.foodplanner.ui.addapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -14,7 +17,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.ui.common.AddToFavourite;
+import com.soha.foodplanner.ui.filter.MealsFilterFragment;
+import com.soha.foodplanner.ui.filter.MealsFilterFragmentDirections;
 import com.soha.foodplanner.ui.home.CategoryWithMeals;
+import com.soha.foodplanner.ui.home.HomeFragment;
+import com.soha.foodplanner.ui.home.HomeFragmentDirections;
 import com.soha.foodplanner.ui.home.SliderAdapter;
 
 import java.util.List;
@@ -30,6 +37,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private final List<CategoryWithMeals> categoryWithMealsList;
     private final AddToFavourite addToFavourite;
+    Context context;
+
 
     public CategoryAdapter(List<CategoryWithMeals> categoryWithMealsList, AddToFavourite addToFavourite) {
         this.categoryWithMealsList = categoryWithMealsList;
@@ -47,6 +56,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(viewType, parent, false);
         CategoryAdapter.ViewHolder vHolder = new ViewHolder(view);
+        context=parent.getContext();
         return vHolder;
     }
 
@@ -61,6 +71,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.switchViewPagerItem(viewPager2, categoryWithMeals.getMeals().size());
         } else {
             ((RecyclerView) holder.recyclerView).setAdapter(new MealAdapter(categoryWithMeals.getMeals(), addToFavourite));
+            holder.viewAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(v).navigate(com.soha.foodplanner.ui.home.HomeFragmentDirections
+                            .actionHomeFragmentToVeiwAllCatFragment(categoryWithMeals.getName()));
+                }
+            });
+
         }
     }
 
@@ -77,7 +95,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     protected static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView mealCategoryName;
+        private final TextView mealCategoryName,viewAll;
         private Disposable disposable;
         private final View recyclerView;
 
@@ -85,6 +103,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(v);
             mealCategoryName = v.findViewById(R.id.tv_meal_category);
             recyclerView = v.findViewById(R.id.recyclerView);
+            viewAll=v.findViewById(R.id.view_all);
+
         }
 
         private void switchViewPagerItem(ViewPager2 viewPager2, int count) {

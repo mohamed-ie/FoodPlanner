@@ -30,7 +30,6 @@ public class HomeFragment extends Fragment implements HomePresenterListener , Ad
     CategoryAdapter categoryAdapter;
     List<String> categoryItemList = new ArrayList<String>();
     List<CategoryWithMeals> mealsListItem = new ArrayList<>();
-    TheMealDBWebService theMealDBWebService;
     HomePresenter homePresenter;
     Repository repo;
 
@@ -52,7 +51,7 @@ public class HomeFragment extends Fragment implements HomePresenterListener , Ad
 
 
 
-        homePresenter =new HomePresenter(this);
+        homePresenter =new HomePresenter(this,repo);
 
         recyclerView = view.findViewById(R.id.recycler);
         categoryAdapter = new CategoryAdapter(mealsListItem,this);
@@ -90,7 +89,7 @@ public class HomeFragment extends Fragment implements HomePresenterListener , Ad
     @Override
     public void addFavouriteMeal(MinMeal minMeal){
         Toast.makeText(requireContext(), "tag"+minMeal.getId(), Toast.LENGTH_SHORT).show();
-        homePresenter.insertToFav(repo,minMeal);
+        homePresenter.insertToFav(minMeal);
 
 
 

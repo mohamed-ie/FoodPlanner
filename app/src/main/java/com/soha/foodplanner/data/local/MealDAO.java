@@ -14,6 +14,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.http.DELETE;
 
 @Dao
 public interface MealDAO {
@@ -27,6 +28,14 @@ public interface MealDAO {
  //  @Query("SELECT * FROM meal WHERE area LIKE :mealArea")
 //    Single<List<Meal>> FindMealByArea(String mealArea);
 //
+
+
+
+    @Query("SELECT * FROM meal WHERE id LIKE :id")
+    Single<Meal> FindMealById(String id);
+
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertMeal(Meal meal);
 
@@ -44,6 +53,12 @@ public interface MealDAO {
 
     @Delete
     Completable deleteFavouriteMeal(Meal meal);
+
+    @Delete
+    Completable deleteIngredients(Ingredient ... ingredients);
+    @Query("DELETE FROM MealIngredientsRef WHERE id=:id ")
+    Completable deleteMealIngredientsRef(long ... id);
+
 
     @Delete
     Completable deletePlanMeal(Meal meal);

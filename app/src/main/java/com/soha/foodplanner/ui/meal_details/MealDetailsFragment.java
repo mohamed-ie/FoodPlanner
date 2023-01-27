@@ -27,19 +27,24 @@ import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebServi
 import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
 import com.soha.foodplanner.data.dto.meal.MealDto;
 import com.soha.foodplanner.data.dto.meal.MealsItem;
+import com.soha.foodplanner.data.local.MealDAO;
+import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsListener;
+import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsPresenter;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class MealDetailsFragment extends Fragment {
+public class MealDetailsFragment extends Fragment implements MealDetailsListener {
     TextView mealName,areaName,instructions;
     ImageView mealPhoto;
     YouTubePlayerView mealVideo;
     TheMealDBWebService theMealDBWebService;
     private Button planButton;
     protected NavController navController;
+    private MealDetailsPresenter mealDetailsPresenter;
+    private String mealIdStr;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,21 +65,13 @@ public class MealDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String mealIdStr=MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
+        mealIdStr=MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
 
 
         theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
-        Single<MealDto> single = theMealDBWebService.getMealDetailsById(Long.parseLong(mealIdStr));
-        single
-                .subscribeOn(Schedulers.io())
-                .map(t->t.getMeals().get(0))
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(e->Log.e("error",e.getMessage()))
-                .subscribe(e->
-                        {
-                            setMealValues(e,view);
-                        }
-                        );
+        mealDetailsPresenter=new MealDetailsPresenter(theMealDBWebService,this,view);
+        getMealDetail();
+
 
         initViews(view);
         planButton.setOnClickListener(new View.OnClickListener() {
@@ -129,5 +126,16 @@ public class MealDetailsFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void getMealDetail() {
+        mealDetailsPresenter.getDetails(mealIdStr);
+
+    }
+
+    @Override
+    public void setValues(MealsItem mealsItem,View view) {
+        setMealValues(mealsItem,view);
     }
 }

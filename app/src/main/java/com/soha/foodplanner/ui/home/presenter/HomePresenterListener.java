@@ -9,4 +9,5 @@ public interface HomePresenterListener {
     void getCategoryMeals(List<String> categoryItemList);
     void addMealToAdapter(List<MinMeal> minMeals,String s);
 
+
 }

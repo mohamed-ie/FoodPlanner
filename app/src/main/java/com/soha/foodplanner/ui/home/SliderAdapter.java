@@ -52,12 +52,13 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
         holder.setMealImage(minMeals.get(position).getThumbnailUrl());
         holder.setMealName(minMeals.get(position).getName());
+
+
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addToFavourite.addFavouriteMeal(minMeals.get(position));
-                //homeAdapterPresenter=new HomeAdapterPresenter();
-                //homeAdapterPresenter.insertToFav(context,minMeals.get(position));
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });
@@ -65,6 +66,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         holder.sliderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 Navigation.findNavController(v).navigate(HomeFragmentDirections
                         .actionHomeFragmentToMealDetails(minMeals.get(position).getId()));

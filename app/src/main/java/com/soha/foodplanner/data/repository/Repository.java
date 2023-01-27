@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.soha.foodplanner.data.local.AppDatabase;
 import com.soha.foodplanner.data.local.FavouriteMeals;
 import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.local.Ingredient;
+import com.soha.foodplanner.data.local.Meal;
 import com.soha.foodplanner.data.local.MealDAO;
 import com.soha.foodplanner.data.local.MealIngredientsRef;
 import com.soha.foodplanner.data.local.PlanedMealWithMeal;
@@ -23,6 +25,7 @@ import com.soha.foodplanner.data.local.PlannedMeals;
 import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.mapper.MealMapperImpl;
+import com.soha.foodplanner.ui.local_details.presenter.LocalDetailsListener;
 import com.soha.foodplanner.utils.InternalStorageUtils;
 
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -45,13 +50,48 @@ public class Repository {
 
     }
 
+    @SuppressLint("CheckResult")
+    public Meal selectMealById(String id, LocalDetailsListener localDetailsListener, View view){
+        final Meal[] mealDetails = new Meal[1];
+        mealDAO.FindMealById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Meal>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
-//    public void deleteFavMeal(FavouriteMealsWithMeal meal,CompletableObserver completableObserver){
-//        mealDAO.deleteFavouriteMeal(meal).subscribeOn(Schedulers.computation())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(completableObserver);
-//
-//    }
+                    }
+
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Meal meal) {
+                        mealDetails[0]=meal;
+                        localDetailsListener.setLocalValues(meal,view);
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+                    }
+                });
+        return mealDetails[0];
+    }
+
+    @SuppressLint("CheckResult")
+    public void deleteFavMeal(FavouriteMealsWithMeal mealFav) {
+        mealDAO.deleteMealIngredientsRef(mealFav.getMeal().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+
+        mealDAO.deleteFavouriteMeal(mealFav.getMeal())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+
+
+
 //    public void deletePlannedMeal(PlanedMealWithMeal meal,CompletableObserver completableObserver){
 //        mealDAO.deletePlanMeal(meal).subscribeOn(Schedulers.computation())
 //                .observeOn(AndroidSchedulers.mainThread())

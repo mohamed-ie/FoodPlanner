@@ -25,13 +25,14 @@
         android:id="@+id/view_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
         android:text="@string/view_all"
         android:textColor="@color/grey_text"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_meal_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_meal_category"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

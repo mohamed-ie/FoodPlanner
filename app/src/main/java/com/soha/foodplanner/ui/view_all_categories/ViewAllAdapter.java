@@ -1,4 +1,4 @@
-package com.soha.foodplanner.ui.favourite;
+package com.soha.foodplanner.ui.view_all_categories;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,30 +12,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.local.FavouriteMealsWithMeal;
+import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.repository.Repository;
+import com.soha.foodplanner.ui.common.AddToFavourite;
 
 import java.util.List;
 
-public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
-    private List<FavouriteMealsWithMeal> values;
+public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHolder> {
+    private List<MinMeal> values;
     private static final String Tag="Recycler";
+    private final AddToFavourite addToFavourite;
     Repository rep;
     Context context;
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewAllAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View view=inflater.inflate(R.layout.recycler_view_filter_meal_item,parent,false);
-        ViewHolder vHolder=new ViewHolder(view);
+        ViewAllAdapter.ViewHolder vHolder=new ViewHolder(view);
         context=parent.getContext();
         Log.i(Tag,"onCreateViewHolder");
 
@@ -43,24 +43,26 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        FavouriteMealsWithMeal favouriteMealsWithMeal=values.get(position);
-        holder.mealName.setText(favouriteMealsWithMeal.getMeal().getName());
+    public void onBindViewHolder(@NonNull ViewAllAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        MinMeal minMeal=values.get(position);
+        holder.mealName.setText(minMeal.getName());
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(FavouriteFragmentDirections
-                        .actionFavouriteFragmentToLocalDetailsFragment(String.valueOf(favouriteMealsWithMeal.getMeal().getId())));
+                Navigation.findNavController(v).navigate(VeiwAllCatFragmentDirections
+                        .actionVeiwAllCatFragmentToMealDetails(String.valueOf(minMeal.getId())));
 
             }
         });
 
-        Glide.with(holder.mealImage.getContext()).load(favouriteMealsWithMeal.getMeal().getPhotoUri()).into(holder.mealImage);
+        Glide.with(holder.mealImage.getContext()).load(minMeal.getThumbnailUrl()).into(holder.mealImage);
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 rep=new Repository(context);
-                rep.deleteFavMeal(favouriteMealsWithMeal);
+                addToFavourite.addFavouriteMeal(minMeal);
+                holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });
     }
@@ -79,7 +81,6 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             super(v);
             mealName=v.findViewById(R.id.textViewName);
             favIcon=v.findViewById(R.id.imageButtonFavourite);
-            favIcon.setImageResource(R.drawable.fav_checked);
             mealImage=v.findViewById(R.id.imageViewThumbnail);
             itemLayout=v.findViewById(R.id.item_fav_layout);
 
@@ -87,10 +88,11 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
 
 
     }
-    public FavAdapter(List<FavouriteMealsWithMeal> myList){
+    public ViewAllAdapter(List<MinMeal> myList, AddToFavourite addToFavourite){
         values=myList;
 
 
+        this.addToFavourite = addToFavourite;
     }
 }
 
