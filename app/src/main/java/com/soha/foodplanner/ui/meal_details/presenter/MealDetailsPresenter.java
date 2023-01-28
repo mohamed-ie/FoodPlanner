@@ -7,8 +7,12 @@ import android.view.View;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.dto.meal.MealDto;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealDetailsPresenter {
@@ -32,7 +36,7 @@ public class MealDetailsPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(e-> Log.e("error",e.getMessage()))
                 .subscribe(e->
-                        {
+                        {   e.getIngredients();
                             //setMealValues(e,view);
                             mealDetailsListener.setValues(e,view);
                         }

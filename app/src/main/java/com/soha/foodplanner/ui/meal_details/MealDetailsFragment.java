@@ -1,14 +1,23 @@
 package com.soha.foodplanner.ui.meal_details;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +40,8 @@ import com.soha.foodplanner.data.local.MealDAO;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsListener;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsPresenter;
 
+import java.util.Calendar;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -38,6 +49,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealDetailsFragment extends Fragment implements MealDetailsListener {
     TextView mealName,areaName,instructions;
+    DatePickerDialog.OnDateSetListener setListener;
+    String dayName;
     ImageView mealPhoto;
     YouTubePlayerView mealVideo;
     TheMealDBWebService theMealDBWebService;
@@ -74,17 +87,103 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
 
         initViews(view);
+
+        Calendar calendar=Calendar.getInstance();
+         int year=calendar.get(Calendar.YEAR);
+         int month=calendar.get(Calendar.MONTH);
+         int day=calendar.get(Calendar.DAY_OF_MONTH);
+         int dayVal=calendar.get(Calendar.DAY_OF_WEEK);
+
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(MealDetailsFragmentDirections.actionMealDetailsToDayOfWeekFragment());
+                //navController.navigate(MealDetailsFragmentDirections.actionMealDetailsToDayOfWeekFragment());
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth
+                        , setListener, year, month, day);
+
+
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+              //  month=datePickerDialog.getDatePicker().getMonth();
+}
+
+        });
+        setListener=new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar selectCalendar=Calendar.getInstance();
+                selectCalendar.set(year,month,dayOfMonth);
+                int dayVal=selectCalendar.get(Calendar.DAY_OF_WEEK);
+
+                switch(dayVal){
+                    case 1:
+                        dayName="Sunday";
+                        break;
+                    case 2:
+                        dayName="Monday";
+                        break;
+                    case 3:
+                        dayName="Tuesday";
+                        break;
+                    case 4:
+                        dayName="Wednesday";
+                        break;
+                    case 5:
+                        dayName="Thursday";
+                        break;
+                    case 6:
+                        dayName="Friday";
+                        break;
+                    case 7:
+                        dayName="Saturday";
+                        break;
+
+                }
+                Toast.makeText(requireContext(), dayName, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(requireContext());
+                //   builderSingle.setIcon(R.drawable.ic_favorite);
+                builderSingle.setTitle("Select day:-");
+
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_singlechoice);
+                arrayAdapter.add("Breakfast");
+                arrayAdapter.add("Launch");
+                arrayAdapter.add("Dinner");
+
+                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        AlertDialog.Builder builderInner = new AlertDialog.Builder(requireContext());
+                        builderInner.setMessage(strName);
+                        builderInner.setTitle("Your Selected ");
+                        builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+                            }
+                        });
+                        builderInner.show();
+                    }
+                });
+                builderSingle.show();
+            }
+
+        };
+
 
             }
-        });
 
 
 
-    }
 
 
     private void initViews(View view) {

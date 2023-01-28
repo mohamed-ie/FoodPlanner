@@ -74,11 +74,11 @@ public class PlannedFragment extends Fragment {
             }
         });
         prev.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SuspiciousIndentation")
             @Override
             public void onClick(View v) {
                 if(viewPager2.getCurrentItem()!=0)
                 viewPager2.setCurrentItem(viewPager2.getCurrentItem()-1);
-
             }
         });
 
