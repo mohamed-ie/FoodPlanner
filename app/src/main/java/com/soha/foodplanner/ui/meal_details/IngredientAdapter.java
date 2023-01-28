@@ -36,9 +36,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull IngredientAdapter.ViewHolder holder, int position) {
-            holder.ingName.setText(ingrList.get(position).getName());
+        holder.ingName.setText(ingrList.get(position).getName());
         Glide.with(context).load(ingrList.get(position).getThumbnailUrl())
                 .placeholder(R.drawable.ic_launcher_foreground).into(holder.ingImg);
+
+        holder.ingMeasure.setText(ingrList.get(position).getMeasure());
     }
 
     @Override
