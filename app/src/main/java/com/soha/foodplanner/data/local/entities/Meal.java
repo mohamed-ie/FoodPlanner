@@ -1,6 +1,7 @@
 package com.soha.foodplanner.data.local.entities;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "meal")
@@ -8,12 +9,13 @@ public class Meal {
     @PrimaryKey
     private long id;
     private String name;
-    private  String category;
-    private  String area;
-    private  String instructions;
-    private  String photoUri;
-    private  String videoUri;
-
+    private String category;
+    @Ignore
+    private boolean isFavoured;
+    private String area;
+    private String instructions;
+    private String photoUri;
+    private String videoUri;
 
 
     public Meal(long id, String name, String category, String area, String instructions, String photoUri, String videoUri) {
@@ -80,5 +82,13 @@ public class Meal {
 
     public void setVideoUri(String videoUri) {
         this.videoUri = videoUri;
+    }
+
+    public boolean isFavoured() {
+        return isFavoured;
+    }
+
+    public void setFavoured(boolean favoured) {
+        isFavoured = favoured;
     }
 }

@@ -16,6 +16,7 @@ import com.soha.foodplanner.data.local.model.CompleteMeal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
@@ -59,59 +60,20 @@ public class MealsLocalDataSource {
     public Completable insertFavMeal(CompleteMeal completeMeal) {
         //insert favourite meal
         return insertMealWithIngredients(completeMeal)
-                .ambWith(mealDAO.insertFavMeal(new FavouriteMeals(completeMeal.getMeal().getId())));
-
-//        Webservice.getInstance()
-//                .getTheMealDBWebService()
-//                .getMealDetailsById(Long.parseLong(mealFav.getId()))
-//                .subscribeOn(Schedulers.io())
-//                .map(t -> new MealMapperImpl().mapToCompleteMeal(t))
-//                .subscribe(new Consumer<CompleteMeal>() {
-//                    @Override
-//                    public void accept(CompleteMeal completeMeal) throws Throwable {
-
-
-//
-//
-//
-//        //TODO
-//        completeMeal.getIngredients().forEach(completeIngredient -> {
-//            Ingredient ingredient = new Ingredient();
-//            ingredient.setName(completeIngredient.getName());
-//            Glide.with(context)
-//                    .asBitmap()
-//                    .load(completeIngredient.getThumbnailUrl())
-//                    .into(new CustomTarget<Bitmap>() {
-//                        @Override
-//                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-//                            String s = InternalStorageUtils.saveImage(context, resource, completeIngredient.getName());
-//                            ingredient.setPhotoUri(s);
-//                        }
-//
-//                        @Override
-//                        public void onLoadCleared(@Nullable Drawable placeholder) {
-//
-//                        }
-//                    });
-//
-//        });
-//    }
-//});
-
+                .andThen(mealDAO.insertFavMeal(new FavouriteMeals(completeMeal.getMeal().getId())));
     }
 
     private Completable insertMealWithIngredients(CompleteMeal completeMeal) {
         Meal meal = completeMeal.getMeal();
         List<CompleteIngredient> completeIngredients = completeMeal.getIngredients();
         //insert meal 1st
-        Completable completable = mealDAO.insertMeal(completeMeal.getMeal())
-                .subscribeOn(Schedulers.io());
+        Completable completable = mealDAO.insertMeal(completeMeal.getMeal());
 
         for (CompleteIngredient completeIngredient : completeIngredients)
             //insert ingredient 2nd
-            completable = completable.ambWith(mealDAO.insertIngredients(new Ingredient(completeIngredient.getName(), completeIngredient.getThumbnailUrl())))
+            completable = completable.andThen(mealDAO.insertIngredients(new Ingredient(completeIngredient.getName(), completeIngredient.getThumbnailUrl())))
                     //insert ingredient-meal relationship 3rd
-                    .ambWith(mealDAO.insertMealIngredientsRef(new MealIngredientsRef(meal.getId(), completeIngredient.getName(), completeIngredient.getMeasure())));
+                    .andThen(mealDAO.insertMealIngredientsRef(new MealIngredientsRef(meal.getId(), completeIngredient.getName(), completeIngredient.getMeasure())));
         return completable;
     }
 
@@ -119,7 +81,7 @@ public class MealsLocalDataSource {
     @SuppressLint("CheckResult")
     public Completable insertPlanMeal(CompleteMeal completeMeal, long date, String mealTime) {
         return insertMealWithIngredients(completeMeal)
-                .ambWith(mealDAO.insertPlannedMeal(new PlannedMeals(completeMeal.getMeal().getId(), date, mealTime)));
+                .andThen(mealDAO.insertPlannedMeal(new PlannedMeals(completeMeal.getMeal().getId(), date, mealTime)));
 //        Webservice.getInstance().getTheMealDBWebService().getMealDetailsById(Long.parseLong(mealPlan.getId()))
 //                .subscribeOn(Schedulers.io())
 //                .map(t -> new MealMapperImpl().mapToCompleteMeal(t))
@@ -136,7 +98,7 @@ public class MealsLocalDataSource {
 //                                    .into(new CustomTarget<Bitmap>() {
 //                                        @Override
 //                                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-//                                            String s = InternalStorageUtils.saveImage(context, resource, completeIngredient.getName());
+//                                            String s = InternalStoargeImageSaver.saveImage(context, resource, completeIngredient.getName());
 //                                            ingredient.setPhotoUri(s);
 //                                            System.out.println(s);
 //                                            mealDAO.insertIngredients(ingredient).subscribeOn(Schedulers.io()).subscribe();
@@ -154,7 +116,18 @@ public class MealsLocalDataSource {
 //                });
     }
 
-    public Flowable<Long> getAllFavouriteMealsIds() {
-        return mealDAO.getAllFavouriteMealsIds().subscribeOn(Schedulers.io());
+    public Single<List<Long>> getAllFavouriteMealsIds() {
+        return mealDAO.getAllFavouriteMealsIds();
+    }
+
+    public Completable insertMeal(Meal meal) {
+        return mealDAO.insertMeal(meal);
+    }
+
+    public Completable insertIngredient(Ingredient ingredient) {
+        return mealDAO.insertIngredients(ingredient);
+    }
+    public Completable insertFavouriteMeal(FavouriteMeals favouriteMeals){
+        return mealDAO.insertFavMeal(favouriteMeals);
     }
 }

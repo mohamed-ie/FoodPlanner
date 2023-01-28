@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 
@@ -19,10 +20,12 @@ import java.util.List;
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
     private List<MinIngredient> minIngredients;
     private final OnIngredientItemClickListener listener;
+    private final RequestManager requestManager;
 
-    public IngredientAdapter(List<MinIngredient> minIngredients, OnIngredientItemClickListener listener) {
+    public IngredientAdapter(List<MinIngredient> minIngredients, RequestManager requestManager, OnIngredientItemClickListener listener) {
         this.minIngredients = minIngredients;
         this.listener = listener;
+        this.requestManager = requestManager;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -36,20 +39,21 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Vi
     public IngredientAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(
                 LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.recycler_view_filter_item, parent, false)
+                        .inflate(R.layout.recycler_view_ingredient_item, parent, false)
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull IngredientAdapter.ViewHolder holder, int position) {
         MinIngredient ingredient = minIngredients.get(position);
-        Glide.with(holder.itemView)
+        requestManager
                 .load(ingredient.getThumbnailUrl())
+                .placeholder(R.drawable.unknown_meal)
+                .error(R.drawable.unknown_meal)
                 .circleCrop()
                 .into(holder.imageViewThumbnail);
 
         holder.textViewName.setText(ingredient.getName());
-
         holder.imageViewThumbnail.setOnClickListener(v -> listener.onIngredientClick(ingredient.getName()));
         holder.textViewName.setOnClickListener(v -> listener.onIngredientClick(ingredient.getName()));
     }

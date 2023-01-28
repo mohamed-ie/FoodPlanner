@@ -5,6 +5,8 @@ public class MinMeal {
     private final long id;
     private final String thumbnailUrl;
 
+    private boolean isFavoured;
+
     public MinMeal(String name, long id, String thumbnailUrl) {
         this.name = name;
         this.id = id;
@@ -21,5 +23,13 @@ public class MinMeal {
 
     public String getThumbnailUrl() {
         return thumbnailUrl;
+    }
+
+    public boolean isFavoured() {
+        return isFavoured;
+    }
+
+    public void setFavoured(boolean favoured) {
+        isFavoured = favoured;
     }
 }

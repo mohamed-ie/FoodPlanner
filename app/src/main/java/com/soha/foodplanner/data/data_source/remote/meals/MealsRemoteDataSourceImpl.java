@@ -83,6 +83,13 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     }
 
     @Override
+    public Single<CompleteMeal> getMealDetailsById(long id) {
+        return theMealDBWebService.getMealDetailsById(id)
+                .subscribeOn(Schedulers.io())
+                .map(mapper::mapToCompleteMeal);
+    }
+
+    @Override
     public Single<List<MinMeal>> getAllMealsByIngredient(String ingredient) {
         return theMealDBWebService.getAllMealsByIngredient(ingredient)
                 .subscribeOn(Schedulers.io())

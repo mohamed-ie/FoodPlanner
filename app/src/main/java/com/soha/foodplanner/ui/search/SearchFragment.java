@@ -1,17 +1,24 @@
 package com.soha.foodplanner.ui.search;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.utils.widget.MotionLabel;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.data.local.model.MinIngredient;
+import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.common.BaseFragment;
 import com.soha.foodplanner.ui.main.MainFragment;
 import com.soha.foodplanner.ui.search.adapter.area.AreaAdapter;
@@ -24,6 +31,7 @@ import com.soha.foodplanner.ui.search.adapter.search_by_name.SearchByNameAdapter
 import com.soha.foodplanner.ui.search.presenter.SearchPresenter;
 import com.soha.foodplanner.ui.search.presenter.SearchPresenterFactory;
 import com.soha.foodplanner.ui.search.presenter.SearchPresenterListener;
+import com.soha.foodplanner.utils.UiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +48,15 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     private IngredientAdapter adapterIngredient;
     private CategoryAdapter adapterCategory;
     private AreaAdapter adapterArea;
-
     private ImageButton imageButtonMultiFilter;
+    private int spanCount;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        int width = (int) (getResources().getDisplayMetrics().widthPixels);
+        spanCount = (int) (width / UiUtils.dpTpPx(120, getResources()));
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -56,9 +71,19 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     @Override
     public void onResume() {
         super.onResume();
-        presenter.loadAreas();
-        presenter.loadIngredients();
-        presenter.loadCategories();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+            presenter.loadCategories();
+            presenter.loadIngredients();
+            presenter.loadAreas();
     }
 
     @Override
@@ -76,19 +101,21 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     private void initCategoriesRecyclerView(View view) {
         adapterCategory = new CategoryAdapter(new ArrayList<>(), this);
         RecyclerView recyclerViewCategories = view.findViewById(R.id.recyclerViewIngredients);
-//        recyclerViewCategories.setLayoutManager(new GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false));
+        recyclerViewCategories.setLayoutManager(new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false));
         recyclerViewCategories.setAdapter(adapterCategory);
     }
 
     private void initIngredientsRecyclerView(View view) {
-        adapterIngredient = new IngredientAdapter(new ArrayList<>(), this);
+        adapterIngredient = new IngredientAdapter(new ArrayList<>(), ((MyApp) ((MainActivity) requireHost()).getApplication()).getGlideRequestManager(),this);
         RecyclerView recyclerViewIngredients = view.findViewById(R.id.recyclerViewIngredient);
+        recyclerViewIngredients.setLayoutManager(new GridLayoutManager(requireContext(), 1, RecyclerView.HORIZONTAL, false));
         recyclerViewIngredients.setAdapter(adapterIngredient);
     }
 
     private void initAreasRecyclerView(View view) {
         adapterArea = new AreaAdapter(new ArrayList<>(), this);
         RecyclerView recyclerViewAreas = view.findViewById(R.id.recyclerViewAreas);
+        recyclerViewAreas.setLayoutManager(new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false));
         recyclerViewAreas.setAdapter(adapterArea);
     }
 

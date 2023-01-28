@@ -49,11 +49,14 @@ public class MealsFilterAdapter extends RecyclerView.Adapter<MealsFilterAdapter.
     public void onBindViewHolder(@NonNull MealsFilterAdapter.ViewHolder holder, int position) {
         MinMeal minMeal = minMeals.get(position);
 
-        Glide.with(holder.textViewName)
+        Glide.with(holder.itemView)
                 .load(minMeal.getThumbnailUrl())
                 .into(holder.imageViewThumbnail);
 
         holder.textViewName.setText(minMeal.getName());
+
+        if (minMeal.isFavoured())
+            holder.imageButtonFavourite.setImageResource(R.drawable.fav_checked);
 
         holder.imageButtonFavourite.setOnClickListener(v -> listener.onMealItemClick(minMeal.getId()));
         holder.constraintLayout.setOnClickListener(v -> listener.onMealItemClick(minMeal.getId()));
@@ -73,7 +76,7 @@ public class MealsFilterAdapter extends RecyclerView.Adapter<MealsFilterAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.editTextName);
+            textViewName = itemView.findViewById(R.id.textViewName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
             imageButtonFavourite = itemView.findViewById(R.id.imageButtonFavourite);
             constraintLayout = itemView.findViewById(R.id.constraintLayout);

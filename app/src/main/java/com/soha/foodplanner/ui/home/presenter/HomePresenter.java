@@ -75,8 +75,9 @@ public class HomePresenter {
                 });
     }
 
-    public void insertToFav(MinMeal minMeal) {
-        repository.insertFavMeal(minMeal);
+    public void insertToFav(long id) {
+        repository.insertFavMeal(id)
+                .subscribeOn(Schedulers.io()).subscribe();
     }
 
 }

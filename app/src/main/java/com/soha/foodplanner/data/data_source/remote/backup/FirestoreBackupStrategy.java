@@ -24,21 +24,21 @@ public class FirestoreBackupStrategy implements BackupStrategy {
 
     public FirestoreBackupStrategy(FirebaseFirestore firestore, String userId) {
         backupDocument = firestore.collection(BACKUP_COLLECTION).document(userId);
-        backupDocument.set(Collections.singletonMap(LAST_UPDATE, FieldValue.serverTimestamp()));
+        backupDocument.update(Collections.singletonMap(LAST_UPDATE, FieldValue.serverTimestamp()))
+                .addOnFailureListener(e -> backupDocument.set(Collections.singletonMap(LAST_UPDATE, FieldValue.serverTimestamp())));
     }
 
     @Override
     public Completable addFavouriteMeal(long mealId) {
-        return Completable.fromPublisher(publisher ->
-                backupDocument
-                        .update(FAVOURITE_MEALS_ARRAY, FieldValue.arrayUnion(String.valueOf(mealId)))
+        return Completable.create(source -> backupDocument.update(Collections.singletonMap(FAVOURITE_MEALS_ARRAY, FieldValue.arrayUnion(String.valueOf(mealId))))
+                .addOnFailureListener(e -> backupDocument.set(Collections.singletonMap(FAVOURITE_MEALS_ARRAY, FieldValue.arrayUnion(String.valueOf(mealId))))
                         .addOnCompleteListener(task -> {
                             if (task.isCanceled())
-                                publisher.onError(task.getException());
+                                source.onError(task.getException());
 
                             else if (task.isSuccessful())
-                                publisher.onComplete();
-                        })
+                                source.onComplete();
+                        }))
         );
     }
 
@@ -49,16 +49,45 @@ public class FirestoreBackupStrategy implements BackupStrategy {
         data.put("meal_time", plannedMeals.getMealTime());
         data.put("date", plannedMeals.getDate());
 
-        return Completable.fromPublisher(publisher ->
+        return Completable.create(source ->
                 backupDocument.collection(PLANNED_MEALS_COLLECTION)
                         .document(String.valueOf(plannedMeals.getMealId()))
                         .set(data)
                         .addOnCompleteListener(task -> {
                             if (task.isCanceled())
-                                publisher.onError(task.getException());
+                                source.onError(task.getException());
 
                             if (task.isSuccessful())
-                                publisher.onComplete();
+                                source.onComplete();
+                        })
+        );
+    }
+
+    @Override
+    public Completable deleteFavouriteMeal(long mealId) {
+        return Completable.create(source -> backupDocument.update(Collections.singletonMap(FAVOURITE_MEALS_ARRAY, FieldValue.arrayRemove(String.valueOf(mealId))))
+                .addOnCompleteListener(task -> {
+                    if (task.isCanceled())
+                        source.onError(task.getException());
+
+                    else if (task.isSuccessful())
+                        source.onComplete();
+                }));
+    }
+
+
+    @Override
+    public Completable deleteFromPlannedMeal(PlannedMeals plannedMeals) {
+        return Completable.create(source ->
+                backupDocument.collection(PLANNED_MEALS_COLLECTION)
+                        .document(String.valueOf(plannedMeals.getMealId()))
+                        .delete()
+                        .addOnCompleteListener(task -> {
+                            if (task.isCanceled())
+                                source.onError(task.getException());
+
+                            if (task.isSuccessful())
+                                source.onComplete();
                         })
         );
     }

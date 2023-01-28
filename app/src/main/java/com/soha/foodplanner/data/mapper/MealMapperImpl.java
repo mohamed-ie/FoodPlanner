@@ -83,7 +83,8 @@ public class MealMapperImpl implements MealMapper {
         List<MinIngredient> ingredients = new ArrayList<>();
         for (IngredientItem ingredientItem : from.getMeals()) {
             ingredients.add(new MinIngredient(ingredientItem.getStrIngredient(),
-                    String.format(Constants.INGREDIENT_THUMBNAIL_PREVIEW_URL,
+//                    String.format(Constants.INGREDIENT_THUMBNAIL_PREVIEW_URL,
+                    String.format(Constants.INGREDIENT_THUMBNAIL_URL,
                             ingredientItem.getStrIngredient())));
         }
         return ingredients;
@@ -95,7 +96,8 @@ public class MealMapperImpl implements MealMapper {
         for (MinMealsItem minMealsItem : from.getMeals()) {
             meals.add(new MinMeal(minMealsItem.getStrMeal()
                     , minMealsItem.getIdMeal()
-                    , String.format(Constants.THE_MEAL_DB_IMAGES_PREVIEW , minMealsItem.getStrMealThumb())));
+//                    , String.format(Constants.THE_MEAL_DB_IMAGES_PREVIEW , minMealsItem.getStrMealThumb())));
+                    ,  minMealsItem.getStrMealThumb()));
         }
         return meals;
     }

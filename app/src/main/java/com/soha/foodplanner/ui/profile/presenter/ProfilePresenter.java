@@ -7,4 +7,6 @@ public interface ProfilePresenter extends Presenter {
     void logout();
 
     ProfileState getState();
+
+    void updateRememberMe();
 }

@@ -5,7 +5,9 @@ import android.content.Intent;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -52,8 +54,9 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
     }
 
     @Override
-    protected void initDependencies() {
-        super.initDependencies();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        presenter.isLoggedIn();
     }
 
     @Override
@@ -77,7 +80,7 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
     protected void initViews(View view) {
         btnSignupWithMail = view.findViewById(R.id.buttonSignUpWithMail);
         buttonGoogleSignup = view.findViewById(R.id.buttonGoogleSignup);
-        guestTextView=view.findViewById(R.id.guest_button);
+        guestTextView = view.findViewById(R.id.guest_button);
         //
         textViewLogin = view.findViewById(R.id.textViewLogin);
     }
@@ -103,6 +106,7 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
 
     @Override
     public void onLoginWithGoogleSuccess() {
+        presenter.updateRememberMe();
         navController.popBackStack();
         Toast.makeText(getContext(), R.string.login_successful, Toast.LENGTH_SHORT).show();
         navController.navigate(StartFragmentDirections.actionStartFragmentToMainFragment());
@@ -111,5 +115,10 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
     @Override
     public void onLoginWithGoogleError(String message) {
         navController.navigate(StartFragmentDirections.actionStartFragmentToErrorDialogFragment(R.string.unexpected_error_try_again));
+    }
+
+    @Override
+    public void loggedIn() {
+        navController.navigate(StartFragmentDirections.actionStartFragmentToMainFragment());
     }
 }

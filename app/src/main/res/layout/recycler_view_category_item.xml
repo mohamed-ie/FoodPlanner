@@ -2,30 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="120dp"
-    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:padding="4dp">
+    android:padding="16dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewThumbnail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@null" />
+        app:shapeAppearanceOverlay="@style/Theme.FoodPlanner.ShapeableImageView_Rounded_50"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:ellipsize="end"
         android:padding="8dp"
         android:textStyle="bold"
         tools:text="TextView" />

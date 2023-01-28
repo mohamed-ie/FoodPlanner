@@ -1,9 +1,9 @@
 package com.soha.foodplanner.data.local.model;
 
 public class CompleteIngredient {
-    private final String name;
-    private final String thumbnailUrl;
-    private final String measure;
+    private  String name;
+    private  String thumbnailUrl;
+    private  String measure;
 
     public CompleteIngredient(String name, String thumbnailUrl, String measure) {
         this.name = name;
@@ -21,5 +21,18 @@ public class CompleteIngredient {
 
     public String getMeasure() {
         return measure;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
     }
 }

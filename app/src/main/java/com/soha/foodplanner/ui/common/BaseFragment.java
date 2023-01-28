@@ -63,7 +63,7 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
     }
 
     protected void initDependencies() {
-        navController = NavHostFragment.findNavController(this);
+        navController = NavHostFragment.findNavController(requireParentFragment());
     }
 
     private void initPresenter() {
@@ -73,6 +73,7 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         // Inflate the layout for this fragment
         View view = inflater.inflate(getLayoutResource(), container, false);
         initPresenter();
@@ -105,5 +106,10 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
                 .getSavedStateHandle()
                 .getLiveData(key);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 }

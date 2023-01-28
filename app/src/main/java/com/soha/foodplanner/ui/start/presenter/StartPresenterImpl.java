@@ -5,7 +5,7 @@ import com.soha.foodplanner.data.repository.auth.AuthRepository;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.CompletableObserver;
-import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -26,11 +26,27 @@ public class StartPresenterImpl implements StartPresenter {
                 .subscribe(new LoginWithGoogleObserver());
     }
 
+    @Override
+    public void isLoggedIn() {
+        disposables.add(repository.rememberMe()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aBoolean -> {
+                    if (aBoolean) {
+                        listener.loggedIn();
+                    }
+                }));
+    }
+
+    @Override
+    public void updateRememberMe() {
+        repository.updateRememberMe(true);
+    }
 
     private class LoginWithGoogleObserver implements CompletableObserver {
 
         @Override
         public void onSubscribe(@NonNull Disposable d) {
+            disposables.add(d);
             listener.onLoginWithGoogleLoading();
         }
 

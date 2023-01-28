@@ -111,7 +111,7 @@ public class FilterDialogFragment extends BaseDialogFragmentWithArgs<FilterDialo
     }
 
     private void initIngredientsRecyclerView(View view) {
-        adapterIngredients = new IngredientAdapter(new ArrayList<>(), this);
+//        adapterIngredients = new IngredientAdapter(new ArrayList<>(), this);
         recyclerViewIngredients = view.findViewById(R.id.recyclerViewIngredients);
         recyclerViewIngredients.setLayoutManager(new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false));
         recyclerViewIngredients.setAdapter(adapterIngredients);

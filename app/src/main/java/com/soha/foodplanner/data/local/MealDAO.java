@@ -57,6 +57,7 @@ public interface MealDAO {
     @Query("SELECT * FROM planed_meals")
     Flowable<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
 
+
     @Query("SELECT meal_id FROM favourite_meals")
-    Flowable<Long> getAllFavouriteMealsIds();
+    Single<List<Long>> getAllFavouriteMealsIds();
 }

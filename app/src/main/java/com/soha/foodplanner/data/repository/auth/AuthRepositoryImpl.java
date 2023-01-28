@@ -8,7 +8,9 @@ import com.soha.foodplanner.data.data_source.remote.auth.AuthRemoteDataSource;
 import com.soha.foodplanner.data.local.model.User;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class AuthRepositoryImpl implements AuthRepository {
     private final AuthRemoteDataSource authRemoteDataSource;
@@ -37,7 +39,7 @@ public class AuthRepositoryImpl implements AuthRepository {
 
     @Override
     public Single<Boolean> rememberMe() {
-        return Single.fromPublisher(publisher -> publisher.onNext(sharedPreferences.getBoolean(Constants.SHARED_PREFERENCES_KEY_REMEMBER_ME, false)));
+        return Single.fromCallable(() -> sharedPreferences.getBoolean(Constants.SHARED_PREFERENCES_KEY_REMEMBER_ME, false)).subscribeOn(Schedulers.io());
     }
 
     @Override

@@ -11,5 +11,7 @@ public interface Constants {
     String INGREDIENT_THUMBNAIL_URL = "https://www.themealdb.com/images/ingredients/%s.png";
     String INGREDIENT_THUMBNAIL_PREVIEW_URL = "https://www.themealdb.com/images/ingredients/%s-Small.png";
 
-    String ARGUMENT_BOTTOM_APP_BAR_VISIBILITY="bottom_app_bar_visibility";
+    String ARGUMENT_BOTTOM_APP_BAR_VISIBILITY = "bottom_app_bar_visibility";
+    String INTERNAL_STORAGE_IMAGE_DIRECTORY = "images";
+
 }

@@ -59,7 +59,7 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addToFavourite.addFavouriteMeal(minMeal);
+                addToFavourite.addFavouriteMeal(minMeal.getId());
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });

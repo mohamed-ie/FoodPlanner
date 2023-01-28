@@ -35,15 +35,26 @@ public interface MealsRepository {
 
 
     Single<Meal> selectMealById(long id);
+
     Completable deleteFavMeal(FavouriteMealsWithMeal mealFav);
+
     Completable deletePlannedMeal(PlanedMealWithMeal planedMealWithMeal);
+
     Flowable<List<FavouriteMealsWithMeal>> getFavMeal();
+
     Flowable<List<PlanedMealWithMeal>> getPlanedMeal();
-    Completable insertFavMeal(MinMeal minMeal);
-    Completable insertPlanMeal(CompleteMeal completeMeal, long date, String mealTime);
-    Flowable<Long> getAllFavouriteMealsIds();
+
+    Completable insertFavMeal(long id);
+
+    Completable insertPlanMeal(long id, long date, String mealTime);
+
+    Single<List<Long>> getAllFavouriteMealsIds();
 
     Single<List<MinMeal>> getMealsByIngredient(String ingredient);
 
     Flowable<Pair<CompleteMeal, Integer>> getAllCompleteMeals();
+
+    Completable restoreFavouriteMeals();
+
+    Completable restorePlannedMeals();
 }

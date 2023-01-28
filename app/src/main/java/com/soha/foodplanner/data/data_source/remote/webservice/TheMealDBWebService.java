@@ -36,8 +36,6 @@ public interface TheMealDBWebService {
     @GET("lookup.php")
     Single<MealDto> getMealDetailsById(@Query("i") long mealId);
 
-
-
     @GET("filter.php")
     Single<MinMealDto> getAllMealsByCategory(@Query("c") String category);
 

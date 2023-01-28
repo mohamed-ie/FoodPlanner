@@ -116,8 +116,10 @@ public class ProfileFragment extends BaseFragment<ProfilePresenter> implements P
 
     @Override
     protected void onDialogConfirm(Boolean yes) {
-        if (yes)
+        if (yes) {
             presenter.logout();
+            presenter.updateRememberMe();
+        }
     }
 
     @Override

@@ -69,8 +69,8 @@ public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, 
     }
 
     @Override
-    public void addFavouriteMeal(MinMeal minMeal) {
-        veiwAllCatPresenter.insertToFav(minMeal);
+    public void addFavouriteMeal(long id) {
+        veiwAllCatPresenter.insertToFav(id);
 
     }
 }

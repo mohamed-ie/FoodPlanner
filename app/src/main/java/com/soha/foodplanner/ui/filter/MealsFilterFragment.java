@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
@@ -92,7 +93,7 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
     public void onMealItemClick(long id) {
 //            navController.navigate();
 
-        navController.navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id));
+        Navigation.findNavController(getView()).navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id));
     }
 
     @Override

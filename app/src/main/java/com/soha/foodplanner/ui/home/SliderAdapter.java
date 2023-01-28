@@ -52,13 +52,15 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
         holder.setMealImage(minMeals.get(position).getThumbnailUrl());
         holder.setMealName(minMeals.get(position).getName());
+        if (minMeals.get(position).isFavoured())
+            holder.favIcon.setImageResource(R.drawable.fav_checked);
 
 
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                addToFavourite.addFavouriteMeal(minMeals.get(position));
+                addToFavourite.addFavouriteMeal(minMeals.get(position).getId());
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });

@@ -40,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             context = parent.getContext();
         return new ViewHolder(
                 LayoutInflater.from(context)
-                        .inflate(R.layout.recycler_view_filter_item, parent, false)
+                        .inflate(R.layout.recycler_view_category_item, parent, false)
         );
     }
 

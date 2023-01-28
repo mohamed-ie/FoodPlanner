@@ -39,7 +39,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.recycler_view_meal_item, parent, false);
-        context=parent.getContext();
+        context = parent.getContext();
         return new ViewHolder(view);
     }
 
@@ -56,6 +56,9 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
             }
         });
 
+        if (meal.isFavoured())
+            holder.favIcon.setImageResource(R.drawable.fav_checked);
+
         Glide.with(holder.itemView)
                 .load(meal.getThumbnailUrl())
                 .into(holder.mealImage);
@@ -63,7 +66,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToFavourite.addFavouriteMeal(minMeals.get(position));
+                addToFavourite.addFavouriteMeal(minMeals.get(position).getId());
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });
@@ -84,8 +87,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
             super(v);
             mealName = v.findViewById(R.id.textViewName);
             mealImage = v.findViewById(R.id.imageViewThumbnail);
-            favIcon=v.findViewById(R.id.imageButtonFavourite);
-            itemLayout=v.findViewById(R.id.item_fav_layout);
+            favIcon = v.findViewById(R.id.imageButtonFavourite);
+            itemLayout = v.findViewById(R.id.item_fav_layout);
         }
 
 

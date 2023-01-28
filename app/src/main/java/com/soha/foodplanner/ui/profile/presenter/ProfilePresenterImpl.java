@@ -13,7 +13,8 @@ public class ProfilePresenterImpl implements ProfilePresenter {
     private final AuthRepository repository;
     private final ProfilePresenterListener listener;
 
-    private final ProfileState state =  new ProfileState();
+    private final ProfileState state = new ProfileState();
+
     public ProfilePresenterImpl(AuthRepository repository, ProfilePresenterListener listener) {
         this.repository = repository;
         this.listener = listener;
@@ -49,5 +50,10 @@ public class ProfilePresenterImpl implements ProfilePresenter {
     @Override
     public ProfileState getState() {
         return state;
+    }
+
+    @Override
+    public void updateRememberMe() {
+        repository.updateRememberMe(false);
     }
 }

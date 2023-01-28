@@ -28,6 +28,8 @@ public interface MealsRemoteDataSource extends RemoteDataSource {
 
     Single<List<String>> getAllCategories();
 
+    Single<CompleteMeal> getMealDetailsById(long id);
+
     Single<List<MinMeal>> getAllMealsByIngredient(String ingredient);
 
     Flowable<Pair<CompleteMeal, Integer>> getAllCompleteMeals();

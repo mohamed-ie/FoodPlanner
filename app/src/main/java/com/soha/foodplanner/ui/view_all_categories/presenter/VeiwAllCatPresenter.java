@@ -42,7 +42,7 @@ public class VeiwAllCatPresenter {
                 });
     }
 
-    public void insertToFav(MinMeal minMeal) {
-        repository.insertFavMeal(minMeal);
+    public void insertToFav(long id) {
+        repository.insertFavMeal(id);
     }
 }
