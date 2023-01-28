@@ -74,5 +74,8 @@ dependencies {
     //youtubeVideo
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 
+    //circleImage
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 }

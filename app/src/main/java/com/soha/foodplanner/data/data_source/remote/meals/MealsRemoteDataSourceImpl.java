@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     private final TheMealDBWebService theMealDBWebService;
-    private final MealMapper mapper;
+    private  MealMapper mapper;
 
     public MealsRemoteDataSourceImpl(TheMealDBWebService theMealDBWebService, MealMapper mapper) {
         this.theMealDBWebService = theMealDBWebService;

@@ -25,6 +25,7 @@ public class MealDetailsPresenter {
     MealDetailsListener mealDetailsListener;
     @SuppressLint("CheckResult")
     public void getDetails(long mealIdStr){
+        MealMapper mealMapper=new MealMapperImpl();
         Single<MealDto> single = theMealDBWebService.getMealDetailsById(mealIdStr);
         single
                 .subscribeOn(Schedulers.io())

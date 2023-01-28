@@ -15,30 +15,13 @@
         android:fontFamily="@font/belgrano"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:text="Day Name" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/add_chart_button"
-        android:drawableStart="@drawable/add_24"
-        android:drawableTint="@color/white"
-        android:text="@string/add"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:paddingHorizontal="10dp"
-        app:layout_constraintHorizontal_bias="0.966"
-        app:layout_constraintStart_toEndOf="@+id/day_name"
-        app:layout_constraintTop_toTopOf="@id/day_name"
-        app:layout_constraintBottom_toBottomOf="@id/day_name"
-        app:layout_constraintVertical_bias="0.49" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

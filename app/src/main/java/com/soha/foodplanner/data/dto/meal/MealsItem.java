@@ -3,6 +3,8 @@ package com.soha.foodplanner.data.dto.meal;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MealsItem implements Serializable {
 
@@ -375,5 +377,71 @@ public class MealsItem implements Serializable {
 
 	public String getStrMeasure15(){
 		return strMeasure15;
+	}
+	public List<String> getIngredients(){
+		List<String> ingredients=new ArrayList<>();
+
+		if(!strIngredient1.isEmpty())
+		{
+			ingredients.add(strIngredient1);
+		}if(!strIngredient2.isEmpty())
+		{
+			ingredients.add(strIngredient2);
+		}if(!strIngredient3.isEmpty())
+		{
+			ingredients.add(strIngredient3);
+		}if(!strIngredient4.isEmpty())
+		{
+			ingredients.add(strIngredient4);
+		}if(!strIngredient5.isEmpty())
+		{
+			ingredients.add(strIngredient5);
+		}if(!strIngredient6.isEmpty())
+		{
+			ingredients.add(strIngredient6);
+		}if(!strIngredient7.isEmpty())
+		{
+			ingredients.add(strIngredient7);
+		}if(!strIngredient8.isEmpty())
+		{
+			ingredients.add(strIngredient8);
+		}if(!strIngredient9.isEmpty())
+		{
+			ingredients.add(strIngredient9);
+		}if(!strIngredient10.isEmpty())
+		{
+			ingredients.add(strIngredient10);
+		}if(!strIngredient11.isEmpty())
+		{
+			ingredients.add(strIngredient11);
+		}if(!strIngredient12.isEmpty())
+		{
+			ingredients.add(strIngredient12);
+		}if(!strIngredient13.isEmpty())
+		{
+			ingredients.add(strIngredient13);
+		}if(!strIngredient14.isEmpty())
+		{
+			ingredients.add(strIngredient14);
+		}if(!strIngredient15.isEmpty())
+		{
+			ingredients.add(strIngredient15);
+		}if(!strIngredient16.isEmpty())
+		{
+			ingredients.add(strIngredient16);
+		}if(!strIngredient17.isEmpty())
+		{
+			ingredients.add(strIngredient17);
+		}if(!strIngredient18.isEmpty())
+		{
+			ingredients.add(strIngredient18);
+		}if(!strIngredient19.isEmpty())
+		{
+			ingredients.add(strIngredient19);
+		}if(!strIngredient20.isEmpty())
+		{
+			ingredients.add(strIngredient20);
+		}
+		return ingredients;
 	}
 }
