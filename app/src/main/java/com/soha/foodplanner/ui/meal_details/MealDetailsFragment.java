@@ -25,6 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -32,22 +34,27 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
 import com.soha.foodplanner.data.dto.meal.MealDto;
 import com.soha.foodplanner.data.dto.meal.MealsItem;
 import com.soha.foodplanner.data.local.MealDAO;
+import com.soha.foodplanner.data.local.entities.Meal;
+import com.soha.foodplanner.data.local.model.CompleteIngredient;
+import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsListener;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsPresenter;
 
 import java.util.Calendar;
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class MealDetailsFragment extends Fragment implements MealDetailsListener {
+public class MealDetailsFragment extends Fragment implements MealDetailsListener{
     TextView mealName,areaName,instructions;
     DatePickerDialog.OnDateSetListener setListener;
     String dayName;
@@ -58,6 +65,8 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     protected NavController navController;
     private MealDetailsPresenter mealDetailsPresenter;
     private String mealIdStr;
+
+    RecyclerView ingredientsRV;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -193,23 +202,22 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
         mealPhoto=view.findViewById(R.id.meal_img);
         mealVideo=view.findViewById(R.id.video);
         planButton=view.findViewById(R.id.plan_btn);
-
+        ingredientsRV=view.findViewById(R.id.rv_ingredients);
     }
-    private void setMealValues(MealsItem mealsItem, View view){
+    private void setMealValues(Meal mealsItem, View view){
 
-        mealName.setText(mealsItem.getStrMeal());
-        Log.e("error",mealsItem.getStrMeal()+"");
-        instructions.setText(mealsItem.getStrInstructions());
-        areaName.setText(mealsItem.getStrArea());
-        if(mealsItem.getStrYoutube()!=null){
+        mealName.setText(mealsItem.getName());
+        instructions.setText(mealsItem.getInstructions());
+        areaName.setText(mealsItem.getArea());
+        if(mealsItem.getVideoUri()!=null){
             setVideo(mealsItem);
         }
 
-        Glide.with(view.getContext()).load(mealsItem.getStrMealThumb()).into(mealPhoto);
+        Glide.with(view.getContext()).load(mealsItem.getPhotoUri()).into(mealPhoto);
     }
-    private void setVideo(MealsItem mealsItem){
+    private void setVideo(Meal mealsItem){
         getLifecycle().addObserver((LifecycleObserver) mealVideo);
-        String[] split = mealsItem.getStrYoutube().split("=");
+        String[] split = mealsItem.getVideoUri().split("=");
 
         mealVideo.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 
@@ -234,7 +242,16 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     }
 
     @Override
-    public void setValues(MealsItem mealsItem,View view) {
+    public void setValues(Meal mealsItem, View view) {
         setMealValues(mealsItem,view);
+    }
+
+    @Override
+    public void setIngredients(List<CompleteIngredient> mealsItem, View view) {
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(requireContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        ingredientsRV.setLayoutManager(linearLayoutManager);
+        IngredientAdapter ingredientAdapter=new IngredientAdapter(view.getContext(),mealsItem);
+        ingredientsRV.setAdapter(ingredientAdapter);
     }
 }
