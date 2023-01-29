@@ -7,4 +7,5 @@ public interface MealsFilterPresenter extends Presenter {
     void loadByArea(String area);
     void searchByName(CharSequence name);
     void loadByIngredient(String ingredient);
+    void addToFavourite(long name);
 }

@@ -35,6 +35,7 @@ import com.bumptech.glide.Glide;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
@@ -44,7 +45,9 @@ import com.soha.foodplanner.data.dto.meal.MealsItem;
 import com.soha.foodplanner.data.local.MealDAO;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.model.CompleteIngredient;
+import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;
+import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsListener;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsPresenter;
 
@@ -68,7 +71,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     private Button planButton,calenderButton;
     protected NavController navController;
     private MealDetailsPresenter mealDetailsPresenter;
-    private String mealIdStr;
+    private long mealIdStr;
 
     RecyclerView ingredientsRV;
 
@@ -95,7 +98,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
 
         theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
-        mealDetailsPresenter=new MealDetailsPresenter(theMealDBWebService,this,view);
+        mealDetailsPresenter=new MealDetailsPresenter(((MyApp) ((MainActivity) requireHost()).getApplication()).getMealsRepository(),this);
         getMealDetail();
 
 

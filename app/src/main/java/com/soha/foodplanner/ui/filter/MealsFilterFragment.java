@@ -86,7 +86,7 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
 
     @Override
     public void onFavouriteClick(long name) {
-
+        presenter.addToFavourite(name);
     }
 
     @Override
