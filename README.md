@@ -35,47 +35,5 @@ You can also search for meal by ingredient ,category or by country. You can add 
 
 ## Contributors
 
-<table>
-  <tr>
-    <td>
-      <img src="https://avatars.githubusercontent.com/u/72627215?v=4"> </img>
-    </td>
-    <td>
-    </td>
-    <td>
-      <img src="https://avatars.githubusercontent.com/u/58668061?v=4"></img>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://github.com/AymanxMohamed"> Ayman kheirEldeen </a>
-    </td>
-   <td>
-   </td>
-    <td>
-      <a href="https://github.com/ahmedelshopaky"> Ahmed ElShopaky </a>
-    </td>
-  </tr>
-   <tr>
-    <td>
-      <img src="https://avatars.githubusercontent.com/u/72516521?v=4"></img>
-    </td>
-    <td>
-      <img src="https://avatars.githubusercontent.com/u/97949259?v=4"></img>
-    </td>
-    <td>
-      <img src="https://avatars.githubusercontent.com/u/97365136?v=4"></img>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://github.com/reemadelsamak"> Reem Adel </a>
-    </td>
-      <td>
-      <a href="https://github.com/dina810"> Dina Reda </a>
-    </td>
-     <td>
-      <a href="https://github.com/MaiiEmad"> Mai Emad </a>
-    </td>
-  </tr>
-</table>
+- Mohammed Ibrahiem
+- Soha Ahmed Hamdy
