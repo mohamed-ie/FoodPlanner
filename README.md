@@ -17,9 +17,9 @@ You can also search for meal by ingredient ,category or by country. You can add 
 
 - Storing your information in Firebase
 
--Save favourite and planned meals in room database `And make back up for it in firebase`
+- Save favourite and planned meals in room database `And make back up for it in firebase`
 
--Search for meals by ingredient , country or by category
+- Search for meals by ingredient , country or by category
 
 - The ability to make advanced search
 
@@ -27,7 +27,7 @@ You can also search for meal by ingredient ,category or by country. You can add 
 
 - Displaying video for each meal
 
--Provide Random meal when opened the application
+- Provide Random meal when opened the application
 
 - You also can log in as guest to see meals information only
 
