@@ -5,7 +5,7 @@ import android.util.Pair;
 import com.soha.foodplanner.data.data_source.remote.backup.BackupStrategy;
 import com.soha.foodplanner.data.data_source.remote.restore.RestoreStrategy;
 import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.local.entities.Meal;
+import com.soha.foodplanner.data.local.entities.IngredientWithMeal;
 import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
 import com.soha.foodplanner.data.local.image_saver.InternalStorageImageSaver;
 import com.soha.foodplanner.data.local.model.CompleteIngredient;
@@ -94,16 +94,16 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
-    public Single<Meal> selectMealById(long id) {
+    public Single<IngredientWithMeal> selectMealById(long id) {
         return localDataSource.selectMealById(id).zipWith(localDataSource.getAllFavouriteMealsIds(), (meal, longs) -> {
             boolean isFavoured = false;
             for (long long1 : longs) {
-                if (long1 == meal.getId()) {
+                if (long1 == meal.meal.getId()) {
                     isFavoured = true;
                     break;
                 }
             }
-            meal.setFavoured(isFavoured);
+            meal.meal.setFavoured(isFavoured);
             return meal;
         });
     }
@@ -114,8 +114,8 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
-    public Completable deletePlannedMeal(PlanedMealWithMeal planedMealWithMeal) {
-        return localDataSource.deletePlannedMeal(planedMealWithMeal);
+    public Completable deletePlannedMeal(long id) {
+        return localDataSource.deletePlannedMeal(id).andThen(backupStrategy.deleteFromPlannedMeal(id));
     }
 
     @Override
@@ -147,20 +147,7 @@ public class MealsRepositoryImpl implements MealsRepository {
         return localDataSource.getPlanedMeal();
     }
 
-    @Override
-    public Completable insertFavMeal(long id) {
-        return remoteDataSource.getMealDetailsById(id).subscribeOn(Schedulers.io()).flatMapCompletable(completeMeal -> {
-            try {
-                completeMeal.getMeal().setPhotoUri(imageSaver.saveImage(glideImageDownloader.download(completeMeal.getMeal().getPhotoUri()), completeMeal.getMeal().getName()));
-                for (CompleteIngredient completeIngredient : completeMeal.getIngredients()) {
-                    completeIngredient.setThumbnailUrl(imageSaver.saveImage(glideImageDownloader.download(completeIngredient.getThumbnailUrl()), completeIngredient.getName()));
-                }
-            } catch (ExecutionException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            return localDataSource.insertFavMeal(completeMeal).andThen(backupStrategy.addFavouriteMeal(completeMeal.getMeal().getId()));
-        });
-    }
+
 
     @Override
     public Completable insertPlanMeal(CompleteMeal completeMeal, long date, String mealTime) {
@@ -181,7 +168,7 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Completable insertPlanMeal(long id, long date, String mealTime) {
-        return remoteDataSource.getMealDetailsById(id).subscribeOn(Schedulers.io()).flatMapCompletable(completeMeal -> {
+        return remoteDataSource.getMealDetailsById(id).flatMapCompletable(completeMeal -> {
             try {
                 completeMeal.getMeal().setPhotoUri(imageSaver.saveImage(glideImageDownloader.download(completeMeal.getMeal().getPhotoUri()), completeMeal.getMeal().getName()));
                 for (CompleteIngredient completeIngredient : completeMeal.getIngredients()) {
@@ -191,6 +178,37 @@ public class MealsRepositoryImpl implements MealsRepository {
                 throw new RuntimeException(e);
             }
             return localDataSource.insertPlanMeal(completeMeal, date, mealTime).andThen(backupStrategy.addFavouriteMeal(completeMeal.getMeal().getId()));
+        });
+    }
+
+    public Completable insertPlanMeal1(long id, long date, String mealTime) {
+        return remoteDataSource.getMealDetailsById(id).subscribeOn(Schedulers.io()).flatMapCompletable(completeMeal -> {
+            try {
+                completeMeal.getMeal().setPhotoUri(imageSaver.saveImage(glideImageDownloader.download(completeMeal.getMeal().getPhotoUri()), completeMeal.getMeal().getName()));
+                for (CompleteIngredient completeIngredient : completeMeal.getIngredients()) {
+                    completeIngredient.setThumbnailUrl(imageSaver.saveImage(glideImageDownloader.download(completeIngredient.getThumbnailUrl()), completeIngredient.getName()));
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return localDataSource.insertPlanMeal(completeMeal, date, mealTime).subscribeOn(Schedulers.io());
+        }).subscribeOn(Schedulers.io());
+    }
+
+
+
+    @Override
+    public Completable insertFavMeal(long id) {
+        return remoteDataSource.getMealDetailsById(id).subscribeOn(Schedulers.io()).flatMapCompletable(completeMeal -> {
+            try {
+                completeMeal.getMeal().setPhotoUri(imageSaver.saveImage(glideImageDownloader.download(completeMeal.getMeal().getPhotoUri()), completeMeal.getMeal().getName()));
+                for (CompleteIngredient completeIngredient : completeMeal.getIngredients()) {
+                    completeIngredient.setThumbnailUrl(imageSaver.saveImage(glideImageDownloader.download(completeIngredient.getThumbnailUrl()), completeIngredient.getName()));
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            return localDataSource.insertFavMeal(completeMeal).andThen(backupStrategy.addFavouriteMeal(completeMeal.getMeal().getId()));
         });
     }
 
@@ -232,7 +250,9 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Completable restorePlannedMeals() {
-        return restoreStrategy.restorePlannedMeals().flatMapCompletable(plannedMeals -> insertPlanMeal(plannedMeals.getId(), plannedMeals.getDate(), plannedMeals.getMealTime()));
+        return restoreStrategy
+                .restorePlannedMeals().subscribeOn(Schedulers.io())
+                .flatMapCompletable(plannedMeals -> insertPlanMeal1(plannedMeals.getId(), plannedMeals.getDate(), plannedMeals.getMealTime())).subscribeOn(Schedulers.io()).subscribeOn(Schedulers.io());
     }
 
     @Override

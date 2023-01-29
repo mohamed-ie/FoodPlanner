@@ -10,5 +10,5 @@ public interface BackupStrategy {
 
     Completable deleteFavouriteMeal(long mealId);
 
-    Completable deleteFromPlannedMeal(PlannedMeals plannedMeals);
+    Completable deleteFromPlannedMeal(long id);
 }

@@ -20,7 +20,7 @@ import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.ui.MainActivity;
-import com.soha.foodplanner.ui.common.BaseFragment;
+import com.soha.foodplanner.ui.common.fragment.BaseFragment;
 import com.soha.foodplanner.ui.main.MainFragment;
 import com.soha.foodplanner.ui.search.adapter.area.AreaAdapter;
 import com.soha.foodplanner.ui.search.adapter.area.OnAreaItemClickListener;

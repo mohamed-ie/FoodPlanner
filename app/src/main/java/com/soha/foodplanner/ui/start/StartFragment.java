@@ -20,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
-import com.soha.foodplanner.ui.common.BaseFragment;
+import com.soha.foodplanner.ui.common.fragment.BaseFragment;
 import com.soha.foodplanner.ui.start.presenter.StartPresenter;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterFactory;
 import com.soha.foodplanner.ui.start.presenter.StartPresenterListener;
@@ -114,6 +114,7 @@ public class StartFragment extends BaseFragment<StartPresenter> implements Start
 
     @Override
     public void onLoginWithGoogleError(String message) {
+        navController.popBackStack();
         navController.navigate(StartFragmentDirections.actionStartFragmentToErrorDialogFragment(R.string.unexpected_error_try_again));
     }
 

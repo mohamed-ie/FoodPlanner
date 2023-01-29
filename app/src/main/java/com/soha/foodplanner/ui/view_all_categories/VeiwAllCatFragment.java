@@ -42,8 +42,6 @@ public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_veiw_all_cat, container, false);
-
-
     }
 
     @Override
@@ -51,8 +49,6 @@ public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, 
         super.onViewCreated(view, savedInstanceState);
 
         categoryName = VeiwAllCatFragmentArgs.fromBundle(requireArguments()).getCatergoryName();
-
-
         category = view.findViewById(R.id.category_meal);
         recyclerView = view.findViewById(R.id.recycler_category_cat);
         category.setText(categoryName);
@@ -65,7 +61,6 @@ public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, 
     @Override
     public void addCategoryMealsToAdapter(List<MinMeal> minMeal) {
         recyclerView.setAdapter(new ViewAllAdapter(minMeal, this));
-
     }
 
     @Override

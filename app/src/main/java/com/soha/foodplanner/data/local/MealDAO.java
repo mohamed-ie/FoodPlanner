@@ -10,10 +10,10 @@ import androidx.room.Transaction;
 import com.soha.foodplanner.data.local.entities.FavouriteMeals;
 import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.local.entities.Ingredient;
+import com.soha.foodplanner.data.local.entities.IngredientWithMeal;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.entities.MealIngredientsRef;
 import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
-import com.soha.foodplanner.data.local.entities.PlannedMealWithMealAndIngredients;
 import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
 import java.util.List;
@@ -24,8 +24,9 @@ import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface MealDAO {
-    @Query("SELECT * FROM meal WHERE id LIKE :id")
-    Single<Meal> FindMealById(long id);
+    @Transaction
+    @Query("SELECT * FROM meal WHERE id =:id")
+    Single<IngredientWithMeal> FindMealById(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertMeal(Meal meal);

@@ -7,4 +7,5 @@ import java.util.List;
 public interface PlannedPresenterListener {
 
     void onNextItem(List<PlanedMealWithMeal> plannedMeals);
+
 }

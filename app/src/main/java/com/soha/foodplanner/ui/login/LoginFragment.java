@@ -1,8 +1,6 @@
 package com.soha.foodplanner.ui.login;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,17 +11,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.lifecycle.Observer;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.common.Factory;
-import com.soha.foodplanner.ui.common.BaseFragment;
-import com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment;
-import com.soha.foodplanner.ui.common.dialogs.retry.RetryDialogFragment;
+import com.soha.foodplanner.ui.common.fragment.BaseFragment;
 import com.soha.foodplanner.ui.login.presenter.LoginPresenter;
 import com.soha.foodplanner.ui.login.presenter.LoginPresenterFactory;
 import com.soha.foodplanner.ui.login.presenter.LoginPresenterListener;
@@ -79,10 +73,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     @SuppressLint("NonConstantResourceId")
     private void showErrorDialog(int messageResource) {
         switch (messageResource) {
-//            case R.string.email_or_password_incorrect:
-//            case R.string.no_user_with_this_email:
-//                navController.navigate(LoginFragmentDirections.actionLoginFragmentToErrorDialogFragment(messageResource));
-//                break;
+            case R.string.email_or_password_incorrect:
+            case R.string.no_user_with_this_email:
+                navController.navigate(LoginFragmentDirections.actionLoginFragmentToErrorDialogFragment(messageResource));
+                break;
             default:
                 navController.navigate(LoginFragmentDirections.actionLoginFragmentToRetryDialogFragment(messageResource));
         }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
@@ -29,6 +30,7 @@ public class FavouriteFragment extends Fragment implements FavouritePresenterLis
     private FavAdapter favAdapter;
     private RecyclerView recyclerView;
     private FavouritePresenter favouritePresenter;
+    private Button restore;
 
 
 
@@ -49,7 +51,10 @@ public class FavouriteFragment extends Fragment implements FavouritePresenterLis
     public void onViewCreated(@androidx.annotation.NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=view.findViewById(R.id.recycler_category_fav);
-
+        restore=view.findViewById(R.id.buttonRestore);
+        restore.setOnClickListener(v->{
+            favouritePresenter.loadRemoteData();
+        });
         getAllFavouriteMeals();
     }
 

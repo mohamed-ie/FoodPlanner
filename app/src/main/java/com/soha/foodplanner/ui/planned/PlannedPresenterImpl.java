@@ -1,24 +1,18 @@
 package com.soha.foodplanner.ui.planned;
 
-import android.util.Log;
-
 import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
-import com.soha.foodplanner.data.local.entities.PlannedMealWithMealAndIngredients;
-import com.soha.foodplanner.data.local.entities.PlannedMeals;
-import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.repository.meals.MealsRepository;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class PlannedPresenterImpl implements PlannedPresenter {
@@ -68,7 +62,49 @@ public class PlannedPresenterImpl implements PlannedPresenter {
 
     @Override
     public void remove(long id) {
+        repository.deletePlannedMeal(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
     }
+
+    @Override
+    public void checkRemoteData(){
+        repository.restorePlannedMeals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
+    }
+
 
 }

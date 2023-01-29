@@ -6,6 +6,7 @@ import com.soha.foodplanner.data.local.AppDatabase;
 import com.soha.foodplanner.data.local.entities.FavouriteMeals;
 import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.local.entities.Ingredient;
+import com.soha.foodplanner.data.local.entities.IngredientWithMeal;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.MealDAO;
 import com.soha.foodplanner.data.local.entities.MealIngredientsRef;
@@ -29,9 +30,8 @@ public class MealsLocalDataSource {
     }
 
 
-    public Single<Meal> selectMealById(long id) {
-        return mealDAO.FindMealById(id)
-                .subscribeOn(Schedulers.io());
+    public Single<IngredientWithMeal> selectMealById(long id) {
+        return mealDAO.FindMealById(id);
     }
 
     public Completable deleteFavMeal(FavouriteMealsWithMeal mealFav) {
@@ -39,9 +39,8 @@ public class MealsLocalDataSource {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Completable deletePlannedMeal(PlanedMealWithMeal planedMealWithMeal) {
-        return mealDAO.deletePlannedMeal(planedMealWithMeal.getPlannedMeals().getId())
-                .subscribeOn(Schedulers.io());
+    public Completable deletePlannedMeal(long id) {
+        return mealDAO.deletePlannedMeal(id);
     }
 
 

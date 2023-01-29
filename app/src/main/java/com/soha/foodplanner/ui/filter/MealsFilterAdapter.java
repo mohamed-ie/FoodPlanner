@@ -54,16 +54,15 @@ public class MealsFilterAdapter extends RecyclerView.Adapter<MealsFilterAdapter.
                 .into(holder.imageViewThumbnail);
 
         holder.textViewName.setText(minMeal.getName());
-        holder.imageButtonFavourite.setOnClickListener(v -> {
-            holder.imageButtonFavourite.setImageResource(R.drawable.fav_checked);
-        });
-
         if (minMeal.isFavoured())
             holder.imageButtonFavourite.setImageResource(R.drawable.fav_checked);
 
         holder.imageButtonFavourite.setOnClickListener(v -> listener.onMealItemClick(minMeal.getId()));
         holder.constraintLayout.setOnClickListener(v -> listener.onMealItemClick(minMeal.getId()));
-        holder.imageButtonFavourite.setOnClickListener(v -> listener.onFavouriteClick(minMeal.getId()));
+        holder.imageButtonFavourite.setOnClickListener(v -> {
+            holder.imageButtonFavourite.setImageResource(R.drawable.fav_checked);
+            listener.onFavouriteClick(minMeal.getId());
+        });
     }
 
     @Override

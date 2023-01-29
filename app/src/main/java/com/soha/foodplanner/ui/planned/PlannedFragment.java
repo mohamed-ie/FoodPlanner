@@ -61,6 +61,9 @@ public class PlannedFragment extends Fragment implements PlannedPresenterListene
         recyclerView.setAdapter(adapterTest);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         presenter.loadPlannedMeals();
+        view.findViewById(R.id.button).setOnClickListener(v->{
+            presenter.checkRemoteData();
+        });
 
         //recyclerView = view.findViewById(R.id.planned_fragment_recycler);
 //        viewPager2 = view.findViewById(R.id.view_pager_planned);
@@ -122,5 +125,9 @@ public class PlannedFragment extends Fragment implements PlannedPresenterListene
     @Override
     public void onRemove(long id) {
         presenter.remove(id);
+    }
+
+    @Override
+    public void remove(long id) {
     }
 }

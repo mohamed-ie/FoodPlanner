@@ -14,13 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.ui.common.dialogs.loading.LoadingDialogFragment;
 import com.soha.foodplanner.ui.signup.presenter.SignUpPresenterImpl;
 import com.soha.foodplanner.ui.signup.presenter.SignUpViewListener;
+
+import java.util.Objects;
 
 
 public class SignUpFragment extends Fragment implements SignUpViewListener {
@@ -40,7 +44,15 @@ public class SignUpFragment extends Fragment implements SignUpViewListener {
         super.onCreate(savedInstanceState);
         navController = NavHostFragment.findNavController(SignUpFragment.this);
 
+        Objects.requireNonNull(navController
+                        .getCurrentBackStackEntry())
+                .getSavedStateHandle()
+                .getLiveData(LoadingDialogFragment.CANCEL).observe(this, aBoolean -> {
+                    if ((Boolean) aBoolean)
+                        signUpPresenter.cancelSignup();
+                });
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,9 +126,8 @@ public class SignUpFragment extends Fragment implements SignUpViewListener {
             if (validateInputs()) {
                 if (passwordsIsIdentical()) {
                     signUpPresenter.signUp("soha", enteredMail, enteredPassword);
-                    navController.navigate(R.id.loadingFragment);
+                    navController.navigate(SignUpFragmentDirections.actionSignUpFragmentToLoadingFragment());
                 } else {
-
                     Toast.makeText(getContext(), "Passwords must be identical", Toast.LENGTH_SHORT).show();
                 }
 

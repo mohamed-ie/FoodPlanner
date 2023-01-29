@@ -18,6 +18,7 @@ public class SignUpPresenterImpl implements SignUpPresenter{
 
     private final FirebaseAuth firebaseAuth;
     private final SignUpViewListener signUpViewListener;
+    private Task<AuthResult> taskCancel;
 
     public SignUpPresenterImpl(FirebaseAuth firebaseAuth, SignUpViewListener signUpViewListener) {
         this.firebaseAuth = firebaseAuth;
@@ -26,7 +27,7 @@ public class SignUpPresenterImpl implements SignUpPresenter{
 
     @Override
     public void signUp(String name, String email, String password) {
-        firebaseAuth
+       taskCancel= firebaseAuth
                 .createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -56,5 +57,9 @@ public class SignUpPresenterImpl implements SignUpPresenter{
                         }
                     }
                 });
+    }
+
+    public void cancelSignup() {
+        firebaseAuth.signOut();
     }
 }

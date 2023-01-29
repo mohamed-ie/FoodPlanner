@@ -4,9 +4,12 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
+import org.reactivestreams.Publisher;
+
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class FirestoreRestoreStrategy implements RestoreStrategy {
     private final DocumentReference backupDocument;
@@ -38,7 +41,7 @@ public class FirestoreRestoreStrategy implements RestoreStrategy {
 
     @Override
     public Flowable<PlannedMeals> restorePlannedMeals() {
-        return Flowable.fromPublisher(publisher -> backupDocument.collection(PLANNED_MEALS_COLLECTION)
+        return Flowable.fromPublisher((Publisher<PlannedMeals>)  publisher -> backupDocument.collection(PLANNED_MEALS_COLLECTION)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isCanceled())
@@ -48,11 +51,13 @@ public class FirestoreRestoreStrategy implements RestoreStrategy {
                         if (task.getResult() != null)
                             task.getResult()
                                     .getDocuments()
-                                    .forEach(documentSnapshot ->
-                                            publisher.onNext(new PlannedMeals(
+                                    .forEach(documentSnapshot ->{
+                                            if(backupDocument!=null)
+                                                publisher.onNext(new PlannedMeals(
                                                     (Long) documentSnapshot.get("meal_id"),
-                                                    (Long) documentSnapshot.get("date"),
-                                                    (String) documentSnapshot.get("meal_time"))));
-                }));
+                                                    (Long) documentSnapshot.get("meal_time"),
+                                                    (String) documentSnapshot.get("date")));
+                                    });
+                })).subscribeOn(Schedulers.io());
     }
 }

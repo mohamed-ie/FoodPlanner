@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleObserver;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,11 +22,18 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.data.local.entities.Ingredient;
+import com.soha.foodplanner.data.local.entities.IngredientWithMeal;
 import com.soha.foodplanner.data.local.entities.Meal;
+import com.soha.foodplanner.data.local.model.CompleteIngredient;
 import com.soha.foodplanner.data.repository.MealsLocalDataSource;
 import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.local_details.presenter.LocalDetailsListener;
 import com.soha.foodplanner.ui.local_details.presenter.LocalDetailsPresenter;
+import com.soha.foodplanner.ui.meal_details.IngredientAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LocalDetailsFragment extends Fragment implements LocalDetailsListener {
@@ -36,6 +45,7 @@ public class LocalDetailsFragment extends Fragment implements LocalDetailsListen
     YouTubePlayerView mealVideo;
     LocalDetailsPresenter localDetailsPresenter;
     private long mealIdStr;
+    private RecyclerView recycler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,16 +81,27 @@ public class LocalDetailsFragment extends Fragment implements LocalDetailsListen
         mealInstruction = v.findViewById(R.id.meal_detailed_instructions);
         mealPhoto = v.findViewById(R.id.meal_img);
         mealVideo = v.findViewById(R.id.video);
+        recycler = v.findViewById(R.id.rv_ingredients);
 
     }
 
-    private void setMealValues(Meal meal) {
+    private void setMealValues(@io.reactivex.rxjava3.annotations.NonNull IngredientWithMeal meal) {
+        Meal meal1 = meal.meal;
+        mealName.setText(meal1.getName());
+        mealArea.setText(meal1.getArea());
+        mealInstruction.setText(meal1.getInstructions());
+        loadPhoto(meal1.getPhotoUri());
+        setVideo(meal1.getVideoUri());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recycler.setLayoutManager(linearLayoutManager);
+        List<CompleteIngredient> completeIngredients = new ArrayList<>();
+        for (Ingredient in : meal.ingredients) {
+            completeIngredients.add(new CompleteIngredient(in.getName(), in.getPhotoUri(), ""));
+        }
+        IngredientAdapter ingredientAdapter = new IngredientAdapter(requireContext(), completeIngredients);
+        recycler.setAdapter(ingredientAdapter);
 
-        mealName.setText(meal.getName());
-        mealArea.setText(meal.getArea());
-        mealInstruction.setText(meal.getInstructions());
-        loadPhoto(meal.getPhotoUri());
-        setVideo(meal.getVideoUri());
 
     }
 
@@ -114,7 +135,7 @@ public class LocalDetailsFragment extends Fragment implements LocalDetailsListen
     }
 
     @Override
-    public void setLocalValues(Meal meal) {
+    public void setLocalValues(@io.reactivex.rxjava3.annotations.NonNull IngredientWithMeal meal) {
         setMealValues(meal);
 
     }

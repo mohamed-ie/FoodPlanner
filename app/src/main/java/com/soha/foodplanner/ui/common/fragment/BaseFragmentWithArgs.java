@@ -1,4 +1,4 @@
-package com.soha.foodplanner.ui.common;
+package com.soha.foodplanner.ui.common.fragment;
 
 import android.os.Bundle;
 import android.view.View;

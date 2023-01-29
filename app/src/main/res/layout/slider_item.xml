@@ -23,6 +23,7 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/recyclerView"
+        android:paddingHorizontal="60dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:layout_width="match_parent"

@@ -77,10 +77,10 @@ public class FirestoreBackupStrategy implements BackupStrategy {
 
 
     @Override
-    public Completable deleteFromPlannedMeal(PlannedMeals plannedMeals) {
+    public Completable deleteFromPlannedMeal(long id) {
         return Completable.create(source ->
                 backupDocument.collection(PLANNED_MEALS_COLLECTION)
-                        .document(String.valueOf(plannedMeals.getMealId()))
+                        .document(String.valueOf(id))
                         .delete()
                         .addOnCompleteListener(task -> {
                             if (task.isCanceled())

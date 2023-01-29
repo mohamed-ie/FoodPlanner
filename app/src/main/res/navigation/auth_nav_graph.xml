@@ -33,6 +33,9 @@
             android:id="@+id/action_signUpFragment_to_mainFragment2"
             app:destination="@id/mainFragment"
             app:popUpTo="@id/auth_nav_graph" />
+        <action
+            android:id="@+id/action_signUpFragment_to_loadingFragment"
+            app:destination="@id/loadingFragment" />
     </fragment>
     <fragment
         android:id="@+id/startFragment"

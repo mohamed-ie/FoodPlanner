@@ -15,12 +15,11 @@ import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.ui.common.BaseFragmentWithArgs;
+import com.soha.foodplanner.ui.common.fragment.BaseFragmentWithArgs;
 import com.soha.foodplanner.ui.common.TextWatcherAdapter;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterFactory;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenter;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenterListener;
-import com.soha.foodplanner.ui.main.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;

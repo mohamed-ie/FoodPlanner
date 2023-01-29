@@ -71,6 +71,7 @@ public class MyApp extends Application {
         GlideImageDownloader imageDownloader = new GlideImageDownloader(getGlideRequestManager().asBitmap());
         BackupStrategy backupStrategy = new FirestoreBackupStrategy(getFirestore(), firebaseAuth.getUid());
         RestoreStrategy restoreStrategy = new FirestoreRestoreStrategy(getFirestore(), firebaseAuth.getUid());
+
         mealsRepository = new MealsRepositoryImpl(
                 remoteDataSource, localDataSource,
                 imageSaver,

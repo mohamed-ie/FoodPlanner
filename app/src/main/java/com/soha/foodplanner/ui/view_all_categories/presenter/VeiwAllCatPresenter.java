@@ -23,6 +23,7 @@ public class VeiwAllCatPresenter {
 
     public void getMealsOfCategory(String categoryName) {
         repository.getMealsByCategory(categoryName)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<>() {
                     @Override

@@ -61,14 +61,14 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class MealDetailsFragment extends Fragment implements MealDetailsListener{
-    TextView mealName,areaName,instructions;
+public class MealDetailsFragment extends Fragment implements MealDetailsListener {
+    TextView mealName, areaName, instructions;
     DatePickerDialog.OnDateSetListener setListener;
     String dayName;
     ImageView mealPhoto;
     YouTubePlayerView mealVideo;
     TheMealDBWebService theMealDBWebService;
-    private Button planButton,calenderButton;
+    private Button planButton, calenderButton;
     protected NavController navController;
     private MealDetailsPresenter mealDetailsPresenter;
     private long mealIdStr;
@@ -94,11 +94,11 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mealIdStr=MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
+        mealIdStr = MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
 
 
         theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
-        mealDetailsPresenter=new MealDetailsPresenter(((MyApp) ((MainActivity) requireHost()).getApplication()).getMealsRepository(),this);
+        mealDetailsPresenter = new MealDetailsPresenter(((MyApp) ((MainActivity) requireHost()).getApplication()).getMealsRepository(), this);
         getMealDetail();
 
 
@@ -107,28 +107,28 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
         calenderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_INSERT);
+                Intent intent = new Intent(Intent.ACTION_INSERT);
                 intent.setData(CalendarContract.Events.CONTENT_URI);
-                intent.putExtra(CalendarContract.Events.TITLE,mealName.getText());
-                intent.putExtra(CalendarContract.Events.DESCRIPTION,instructions.getText());
-                intent.putExtra(CalendarContract.Events.EVENT_LOCATION,areaName.getText());
-                intent.putExtra(CalendarContract.Events.ALL_DAY,true);
-                if(intent.resolveActivity(getActivity().getPackageManager())!=null){
+                intent.putExtra(CalendarContract.Events.TITLE, mealName.getText());
+                intent.putExtra(CalendarContract.Events.DESCRIPTION, instructions.getText());
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, areaName.getText());
+                intent.putExtra(CalendarContract.Events.ALL_DAY, true);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
 
                     startActivity(intent);
-                }else{
-                    Toast.makeText(requireContext() , "There is no app that support this action", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireContext(), "There is no app that support this action", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
 
-        Calendar calendar=Calendar.getInstance();
-         int year=calendar.get(Calendar.YEAR);
-         int month=calendar.get(Calendar.MONTH);
-         int day=calendar.get(Calendar.DAY_OF_MONTH);
-         int dayVal=calendar.get(Calendar.DAY_OF_WEEK);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int dayVal = calendar.get(Calendar.DAY_OF_WEEK);
 
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,8 +141,8 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
-              //  month=datePickerDialog.getDatePicker().getMonth();
-}
+                //  month=datePickerDialog.getDatePicker().getMonth();
+            }
 
         });
 
@@ -163,19 +163,19 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
                         dayName = "Monday";
                         break;
                     case 3:
-                        dayName="Tuesday";
+                        dayName = "Tuesday";
                         break;
                     case 4:
-                        dayName="Wednesday";
+                        dayName = "Wednesday";
                         break;
                     case 5:
-                        dayName="Thursday";
+                        dayName = "Thursday";
                         break;
                     case 6:
-                        dayName="Friday";
+                        dayName = "Friday";
                         break;
                     case 7:
-                        dayName="Saturday";
+                        dayName = "Saturday";
                         break;
 
                 }
@@ -219,34 +219,33 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
         };
 
 
-            }
-
-
-
+    }
 
 
     private void initViews(View view) {
-        mealName=view.findViewById(R.id.meal_detailed_name);
-        areaName=view.findViewById(R.id.meal_detailed_area);
-        instructions=view.findViewById(R.id.meal_detailed_instructions);
-        mealPhoto=view.findViewById(R.id.meal_img);
-        mealVideo=view.findViewById(R.id.video);
-        planButton=view.findViewById(R.id.plan_btn);
-        ingredientsRV=view.findViewById(R.id.rv_ingredients);
-        calenderButton=view.findViewById(R.id.calender_btn);
+        mealName = view.findViewById(R.id.meal_detailed_name);
+        areaName = view.findViewById(R.id.meal_detailed_area);
+        instructions = view.findViewById(R.id.meal_detailed_instructions);
+        mealPhoto = view.findViewById(R.id.meal_img);
+        mealVideo = view.findViewById(R.id.video);
+        planButton = view.findViewById(R.id.plan_btn);
+        ingredientsRV = view.findViewById(R.id.rv_ingredients);
+        calenderButton = view.findViewById(R.id.calender_btn);
     }
-    private void setMealValues(Meal mealsItem, View view){
+
+    private void setMealValues(Meal mealsItem, View view) {
 
         mealName.setText(mealsItem.getName());
         instructions.setText(mealsItem.getInstructions());
         areaName.setText(mealsItem.getArea());
-        if(mealsItem.getVideoUri()!=null){
+        if (mealsItem.getVideoUri() != null) {
             setVideo(mealsItem);
         }
 
         Glide.with(view.getContext()).load(mealsItem.getPhotoUri()).into(mealPhoto);
     }
-    private void setVideo(Meal mealsItem){
+
+    private void setVideo(Meal mealsItem) {
         getLifecycle().addObserver((LifecycleObserver) mealVideo);
         String[] split = mealsItem.getVideoUri().split("=");
 
@@ -254,12 +253,12 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                try{
+                try {
                     String videoId = split[1];
                     youTubePlayer.loadVideo(videoId, 0);
 
-                }catch (Exception e){
-                    Log.e("TAG", "onReady: "+ e.getMessage() );
+                } catch (Exception e) {
+                    Log.e("TAG", "onReady: " + e.getMessage());
                 }
 
             }
@@ -279,10 +278,10 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
     @Override
     public void setIngredients(List<CompleteIngredient> mealsItem, View view) {
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(requireContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         ingredientsRV.setLayoutManager(linearLayoutManager);
-        IngredientAdapter ingredientAdapter=new IngredientAdapter(view.getContext(),mealsItem);
+        IngredientAdapter ingredientAdapter = new IngredientAdapter(view.getContext(), mealsItem);
         ingredientsRV.setAdapter(ingredientAdapter);
     }
 }

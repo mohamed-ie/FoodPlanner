@@ -3,7 +3,7 @@ package com.soha.foodplanner.data.repository.meals;
 import android.util.Pair;
 
 import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
-import com.soha.foodplanner.data.local.entities.Meal;
+import com.soha.foodplanner.data.local.entities.IngredientWithMeal;
 import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
 import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;
@@ -34,11 +34,11 @@ public interface MealsRepository {
     Single<List<String>> getAllCategories();
 
 
-    Single<Meal> selectMealById(long id);
+    Single<IngredientWithMeal> selectMealById(long id);
 
     Completable deleteFavMeal(FavouriteMealsWithMeal mealFav);
 
-    Completable deletePlannedMeal(PlanedMealWithMeal planedMealWithMeal);
+    Completable deletePlannedMeal(long id);
 
     Flowable<List<FavouriteMealsWithMeal>> getFavMeal();
 

@@ -9,6 +9,9 @@ import com.soha.foodplanner.data.repository.meals.MealsRepository;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.CompletableObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -32,7 +35,7 @@ public class FavouritePresenter {
                     public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
                         favouritePresenterListener.addFavMealToAdapter(meals);
                     }
-                },throwable -> {
+                }, throwable -> {
 
                 });
     }
@@ -41,5 +44,28 @@ public class FavouritePresenter {
         mealsRepository.deleteFavMeal(favouriteMealsWithMeal)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
+    }
+
+
+    public void loadRemoteData() {
+        mealsRepository.restoreFavouriteMeals()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
     }
 }

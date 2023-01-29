@@ -26,7 +26,7 @@ import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.data.local.model.User;
 import com.soha.foodplanner.ui.MainActivity;
-import com.soha.foodplanner.ui.common.BaseFragment;
+import com.soha.foodplanner.ui.common.fragment.BaseFragment;
 import com.soha.foodplanner.ui.profile.presenter.ProfilePresenter;
 import com.soha.foodplanner.ui.profile.presenter.ProfilePresenterFactory;
 import com.soha.foodplanner.ui.profile.presenter.ProfilePresenterListener;
