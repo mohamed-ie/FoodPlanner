@@ -1,7 +1,8 @@
 package com.soha.foodplanner.ui.search.presenter;
 
 
-import com.soha.foodplanner.data.local.model.MinIngredient;
+import android.util.Pair;
+
 import com.soha.foodplanner.data.repository.meals.MealsRepository;
 import com.soha.foodplanner.ui.common.observers.AllAreasObserver;
 import com.soha.foodplanner.ui.common.observers.AllCategoriesObserver;
@@ -14,10 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.SingleObserver;
-import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchPresenterImpl implements SearchPresenter {
@@ -31,7 +29,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     @Override
-    public void searchByName(String name, List<String> names) {
+    public void searchByName(String name, List<Pair<Long, String>> names) {
         if (name.isEmpty()) {
             listener.onSearchSuccess(new ArrayList<>());
             state.setSearch(new ArrayList<>());
@@ -47,7 +45,7 @@ public class SearchPresenterImpl implements SearchPresenter {
             state.setSearch(names);
         }
 
-        if (name.substring(0, 1).equalsIgnoreCase(state.getSearch().get(0).substring(0, 1))) {
+        if (name.substring(0, 1).equalsIgnoreCase(state.getSearch().get(0).second.substring(0, 1))) {
             performSearch(name);
             return;
         }
@@ -86,7 +84,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     private void performSearch(String key) {
         Flowable.fromIterable(state.getSearch())
                 .subscribeOn(Schedulers.computation())
-                .filter(name -> name.toLowerCase(Locale.ROOT).startsWith(key.toLowerCase(Locale.ROOT)))
+                .filter(name -> name.second.toLowerCase(Locale.ROOT).startsWith(key.toLowerCase(Locale.ROOT)))
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SearchObserver(listener));

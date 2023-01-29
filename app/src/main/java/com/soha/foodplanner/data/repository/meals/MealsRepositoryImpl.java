@@ -7,7 +7,6 @@ import com.soha.foodplanner.data.data_source.remote.restore.RestoreStrategy;
 import com.soha.foodplanner.data.local.entities.FavouriteMealsWithMeal;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
-import com.soha.foodplanner.data.local.entities.PlannedMeals;
 import com.soha.foodplanner.data.local.image_saver.InternalStorageImageSaver;
 import com.soha.foodplanner.data.local.model.CompleteIngredient;
 import com.soha.foodplanner.data.local.model.CompleteMeal;
@@ -20,11 +19,9 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.CompletableSource;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.functions.BiFunction;
-import io.reactivex.rxjava3.functions.Function;
+import io.reactivex.rxjava3.core.SingleOnSubscribe;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsRepositoryImpl implements MealsRepository {
@@ -77,7 +74,7 @@ public class MealsRepositoryImpl implements MealsRepository {
     }
 
     @Override
-    public Single<List<String>> searchByFirstLetter(char c) {
+    public Single<List<Pair<Long, String>>> searchByFirstLetter(char c) {
         return remoteDataSource.getAllMealsByFirstLetter(c);
     }
 
@@ -98,25 +95,22 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Single<Meal> selectMealById(long id) {
-        return localDataSource.selectMealById(id).zipWith(localDataSource.getAllFavouriteMealsIds(), new BiFunction<Meal, List<Long>, Meal>() {
-            @Override
-            public Meal apply(Meal meal, List<Long> longs) {
-                boolean isFavoured = false;
-                for (long long1 : longs) {
-                    if (long1 == meal.getId()) {
-                        isFavoured = true;
-                        break;
-                    }
+        return localDataSource.selectMealById(id).zipWith(localDataSource.getAllFavouriteMealsIds(), (meal, longs) -> {
+            boolean isFavoured = false;
+            for (long long1 : longs) {
+                if (long1 == meal.getId()) {
+                    isFavoured = true;
+                    break;
                 }
-                meal.setFavoured(isFavoured);
-                return meal;
             }
+            meal.setFavoured(isFavoured);
+            return meal;
         });
     }
 
     @Override
     public Completable deleteFavMeal(FavouriteMealsWithMeal mealFav) {
-        return localDataSource.deleteFavMeal(mealFav);
+        return backupStrategy.deleteFavouriteMeal(mealFav.getMeal().getId()).andThen(localDataSource.deleteFavMeal(mealFav));
     }
 
     @Override
@@ -127,6 +121,25 @@ public class MealsRepositoryImpl implements MealsRepository {
     @Override
     public Flowable<List<FavouriteMealsWithMeal>> getFavMeal() {
         return localDataSource.getFavMeal();
+    }
+
+    private Single<Boolean> checkForFavouriteBackups() {
+        return Single.create((SingleOnSubscribe<Boolean>) source -> {
+            List<Long> remoteIds = restoreStrategy.restoreFavouriteMeals().toList().blockingGet();
+            List<Long> localIds = localDataSource.getAllFavouriteMealsIds().blockingGet();
+            if (remoteIds.size() > localIds.size()) source.onSuccess(true);
+            source.onSuccess(false);
+        }).observeOn(Schedulers.io());
+    }
+
+    private Single<Boolean> updateFavouriteFromBackups() {
+        return Single.create((SingleOnSubscribe<Boolean>) source -> {
+            List<Long> remoteIds = restoreStrategy.restoreFavouriteMeals().toList().blockingGet();
+            List<Long> localIds = localDataSource.getAllFavouriteMealsIds().blockingGet();
+            if (remoteIds.size() > localIds.size()) for (long id : remoteIds) {
+                if (!localIds.contains(id)) insertFavMeal(id);
+            }
+        }).observeOn(Schedulers.io());
     }
 
     @Override
@@ -147,6 +160,23 @@ public class MealsRepositoryImpl implements MealsRepository {
             }
             return localDataSource.insertFavMeal(completeMeal).andThen(backupStrategy.addFavouriteMeal(completeMeal.getMeal().getId()));
         });
+    }
+
+    @Override
+    public Completable insertPlanMeal(CompleteMeal completeMeal, long date, String mealTime) {
+        return backupStrategy.addPlannedMeal(completeMeal.getMeal().getId(), date, mealTime)
+                .ambWith(Completable.create(source -> {
+                    try {
+                        completeMeal.getMeal().setPhotoUri(imageSaver.saveImage(glideImageDownloader.download(completeMeal.getMeal().getPhotoUri()), completeMeal.getMeal().getName()));
+                        for (CompleteIngredient completeIngredient : completeMeal.getIngredients()) {
+                            completeIngredient.setThumbnailUrl(imageSaver.saveImage(glideImageDownloader.download(completeIngredient.getThumbnailUrl()), completeIngredient.getName()));
+                        }
+                    } catch (ExecutionException | InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                   localDataSource.insertPlanMeal(completeMeal, date, mealTime).subscribe();
+                    source.onComplete();
+                }));
     }
 
     @Override
@@ -177,22 +207,23 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Flowable<Pair<CompleteMeal, Integer>> getAllCompleteMeals() {
-        return remoteDataSource.getAllCompleteMeals().zipWith(localDataSource.getAllFavouriteMealsIds().toFlowable(), new BiFunction<Pair<CompleteMeal, Integer>, List<Long>, Pair<CompleteMeal, Integer>>() {
-            @Override
-            public Pair<CompleteMeal, Integer> apply(Pair<CompleteMeal, Integer> completeMealIntegerPair, List<Long> longs) throws Throwable {
-                boolean isFavoured = false;
-                for (long long1 : longs) {
-                    if (long1 == completeMealIntegerPair.first.getMeal().getId()) {
-                        isFavoured = true;
-                        break;
-                    }
-                }
-                completeMealIntegerPair.first.getMeal().setFavoured(isFavoured);
-                return completeMealIntegerPair;
-            }
-        });
+        return remoteDataSource.getAllCompleteMeals();
+//        return remoteDataSource.getAllCompleteMeals().zipWith(Flowable.fromSingle(localDataSource.getAllFavouriteMealsIds()), new BiFunction<Pair<CompleteMeal, Integer>, List<Long>, Pair<CompleteMeal, Integer>>() {
+//            @Override
+//            public Pair<CompleteMeal, Integer> apply(Pair<CompleteMeal, Integer> completeMealIntegerPair, List<Long> longs) throws Throwable {
+//                boolean isFavoured = false;
+//                for (long long1 : longs) {
+//                    if (long1 == completeMealIntegerPair.first.getMeal().getId()) {
+//                        isFavoured = true;
+//                        break;
+//                    }
+//                }
+//                completeMealIntegerPair.first.getMeal().setFavoured(isFavoured);
+//                return completeMealIntegerPair;
+//            }
+//        });
+//    }
     }
-
 
     @Override
     public Completable restoreFavouriteMeals() {
@@ -201,9 +232,16 @@ public class MealsRepositoryImpl implements MealsRepository {
 
     @Override
     public Completable restorePlannedMeals() {
-        return restoreStrategy.restorePlannedMeals().flatMapCompletable(plannedMeals ->
-                insertPlanMeal(plannedMeals.getId(), plannedMeals.getDate(), plannedMeals.getMealTime()));
+        return restoreStrategy.restorePlannedMeals().flatMapCompletable(plannedMeals -> insertPlanMeal(plannedMeals.getId(), plannedMeals.getDate(), plannedMeals.getMealTime()));
     }
 
+    @Override
+    public Flowable<List<PlanedMealWithMeal>> getPlannedMeals() {
+        return localDataSource.getPlanedMeal();
+    }
 
+    @Override
+    public Single<CompleteMeal> getMealById(long id) {
+        return remoteDataSource.getMealDetailsById(id);
+    }
 }

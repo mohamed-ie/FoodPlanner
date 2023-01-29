@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.filter.MealsFilterFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -11,10 +13,10 @@
         style="@style/Theme.FoodPlanner.TextInputLayout_Search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginHorizontal="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Completable;
 
 public interface BackupStrategy {
     Completable addFavouriteMeal(long mealId);
-    Completable addPlannedMeal(PlannedMeals plannedMeals);
+    Completable addPlannedMeal(long id, long date, String mealTime);
 
     Completable deleteFavouriteMeal(long mealId);
 

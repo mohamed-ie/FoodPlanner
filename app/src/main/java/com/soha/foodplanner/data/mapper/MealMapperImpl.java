@@ -1,5 +1,7 @@
 package com.soha.foodplanner.data.mapper;
 
+import android.util.Pair;
+
 import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.model.CompleteIngredient;
@@ -32,7 +34,7 @@ public class MealMapperImpl implements MealMapper {
     @Override
     public CompleteMeal mapToCompleteMeal(MealDto from) {
         MealsItem mealsItem = from.getMeals().get(0);
-        Meal meal = new Meal(Long.parseLong(mealsItem.getIdMeal()),
+        Meal meal = new Meal(mealsItem.getIdMeal(),
                 mealsItem.getStrMeal(),
                 mealsItem.getStrCategory(),
                 mealsItem.getStrArea(),
@@ -79,6 +81,15 @@ public class MealMapperImpl implements MealMapper {
     }
 
     @Override
+    public List<Pair<Long, String>> mapToSearch(MealDto from) {
+        List<Pair<Long, String>> names = new ArrayList<>();
+        for (MealsItem mealsItem : from.getMeals()) {
+            names.add(new Pair<>(mealsItem.getIdMeal(), mealsItem.getStrMeal()));
+        }
+        return names;
+    }
+
+    @Override
     public List<MinIngredient> map(IngredientDto from) {
         List<MinIngredient> ingredients = new ArrayList<>();
         for (IngredientItem ingredientItem : from.getMeals()) {
@@ -97,7 +108,7 @@ public class MealMapperImpl implements MealMapper {
             meals.add(new MinMeal(minMealsItem.getStrMeal()
                     , minMealsItem.getIdMeal()
 //                    , String.format(Constants.THE_MEAL_DB_IMAGES_PREVIEW , minMealsItem.getStrMealThumb())));
-                    ,  minMealsItem.getStrMealThumb()));
+                    , minMealsItem.getStrMealThumb()));
         }
         return meals;
     }

@@ -32,6 +32,8 @@ public class FavouritePresenter {
                     public void accept(List<FavouriteMealsWithMeal> meals) throws Throwable {
                         favouritePresenterListener.addFavMealToAdapter(meals);
                     }
+                },throwable -> {
+
                 });
     }
 

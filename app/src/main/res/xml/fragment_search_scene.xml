@@ -55,6 +55,7 @@
 
 
     <Transition
+        app:autoTransition="none"
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start" />
 </MotionScene>

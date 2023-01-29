@@ -52,7 +52,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(com.soha.foodplanner.ui.home.HomeFragmentDirections
-                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId()));
+                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId(),null));
             }
         });
 

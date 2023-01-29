@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.multi_filter.filter_dialog.FilterDialogFragment">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -26,7 +28,7 @@
             android:id="@+id/textInputEditTextSearch"
             style="@style/Theme.FoodPlanner.TextInputEditText_Search"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent" />
     </com.google.android.material.textfield.TextInputLayout>
 

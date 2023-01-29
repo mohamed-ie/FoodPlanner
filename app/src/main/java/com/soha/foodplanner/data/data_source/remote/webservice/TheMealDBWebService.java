@@ -7,6 +7,7 @@ import com.soha.foodplanner.data.dto.ingredient.IngredientDto;
 import com.soha.foodplanner.data.dto.meal.MealDto;
 import com.soha.foodplanner.data.dto.min_meal.MinMealDto;
 
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -44,4 +45,5 @@ public interface TheMealDBWebService {
 
     @GET("filter.php")
     Single<MinMealDto> getAllMealsByIngredient(@Query("i") String ingredient);
+
 }

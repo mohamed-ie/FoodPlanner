@@ -54,7 +54,7 @@ public class MealsItem implements Serializable {
 	private String strTags;
 
 	@SerializedName("idMeal")
-	private String idMeal;
+	private Long idMeal;
 
 	@SerializedName("strInstructions")
 	private String strInstructions;
@@ -227,7 +227,7 @@ public class MealsItem implements Serializable {
 		return strTags;
 	}
 
-	public String getIdMeal(){
+	public Long getIdMeal(){
 		return idMeal;
 	}
 

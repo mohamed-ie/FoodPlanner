@@ -25,7 +25,7 @@ public interface MealsRepository {
 
     Single<List<MinMeal>> loadByCategory(String category);
 
-    Single<List<String>> searchByFirstLetter(char c);
+    Single<List<Pair<Long, String>>> searchByFirstLetter(char c);
 
     Single<List<String>> getAllAres();
 
@@ -46,6 +46,8 @@ public interface MealsRepository {
 
     Completable insertFavMeal(long id);
 
+    Completable insertPlanMeal(CompleteMeal id, long date, String mealTime);
+
     Completable insertPlanMeal(long id, long date, String mealTime);
 
     Single<List<Long>> getAllFavouriteMealsIds();
@@ -57,4 +59,9 @@ public interface MealsRepository {
     Completable restoreFavouriteMeals();
 
     Completable restorePlannedMeals();
+
+    Flowable<List<PlanedMealWithMeal>> getPlannedMeals();
+
+    Single<CompleteMeal> getMealById(long id);
+
 }

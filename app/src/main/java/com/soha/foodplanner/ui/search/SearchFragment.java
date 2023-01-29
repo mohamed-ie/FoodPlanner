@@ -1,6 +1,7 @@
 package com.soha.foodplanner.ui.search;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import java.util.List;
 
 public class SearchFragment extends BaseFragment<SearchPresenter> implements
         SearchPresenterListener,
+        OnSearchItemClickListener,
         OnIngredientItemClickListener,
         OnCategoryItemClickListener,
         OnAreaItemClickListener {
@@ -120,7 +122,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     }
 
     private void initSearchByNameRecyclerView(View view) {
-        adapterSearchByName = new SearchByNameAdapter(new ArrayList<>());
+        adapterSearchByName = new SearchByNameAdapter(new ArrayList<>(),this);
         RecyclerView recyclerViewSearchByNameResult = view.findViewById(R.id.recyclerViewSearchByNameResult);
         recyclerViewSearchByNameResult.setAdapter(adapterSearchByName);
     }
@@ -158,7 +160,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
     }
 
     @Override
-    public void onSearchSuccess(List<String> names) {
+    public void onSearchSuccess(List<Pair<Long, String>> names) {
         adapterSearchByName.setNames(names);
     }
 
@@ -233,4 +235,8 @@ public class SearchFragment extends BaseFragment<SearchPresenter> implements
         navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealsFilterFragment(category, null, null));
     }
 
+    @Override
+    public void onClick(Pair<Long, String> name) {
+        navController.navigate(SearchFragmentDirections.actionSearchFragmentToMealDetails(name.first,null));
+    }
 }

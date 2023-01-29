@@ -1,5 +1,7 @@
 package com.soha.foodplanner.data.mapper;
 
+import android.util.Pair;
+
 import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.data.local.model.MinMeal;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public interface MealMapper {
     List<String> map(MealDto from);
+    List<Pair<Long, String>> mapToSearch(MealDto from);
 
     CompleteMeal mapToCompleteMeal(MealDto from);
 

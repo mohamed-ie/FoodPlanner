@@ -5,6 +5,8 @@
     android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     app:layoutDescription="@xml/fragment_search_scene"
     tools:context=".ui.search.SearchFragment">
 
@@ -95,17 +97,20 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_marginTop="16dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:elevation="10dp"
         android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
         app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
         app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/searchView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -130,11 +135,14 @@
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
 
             <androidx.recyclerview.widget.RecyclerView
+
                 android:id="@+id/recyclerViewIngredient"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -159,6 +167,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,6 +195,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

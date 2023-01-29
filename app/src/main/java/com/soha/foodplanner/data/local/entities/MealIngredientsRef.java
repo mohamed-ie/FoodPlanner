@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 public class MealIngredientsRef {
     @ColumnInfo(name = "id")
     private final long mealId;
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "name",index = true)
     @androidx.annotation.NonNull
     private final String ingredientId;
     private final String amount;

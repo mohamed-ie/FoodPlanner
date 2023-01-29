@@ -43,15 +43,15 @@ public class FirestoreBackupStrategy implements BackupStrategy {
     }
 
     @Override
-    public Completable addPlannedMeal(PlannedMeals plannedMeals) {
+    public Completable addPlannedMeal(long id, long date, String mealTime) {
         Map<String, Object> data = new HashMap<>();
-        data.put("meal_id", plannedMeals.getMealId());
-        data.put("meal_time", plannedMeals.getMealTime());
-        data.put("date", plannedMeals.getDate());
+        data.put("meal_id", id);
+        data.put("meal_time", date);
+        data.put("date", mealTime);
 
         return Completable.create(source ->
                 backupDocument.collection(PLANNED_MEALS_COLLECTION)
-                        .document(String.valueOf(plannedMeals.getMealId()))
+                        .document(String.valueOf(id))
                         .set(data)
                         .addOnCompleteListener(task -> {
                             if (task.isCanceled())

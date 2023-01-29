@@ -50,7 +50,7 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(VeiwAllCatFragmentDirections
-                        .actionVeiwAllCatFragmentToMealDetails(minMeal.getId()));
+                        .actionVeiwAllCatFragmentToMealDetails(minMeal.getId(),null));
 
             }
         });

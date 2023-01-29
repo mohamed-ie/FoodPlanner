@@ -28,6 +28,7 @@ public class MealsFilterPresenterImpl implements MealsFilterPresenter {
     @Override
     public void loadByCategory(String category) {
         repository.getMealsByCategory(category)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MealsByCategoryObserver());
     }
@@ -35,6 +36,7 @@ public class MealsFilterPresenterImpl implements MealsFilterPresenter {
     @Override
     public void loadByArea(String area) {
         repository.getMealsByArea(area)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MealsByCategoryObserver());
     }
@@ -53,6 +55,7 @@ public class MealsFilterPresenterImpl implements MealsFilterPresenter {
     @Override
     public void loadByIngredient(String ingredient) {
         repository.getMealsByIngredient(ingredient)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MealsByCategoryObserver());
     }

@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,29 +32,23 @@ import com.bumptech.glide.Glide;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
 import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
-import com.soha.foodplanner.data.dto.meal.MealDto;
-import com.soha.foodplanner.data.dto.meal.MealsItem;
-import com.soha.foodplanner.data.local.MealDAO;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.model.CompleteIngredient;
-import com.soha.foodplanner.data.local.model.MinIngredient;
+import com.soha.foodplanner.data.local.model.CompleteMeal;
+import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsListener;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsPresenter;
 
 import java.util.Calendar;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
-
-public class MealDetailsFragment extends Fragment implements MealDetailsListener{
-    TextView mealName,areaName,instructions;
+public class MealDetailsFragment extends Fragment implements MealDetailsListener {
+    TextView mealName, areaName, instructions;
     DatePickerDialog.OnDateSetListener setListener;
     String dayName;
     ImageView mealPhoto;
@@ -86,22 +79,18 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mealIdStr=MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
-
-
-        theMealDBWebService = Webservice.getInstance().getTheMealDBWebService();
-        mealDetailsPresenter=new MealDetailsPresenter(theMealDBWebService,this,view);
+        mealIdStr = MealDetailsFragmentArgs.fromBundle(requireArguments()).getMealId();
+        mealDetailsPresenter = new MealDetailsPresenter(((MyApp) ((MainActivity) requireHost()).getApplication()).getMealsRepository(), this);
         getMealDetail();
 
 
         initViews(view);
 
-        Calendar calendar=Calendar.getInstance();
-         int year=calendar.get(Calendar.YEAR);
-         int month=calendar.get(Calendar.MONTH);
-         int day=calendar.get(Calendar.DAY_OF_MONTH);
-         int dayVal=calendar.get(Calendar.DAY_OF_WEEK);
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int dayVal = calendar.get(Calendar.DAY_OF_WEEK);
 
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,38 +103,41 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
-              //  month=datePickerDialog.getDatePicker().getMonth();
-}
+                //  month=datePickerDialog.getDatePicker().getMonth();
+            }
 
         });
-        setListener=new DatePickerDialog.OnDateSetListener() {
+
+        String mealTime = "breakfast";
+        Calendar selectCalendar = Calendar.getInstance();
+        setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar selectCalendar=Calendar.getInstance();
-                selectCalendar.set(year,month,dayOfMonth);
-                int dayVal=selectCalendar.get(Calendar.DAY_OF_WEEK);
+                selectCalendar.set(year, month, dayOfMonth);
+                selectCalendar.getTime().getTime();
+                int dayVal = selectCalendar.get(Calendar.DAY_OF_WEEK);
 
-                switch(dayVal){
+                switch (dayVal) {
                     case 1:
-                        dayName="Sunday";
+                        dayName = "Sunday";
                         break;
                     case 2:
-                        dayName="Monday";
+                        dayName = "Monday";
                         break;
                     case 3:
-                        dayName="Tuesday";
+                        dayName = "Tuesday";
                         break;
                     case 4:
-                        dayName="Wednesday";
+                        dayName = "Wednesday";
                         break;
                     case 5:
-                        dayName="Thursday";
+                        dayName = "Thursday";
                         break;
                     case 6:
-                        dayName="Friday";
+                        dayName = "Friday";
                         break;
                     case 7:
-                        dayName="Saturday";
+                        dayName = "Saturday";
                         break;
 
                 }
@@ -176,7 +168,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
                         builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                mealDetailsPresenter.addToPlanned(calendar.getTime().getTime(), mealTime);
                                 dialog.dismiss();
                             }
                         });
@@ -189,33 +181,32 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
         };
 
 
-            }
-
-
-
+    }
 
 
     private void initViews(View view) {
-        mealName=view.findViewById(R.id.meal_detailed_name);
-        areaName=view.findViewById(R.id.meal_detailed_area);
-        instructions=view.findViewById(R.id.meal_detailed_instructions);
-        mealPhoto=view.findViewById(R.id.meal_img);
-        mealVideo=view.findViewById(R.id.video);
-        planButton=view.findViewById(R.id.plan_btn);
-        ingredientsRV=view.findViewById(R.id.rv_ingredients);
+        mealName = view.findViewById(R.id.meal_detailed_name);
+        areaName = view.findViewById(R.id.meal_detailed_area);
+        instructions = view.findViewById(R.id.meal_detailed_instructions);
+        mealPhoto = view.findViewById(R.id.meal_img);
+        mealVideo = view.findViewById(R.id.video);
+        planButton = view.findViewById(R.id.plan_btn);
+        ingredientsRV = view.findViewById(R.id.rv_ingredients);
     }
-    private void setMealValues(Meal mealsItem, View view){
+
+    private void setMealValues(Meal mealsItem, View view) {
 
         mealName.setText(mealsItem.getName());
         instructions.setText(mealsItem.getInstructions());
         areaName.setText(mealsItem.getArea());
-        if(mealsItem.getVideoUri()!=null){
+        if (mealsItem.getVideoUri() != null) {
             setVideo(mealsItem);
         }
 
         Glide.with(view.getContext()).load(mealsItem.getPhotoUri()).into(mealPhoto);
     }
-    private void setVideo(Meal mealsItem){
+
+    private void setVideo(Meal mealsItem) {
         getLifecycle().addObserver((LifecycleObserver) mealVideo);
         String[] split = mealsItem.getVideoUri().split("=");
 
@@ -223,12 +214,12 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                try{
+                try {
                     String videoId = split[1];
                     youTubePlayer.loadVideo(videoId, 0);
 
-                }catch (Exception e){
-                    Log.e("TAG", "onReady: "+ e.getMessage() );
+                } catch (Exception e) {
+                    Log.e("TAG", "onReady: " + e.getMessage());
                 }
 
             }
@@ -238,20 +229,20 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     @Override
     public void getMealDetail() {
         mealDetailsPresenter.getDetails(mealIdStr);
-
     }
 
     @Override
-    public void setValues(Meal mealsItem, View view) {
-        setMealValues(mealsItem,view);
+    public void setValues(CompleteMeal mealsItem) {
+        setMealValues(mealsItem.getMeal(), requireView());
+        setIngredients(mealsItem.getIngredients(), requireView());
     }
 
     @Override
     public void setIngredients(List<CompleteIngredient> mealsItem, View view) {
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(requireContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         ingredientsRV.setLayoutManager(linearLayoutManager);
-        IngredientAdapter ingredientAdapter=new IngredientAdapter(view.getContext(),mealsItem);
+        IngredientAdapter ingredientAdapter = new IngredientAdapter(view.getContext(), mealsItem);
         ingredientsRV.setAdapter(ingredientAdapter);
     }
 }

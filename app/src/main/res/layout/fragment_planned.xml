@@ -4,44 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="10dp"
     tools:context=".ui.planned.PlannedFragment"
 
     >
 
-    <ImageButton
-        android:id="@+id/prev_week_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/next_circle"
-        android:src="@drawable/back"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/prev_week_button"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:background="@drawable/next_circle"-->
+    <!--        android:src="@drawable/back"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        />-->
 
-    <ImageButton
-        android:id="@+id/next_week_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/next_circle"
-        android:src="@drawable/next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/next_week_button"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        android:background="@drawable/next_circle"-->
+    <!--        android:src="@drawable/next"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--         />-->
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager_planned"
-        android:layout_width="match_parent"
+    <!--    <androidx.viewpager2.widget.ViewPager2-->
+    <!--        android:id="@+id/view_pager_planned"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.5"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/next_week_button"        app:layout_constraintWidth_percent="0.8" />-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        tools:listitem="@layout/recycler_view_meal_item"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/next_week_button"        app:layout_constraintWidth_percent="0.8" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

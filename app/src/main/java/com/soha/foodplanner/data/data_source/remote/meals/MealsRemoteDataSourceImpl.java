@@ -51,11 +51,11 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     }
 
     @Override
-    public Single<List<String>> getAllMealsByFirstLetter(char c) {
+    public Single<List<Pair<Long, String>>> getAllMealsByFirstLetter(char c) {
         return theMealDBWebService.getAllMealsByFirstLetter(c)
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(disposables::add)
-                .map(mapper::map);
+                .map(mapper::mapToSearch);
     }
 
     @Override
@@ -85,7 +85,6 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     @Override
     public Single<CompleteMeal> getMealDetailsById(long id) {
         return theMealDBWebService.getMealDetailsById(id)
-                .subscribeOn(Schedulers.io())
                 .map(mapper::mapToCompleteMeal);
     }
 

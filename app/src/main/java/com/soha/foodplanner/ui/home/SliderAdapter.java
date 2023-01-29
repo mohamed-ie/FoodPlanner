@@ -71,7 +71,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
 
 
                 Navigation.findNavController(v).navigate(HomeFragmentDirections
-                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId()));
+                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId(),null));
 
             }
         });

@@ -1,6 +1,7 @@
 package com.soha.foodplanner.ui.search.adapter.search_by_name;
 
 import android.annotation.SuppressLint;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +11,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soha.foodplanner.R;
+import com.soha.foodplanner.ui.search.OnSearchItemClickListener;
 
 import java.util.List;
 
 public class SearchByNameAdapter extends RecyclerView.Adapter<SearchByNameAdapter.ViewHolder> {
-    private List<String> names;
+    private List<Pair<Long, String>> names;
+    private final OnSearchItemClickListener listener;
 
-    public SearchByNameAdapter(List<String> names) {
+    public SearchByNameAdapter(List<Pair<Long, String>> names, OnSearchItemClickListener listener) {
         this.names = names;
+        this.listener = listener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setNames(List<String> names) {
+    public void setNames(List<Pair<Long, String>> names) {
         this.names = names;
         notifyDataSetChanged();
     }
 
-    public List<String> getNames() {
+    public List<Pair<Long, String>> getNames() {
         return names;
     }
 
@@ -40,7 +44,8 @@ public class SearchByNameAdapter extends RecyclerView.Adapter<SearchByNameAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SearchByNameAdapter.ViewHolder holder, int position) {
-        holder.textViewName.setText(names.get(position));
+        holder.itemView.setOnClickListener(v->listener.onClick(names.get(position)));
+        holder.textViewName.setText(names.get(position).second);
     }
 
     @Override

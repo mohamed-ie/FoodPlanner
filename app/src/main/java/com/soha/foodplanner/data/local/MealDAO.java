@@ -13,6 +13,7 @@ import com.soha.foodplanner.data.local.entities.Ingredient;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.data.local.entities.MealIngredientsRef;
 import com.soha.foodplanner.data.local.entities.PlanedMealWithMeal;
+import com.soha.foodplanner.data.local.entities.PlannedMealWithMealAndIngredients;
 import com.soha.foodplanner.data.local.entities.PlannedMeals;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public interface MealDAO {
     Flowable<List<FavouriteMealsWithMeal>> getFavouriteMealsWithMeal();
 
     @Transaction
-    @Query("SELECT * FROM planed_meals")
+    @Query("SELECT * FROM planed_meals order by date , mealTime")
     Flowable<List<PlanedMealWithMeal>> getPlanedMealWithMeal();
 
 

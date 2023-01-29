@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
@@ -19,6 +20,10 @@ import com.soha.foodplanner.ui.MainActivity;
 import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragmentWithArgs;
 import com.soha.foodplanner.ui.common.presenter.factory.PresenterFactory;
 import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
+import com.soha.foodplanner.ui.multi_filter.filter_dialog.adapter.area.FilterAreaAdapter;
+import com.soha.foodplanner.ui.multi_filter.filter_dialog.adapter.area.OnAreaFilterItemClickListener;
+import com.soha.foodplanner.ui.multi_filter.filter_dialog.adapter.category.FilterCategoryAdapter;
+import com.soha.foodplanner.ui.multi_filter.filter_dialog.adapter.ingredient.FilterIngredientAdapter;
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.presenter.FilterPresenter;
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.presenter.FilterPresenterFactory;
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.presenter.FilterPresenterListener;
@@ -37,9 +42,9 @@ import java.util.List;
 
 public class FilterDialogFragment extends BaseDialogFragmentWithArgs<FilterDialogFragmentArgs>
         implements FilterPresenterListener,
-        OnIngredientItemClickListener,
-        OnCategoryItemClickListener,
-        OnAreaItemClickListener {
+        OnIngredientFilterItemClickListener,
+        OnCategoryFilterItemClickListener,
+        OnAreaFilterItemClickListener {
     public static final String FILTERS = "filters";
 
     private TextInputEditText textInputEditTextSearch;
@@ -48,9 +53,9 @@ public class FilterDialogFragment extends BaseDialogFragmentWithArgs<FilterDialo
     private ImageButton imageButtonExpandCategories;
     private ImageButton imageButtonExpandIngredients;
     private ImageButton imageButtonExpandAreas;
-    private CategoryAdapter adapterCategory;
-    private IngredientAdapter adapterIngredients;
-    private AreaAdapter adapterArea;
+    private FilterCategoryAdapter adapterCategory;
+    private FilterIngredientAdapter adapterIngredients;
+    private FilterAreaAdapter adapterArea;
     private RecyclerView recyclerViewAreas;
     private RecyclerView recyclerViewCategories;
     private RecyclerView recyclerViewIngredients;
@@ -104,21 +109,21 @@ public class FilterDialogFragment extends BaseDialogFragmentWithArgs<FilterDialo
     }
 
     private void initCategoriesRecyclerView(View view) {
-        adapterCategory = new CategoryAdapter(new ArrayList<>(), this);
+        adapterCategory = new FilterCategoryAdapter(new ArrayList<>(), this);
         recyclerViewCategories = view.findViewById(R.id.recyclerViewCategories);
         recyclerViewCategories.setLayoutManager(new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false));
         recyclerViewCategories.setAdapter(adapterCategory);
     }
 
     private void initIngredientsRecyclerView(View view) {
-//        adapterIngredients = new IngredientAdapter(new ArrayList<>(), this);
+        adapterIngredients = new FilterIngredientAdapter(new ArrayList<>(), Glide.with(this), this);
         recyclerViewIngredients = view.findViewById(R.id.recyclerViewIngredients);
         recyclerViewIngredients.setLayoutManager(new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false));
         recyclerViewIngredients.setAdapter(adapterIngredients);
     }
 
     private void initAreasRecyclerView(View view) {
-        adapterArea = new AreaAdapter(new ArrayList<>(), this);
+        adapterArea = new FilterAreaAdapter(new ArrayList<>(), this);
         recyclerViewAreas = view.findViewById(R.id.recyclerViewAreas);
         recyclerViewAreas.setLayoutManager(new GridLayoutManager(requireContext(), spanCount, RecyclerView.VERTICAL, false));
         recyclerViewAreas.setAdapter(adapterArea);
@@ -198,23 +203,23 @@ public class FilterDialogFragment extends BaseDialogFragmentWithArgs<FilterDialo
     }
 
     @Override
-    public void onAreaItemClick(String area) {
-        presenter.updateArea(area);
-    }
-
-    @Override
-    public void onCategoryClick(String category) {
-        presenter.updateCategory(category);
-    }
-
-    @Override
-    public void onIngredientClick(String ingredient) {
-        presenter.updateIngredient(ingredient);
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         factory.onDestroy(getLayoutResource(), requireActivity().isChangingConfigurations());
+    }
+
+    @Override
+    public void onCategoryClick(String category, boolean add) {
+
+    }
+
+    @Override
+    public void onIngredientClick(String name, boolean add) {
+
+    }
+
+    @Override
+    public void onAreaItemClick(String area) {
+
     }
 }

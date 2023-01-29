@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_searchFragment_to_multiFilterFragment"
             app:destination="@id/multiFilterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_mealDetails"
+            app:destination="@id/mealDetails" />
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
@@ -96,6 +99,10 @@
             android:name="bottom_app_bar_visibility"
             app:argType="boolean"
             android:defaultValue="true" />
+        <argument
+            android:name="meal_name"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <dialog
         android:id="@+id/dayOfWeekFragment"

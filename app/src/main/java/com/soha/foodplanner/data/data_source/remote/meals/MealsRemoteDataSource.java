@@ -20,7 +20,7 @@ public interface MealsRemoteDataSource extends RemoteDataSource {
 
     Single<List<MinMeal>> getAreaMeals(String area);
 
-    Single<List<String>> getAllMealsByFirstLetter(char c);
+    Single<List<Pair<Long, String>>> getAllMealsByFirstLetter(char c);
 
     Single<List<String>> getAreas();
 
@@ -33,4 +33,5 @@ public interface MealsRemoteDataSource extends RemoteDataSource {
     Single<List<MinMeal>> getAllMealsByIngredient(String ingredient);
 
     Flowable<Pair<CompleteMeal, Integer>> getAllCompleteMeals();
+
 }

@@ -93,7 +93,7 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
     public void onMealItemClick(long id) {
 //            navController.navigate();
 
-        Navigation.findNavController(getView()).navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id));
+        Navigation.findNavController(getView()).navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id,null));
     }
 
     @Override

@@ -32,6 +32,7 @@ public class MultiFilterPresenterImpl implements MultiFilterPresenter {
     @Override
     public void getAllMeals() {
         repository.getAllCompleteMeals()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new GetAllMealsObserver());
     }
@@ -76,7 +77,7 @@ public class MultiFilterPresenterImpl implements MultiFilterPresenter {
                 .subscribe(new Subscriber<CompleteMeal>() {
                     @Override
                     public void onSubscribe(Subscription s) {
-                      s.request(Long.MAX_VALUE);
+                        s.request(Long.MAX_VALUE);
                     }
 
                     @Override
@@ -95,6 +96,7 @@ public class MultiFilterPresenterImpl implements MultiFilterPresenter {
                     }
                 });
     }
+
 
 
 }

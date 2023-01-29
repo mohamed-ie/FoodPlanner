@@ -44,7 +44,7 @@ public class CompleteMealAdapter extends RecyclerView.Adapter<CompleteMealAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meal meal = meals.get(position);
 
-        Glide.with(holder.textViewName)
+        Glide.with(holder.itemView)
                 .load(meal.getPhotoUri())
                 .into(holder.imageViewThumbnail);
 
@@ -73,7 +73,7 @@ public class CompleteMealAdapter extends RecyclerView.Adapter<CompleteMealAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.editTextName);
+            textViewName = itemView.findViewById(R.id.textViewName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
             imageButtonFavourite = itemView.findViewById(R.id.imageButtonFavourite);
             constraintLayout = itemView.findViewById(R.id.constraintLayout);
