@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,8 @@ import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsListener;
 import com.soha.foodplanner.ui.meal_details.presenter.MealDetailsPresenter;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -61,7 +65,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
     ImageView mealPhoto;
     YouTubePlayerView mealVideo;
     TheMealDBWebService theMealDBWebService;
-    private Button planButton;
+    private Button planButton,calenderButton;
     protected NavController navController;
     private MealDetailsPresenter mealDetailsPresenter;
     private String mealIdStr;
@@ -96,6 +100,26 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
 
 
         initViews(view);
+
+        calenderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_INSERT);
+                intent.setData(CalendarContract.Events.CONTENT_URI);
+                intent.putExtra(CalendarContract.Events.TITLE,mealName.getText());
+                intent.putExtra(CalendarContract.Events.DESCRIPTION,instructions.getText());
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION,areaName.getText());
+                intent.putExtra(CalendarContract.Events.ALL_DAY,true);
+                if(intent.resolveActivity(getActivity().getPackageManager())!=null){
+
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(requireContext() , "There is no app that support this action", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
 
         Calendar calendar=Calendar.getInstance();
          int year=calendar.get(Calendar.YEAR);
@@ -203,6 +227,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsListener
         mealVideo=view.findViewById(R.id.video);
         planButton=view.findViewById(R.id.plan_btn);
         ingredientsRV=view.findViewById(R.id.rv_ingredients);
+        calenderButton=view.findViewById(R.id.calender_btn);
     }
     private void setMealValues(Meal mealsItem, View view){
 
