@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     app:layoutDescription="@xml/fragment_search_scene"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".ui.main.search.SearchFragment">
 
 
     <androidx.constraintlayout.utils.widget.MotionLabel

@@ -3,21 +3,19 @@ package com.soha.foodplanner.ui.addapters;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.soha.foodplanner.common.Constants;
 import com.soha.foodplanner.utils.UiUtils;
 
 public class VerticalStackTransformer implements ViewPager2.PageTransformer {
 
     private final float offscreenPageLimit;
-    private final float DEFAULT_TRANSLATION_Y = .0f;
-
-    private final float SCALE_FACTOR = .12f;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final float DEFAULT_TRANSLATION_X = 1.2f;
+    @SuppressWarnings("FieldCanBeLocal")
     private final float DEFAULT_SCALE = 1f;
-
-    private final float ALPHA_FACTOR = .5f;
-    private final float DEFAULT_ALPHA = 1f;
+    private final float SCALE_FACTOR = .14f;
 
     public VerticalStackTransformer(float offscreenPageLimit) {
         this.offscreenPageLimit = offscreenPageLimit;
@@ -26,26 +24,21 @@ public class VerticalStackTransformer implements ViewPager2.PageTransformer {
 
     @Override
     public void transformPage(@NonNull View page, float position) {
-        ViewCompat.setElevation(page, -Math.abs(position));
-
         float scaleFactor = -SCALE_FACTOR * position + DEFAULT_SCALE;
-        float alphaFactor = -ALPHA_FACTOR * position + DEFAULT_ALPHA;
+            page.setElevation(Constants.INSPIRATION_COUNT-position);
 
         if (position <= 0f) {
-            page.setTranslationY(DEFAULT_TRANSLATION_Y);
+            page.setTranslationX(DEFAULT_TRANSLATION_X);
             page.setScaleX(DEFAULT_SCALE);
             page.setScaleY(DEFAULT_SCALE);
-            page.setAlpha(DEFAULT_ALPHA + position);
         } else if (position <= offscreenPageLimit - 1) {
-            page.setScaleX(scaleFactor);
-            page.setScaleY(DEFAULT_SCALE);
-            page.setTranslationY(-page.getHeight() * position + UiUtils.dpTpPx(10, page.getResources()) * position);
-            page.setAlpha(alphaFactor);
-        }else{
-            page.setTranslationY(DEFAULT_TRANSLATION_Y);
+            page.setScaleY(scaleFactor);
+            page.setTranslationX(((page.getWidth() - UiUtils.dpTpPx(16)) * position));
+//            page.setAlpha(alphaFactor);
+        } else {
+            page.setTranslationX(DEFAULT_TRANSLATION_X);
             page.setScaleX(DEFAULT_SCALE);
             page.setScaleY(DEFAULT_SCALE);
-            page.setAlpha(alphaFactor);
         }
     }
 }

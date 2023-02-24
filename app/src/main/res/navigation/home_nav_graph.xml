@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.soha.foodplanner.ui.home.HomeFragment"
+        android:name="com.soha.foodplanner.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.soha.foodplanner.ui.search.SearchFragment"
+        android:name="com.soha.foodplanner.ui.main.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
-        android:name="com.soha.foodplanner.ui.favourite.FavouriteFragment"
+        android:name="com.soha.foodplanner.ui.main.favourite.FavouriteFragment"
         android:label="fragment_favourite"
         tools:layout="@layout/fragment_favourite" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.soha.foodplanner.ui.profile.ProfileFragment"
+        android:name="com.soha.foodplanner.ui.main.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/plannedFragment"
-        android:name="com.soha.foodplanner.ui.planned.PlannedFragment"
+        android:name="com.soha.foodplanner.ui.main.planned.PlannedFragment"
         android:label="fragment_planned"
         tools:layout="@layout/fragment_planned" />
     <fragment
@@ -89,9 +89,6 @@
         android:name="com.soha.foodplanner.ui.meal_details.MealDetailsFragment"
         android:label="fragment_meal_details"
         tools:layout="@layout/fragment_meal_details" >
-        <argument
-            android:name="mealId"
-            app:argType="long" />
         <action
             android:id="@+id/action_mealDetails_to_dayOfWeekFragment"
             app:destination="@id/dayOfWeekFragment" />
@@ -100,9 +97,11 @@
             app:argType="boolean"
             android:defaultValue="true" />
         <argument
-            android:name="meal_name"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="online"
+            app:argType="boolean" />
+        <argument
+            android:name="complete_meal"
+            app:argType="com.soha.foodplanner.data.local.model.CompleteMeal" />
     </fragment>
     <dialog
         android:id="@+id/dayOfWeekFragment"
@@ -170,4 +169,9 @@
             android:id="@+id/action_veiwAllCatFragment_to_mealDetails"
             app:destination="@id/mealDetails" />
     </fragment>
+    <fragment
+        android:id="@+id/createRecipeFragment"
+        android:name="com.soha.foodplanner.ui.create_recipe.CreateRecipeFragment"
+        android:label="fragment_create_recipe"
+        tools:layout="@layout/fragment_create_recipe" />
 </navigation>

@@ -1,23 +1,24 @@
 package com.soha.foodplanner.ui.multi_filter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.ui.MainActivity;
-import com.soha.foodplanner.ui.common.fragment.BaseFragment;
 import com.soha.foodplanner.ui.common.TextWatcherAdapter;
+import com.soha.foodplanner.ui.common.fragment.BaseFragment;
 import com.soha.foodplanner.ui.filter.OnMealItemClickListener;
 import com.soha.foodplanner.ui.multi_filter.presenter.MultiFilterFactory;
 import com.soha.foodplanner.ui.multi_filter.presenter.MultiFilterPresenter;
@@ -35,6 +36,7 @@ public class MultiFilterFragment extends BaseFragment<MultiFilterPresenter>
     private ImageButton imageButtonFilter;
     private CompleteMealAdapter adapterCompleteMeal;
     private TextInputEditText textInputEditTextSearch;
+    private TextInputLayout textInputLayoutSearch;
 
     @Override
     protected int getLayoutResource() {
@@ -59,7 +61,8 @@ public class MultiFilterFragment extends BaseFragment<MultiFilterPresenter>
         progressBar = view.findViewById(R.id.progressBar);
         textViewPercent = view.findViewById(R.id.textViewPercent);
         imageButtonFilter = view.findViewById(R.id.imageButtonFilter);
-        textInputEditTextSearch=view.findViewById(R.id.textInputEditTextSearch);
+        textInputEditTextSearch = view.findViewById(R.id.textInputEditTextSearch);
+        textInputLayoutSearch = view.findViewById(R.id.textInputLayoutSearch);
         initMealsRecyclerView(view);
     }
 
@@ -94,7 +97,6 @@ public class MultiFilterFragment extends BaseFragment<MultiFilterPresenter>
     @Override
     protected void updateUi() {
         textViewPercent.setText(getString(R.string.percent, 0));
-
     }
 
     @Override
@@ -114,10 +116,24 @@ public class MultiFilterFragment extends BaseFragment<MultiFilterPresenter>
     public void onLoadAllMealsComplete() {
         progressBar.setVisibility(View.GONE);
         textViewPercent.setVisibility(View.GONE);
+        textInputLayoutSearch.setVisibility(View.VISIBLE);
+        imageButtonFilter.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onLoadAllMealsError(String message, int progress) {
         progressBar.setProgress(progress);
+    }
+
+
+    @Override
+    public void onSearchNextMeal(CompleteMeal completeMeal) {
+        adapterCompleteMeal.addMeal(completeMeal.getMeal());
+    }
+
+    @Override
+    public void clearList() {
+        adapterCompleteMeal.getMeals().clear();
+        adapterCompleteMeal.notifyDataSetChanged();
     }
 }

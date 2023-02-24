@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    tools:context=".ui.signup.SignUpFragment">
+    tools:context=".ui.auth.signup.SignUpFragment">
 
     <include
         layout="@layout/layout_boarding_bg"
@@ -68,7 +69,7 @@
                 app:layout_constraintWidth_percent=".85">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_mail"
+                    android:id="@+id/textInputEditTextEmail"
                     style="@style/Theme.FoodPlanner.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,7 +92,7 @@
                 app:layout_constraintWidth_percent=".85">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_name"
+                    android:id="@+id/textInputEditTextName"
                     style="@style/Theme.FoodPlanner.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,7 +113,7 @@
                 app:layout_constraintWidth_percent=".85">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_password"
+                    android:id="@+id/textInputEditTextPassword"
                     style="@style/Theme.FoodPlanner.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -127,9 +128,8 @@
                 style="@style/Theme.FoodPlanner.TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundColor="@color/green"
                 app:endIconMode="password_toggle"
-                app:layout_constraintBottom_toTopOf="@+id/sign_up_btn"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSignup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +137,7 @@
                 app:layout_constraintWidth_percent=".85">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/confirm_password"
+                    android:id="@+id/textInputEditTextConfirmPassword"
                     style="@style/Theme.FoodPlanner.TextInputEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/sign_up_btn"
+                android:id="@+id/buttonSignup"
                 style="@style/Theme.FoodPlanner.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

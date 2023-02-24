@@ -1,32 +1,29 @@
 package com.soha.foodplanner.ui.view_all_categories;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
+import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.data.repository.MealsLocalDataSource;
 import com.soha.foodplanner.ui.MainActivity;
-import com.soha.foodplanner.ui.common.AddToFavourite;
+import com.soha.foodplanner.ui.common.OnInspirationItemListener;
 import com.soha.foodplanner.ui.view_all_categories.presenter.VeiwAllCatPresenter;
 import com.soha.foodplanner.ui.view_all_categories.presenter.ViewAllCatListener;
 
 import java.util.List;
 
 
-public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, AddToFavourite {
+public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, OnInspirationItemListener {
     String categoryName;
     VeiwAllCatPresenter veiwAllCatPresenter;
     private TextView category;
@@ -66,6 +63,16 @@ public class VeiwAllCatFragment extends Fragment implements ViewAllCatListener, 
     @Override
     public void addFavouriteMeal(long id) {
         veiwAllCatPresenter.insertToFav(id);
+
+    }
+
+    @Override
+    public void viewAll(String name) {
+
+    }
+
+    @Override
+    public void openMealDetails(CompleteMeal completeMeal) {
 
     }
 }

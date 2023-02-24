@@ -29,7 +29,6 @@
         android:id="@+id/week_list"
         android:entries="@array/day_of_week"
         android:layout_marginTop="16dp"
-        android:divider="@color/green"
         android:dividerHeight="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

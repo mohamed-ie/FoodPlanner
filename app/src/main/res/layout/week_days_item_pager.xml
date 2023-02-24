@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.planned.PlannedFragment">
+    tools:context=".ui.main.planned.PlannedFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_marginHorizontal="5dp"

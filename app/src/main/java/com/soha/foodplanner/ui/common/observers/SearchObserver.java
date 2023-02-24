@@ -1,9 +1,8 @@
 package com.soha.foodplanner.ui.common.observers;
 
-import android.graphics.Paint;
 import android.util.Pair;
 
-import com.soha.foodplanner.ui.search.presenter.SearchListener;
+import com.soha.foodplanner.ui.main.search.presenter.SearchListener;
 
 import java.util.List;
 

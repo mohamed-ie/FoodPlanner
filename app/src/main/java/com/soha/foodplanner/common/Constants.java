@@ -14,4 +14,6 @@ public interface Constants {
     String ARGUMENT_BOTTOM_APP_BAR_VISIBILITY = "bottom_app_bar_visibility";
     String INTERNAL_STORAGE_IMAGE_DIRECTORY = "images";
 
+    int INSPIRATION_COUNT = 10;
+
 }

@@ -9,7 +9,7 @@ import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.dto.meal.MealDto;
-import com.soha.foodplanner.data.dto.meal.MealsItem;
+import com.soha.foodplanner.data.dto.meal.MealItem;
 import com.soha.foodplanner.data.dto.area.AreaDto;
 import com.soha.foodplanner.data.dto.area.AreaItem;
 import com.soha.foodplanner.data.dto.category.CategoryDto;
@@ -33,7 +33,7 @@ public class MealMapperImpl implements MealMapper {
 
     @Override
     public CompleteMeal mapToCompleteMeal(MealDto from) {
-        MealsItem mealsItem = from.getMeals().get(0);
+        MealItem mealsItem = from.getMeals().get(0);
         Meal meal = new Meal(mealsItem.getIdMeal(),
                 mealsItem.getStrMeal(),
                 mealsItem.getStrCategory(),
@@ -41,7 +41,9 @@ public class MealMapperImpl implements MealMapper {
                 mealsItem.getStrInstructions(),
                 mealsItem.getStrMealThumb(),
                 mealsItem.getStrYoutube());
-
+        String[] splitLink = mealsItem.getStrYoutube().split("=");
+        if (splitLink.length > 1)
+            meal.setVideoId(splitLink[1]);
         List<CompleteIngredient> ingredients = new ArrayList<>();
         Field[] fields = mealsItem.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -74,7 +76,7 @@ public class MealMapperImpl implements MealMapper {
     @Override
     public List<String> map(MealDto from) {
         List<String> names = new ArrayList<>();
-        for (MealsItem mealsItem : from.getMeals()) {
+        for (MealItem mealsItem : from.getMeals()) {
             names.add(mealsItem.getStrMeal());
         }
         return names;
@@ -83,7 +85,7 @@ public class MealMapperImpl implements MealMapper {
     @Override
     public List<Pair<Long, String>> mapToSearch(MealDto from) {
         List<Pair<Long, String>> names = new ArrayList<>();
-        for (MealsItem mealsItem : from.getMeals()) {
+        for (MealItem mealsItem : from.getMeals()) {
             names.add(new Pair<>(mealsItem.getIdMeal(), mealsItem.getStrMeal()));
         }
         return names;
@@ -107,8 +109,7 @@ public class MealMapperImpl implements MealMapper {
         for (MinMealsItem minMealsItem : from.getMeals()) {
             meals.add(new MinMeal(minMealsItem.getStrMeal()
                     , minMealsItem.getIdMeal()
-//                    , String.format(Constants.THE_MEAL_DB_IMAGES_PREVIEW , minMealsItem.getStrMealThumb())));
-                    , minMealsItem.getStrMealThumb()));
+                    , minMealsItem.getStrMealThumb(), new ArrayList<>()));
         }
         return meals;
     }
@@ -129,4 +130,11 @@ public class MealMapperImpl implements MealMapper {
             strings.add(areaItem.getStrArea());
         return strings;
     }
+
+    @Override
+    public MinMeal mapToMinMeal(MealDto from) {
+        CompleteMeal completeMeal = mapToCompleteMeal(from);
+        return new MinMeal(completeMeal.getMeal().getName(), completeMeal.getMeal().getId(), completeMeal.getMeal().getPhotoUri(), completeMeal.getIngredients());
+    }
+
 }

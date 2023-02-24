@@ -1,7 +1,7 @@
 package com.soha.foodplanner.ui.common.observers;
 
 import com.soha.foodplanner.data.local.model.MinIngredient;
-import com.soha.foodplanner.ui.search.presenter.AllIngredientsListener;
+import com.soha.foodplanner.ui.main.search.presenter.AllIngredientsListener;
 
 import java.util.List;
 

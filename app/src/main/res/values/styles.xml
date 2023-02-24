@@ -26,15 +26,21 @@
     </style>
 
     <style name="Theme.FoodPlanner.TextInputLayout" parent="">
-        <item name="android:textColorHint">@color/text_hint</item>
-        <item name="boxStrokeColor">@color/selector_text_input_layout_box_stroke</item>
-        <item name="endIconTint">@color/selector_text_input_layout_end_icon_tint</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <item name="android:background">@drawable/shape_edit_text_multiline_background</item>
+        <item name="android:backgroundTint">@color/black_5</item>
+        <item name="android:drawablePadding">0dp</item>
+        <item name="endIconMinSize">40dp</item>
+        <item name="startIconMinSize">40dp</item>
+        <!--        <item name="boxStrokeColor">@color/selector_text_input_layout_box_stroke</item>-->
+        <!--        <item name="endIconTint">@color/selector_text_input_layout_end_icon_tint</item>-->
     </style>
+
 
     <style name="Theme.FoodPlanner.TextInputLayout_Search" parent="">
         <item name="android:background">@drawable/shape_search_view</item>
         <item name="android:backgroundTint">?editTextBackground</item>
-        <item name="android:hint">@string/search_recipe</item>
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="endIconMode">clear_text</item>
@@ -76,16 +82,19 @@
 
     <style name="Theme.FoodPlanner.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText">
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:lines">1</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="minHeight">36dp</item>
+        <item name="android:padding">12dp</item>
     </style>
 
     <style name="Theme.FoodPlanner.ImageButton_Back" parent="Widget.AppCompat.ImageButton">
-        <item name="android:background">@drawable/selector_rounded_ripple</item>
-        <item name="android:backgroundTint">@color/card_view_background_auth</item>
+        <item name="android:background">@drawable/ripple_image_button</item>
+        <item name="tint">?android:textColorHint</item>
         <item name="android:padding">16dp</item>
         <item name="android:src">@drawable/ic_baseline_arrow_back_24</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/ripple_image_button</item>
+        <item name="android:padding">16dp</item>
     </style>
 
     <style name="Theme.FoodPlanner.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
@@ -94,11 +103,58 @@
         <item name="android:paddingEnd">8dp</item>
     </style>
 
+
+    <style name="Theme.FoodPlanner.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/selector_circular_checkbox</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
     <style name="Theme.FoodPlanner.Button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/selector_button_background</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:minWidth">150dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.TextView_Subtitle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.TextView_Title" parent="Theme.FoodPlanner.TextView_Subtitle">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.TextView_ViewAll" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:text">@string/view_all</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.RattingBar.Indicator" parent="android:Widget.Material.RatingBar.Indicator">
+        <item name="android:progressTint">@color/rating_bar</item>
+        <item name="android:secondaryProgressTint">@color/rating_bar</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.RattingBar.Small" parent="android:Widget.Material.RatingBar.Small">
+        <item name="android:progressTint">@color/rating_bar</item>
+        <item name="android:secondaryProgressTint">@color/rating_bar</item>
+    </style>
+
+    <style name="Theme.FoodPlanner.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/shape_edit_text</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:backgroundTint">@color/black_5</item>
     </style>
 
     <style name="Theme.FoodPlanner.ShapeableImageView_Rounded_20" parent="">
@@ -133,6 +189,12 @@
     <style name="Theme.FoodPlanner.Label_CancelSearchView" parent="">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">?android:textColorHint</item>
+    </style>
+
+
+    <style name="Theme.FoodPlanner.OutlinedButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">?colorPrimary</item>
+        <item name="android:background">@drawable/shape_outline_button</item>
     </style>
 
 </resources>

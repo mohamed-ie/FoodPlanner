@@ -12,8 +12,8 @@ import com.soha.foodplanner.data.local.model.CompleteIngredient;
 import com.soha.foodplanner.data.local.model.CompleteMeal;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
-import com.soha.foodplanner.data.repository.MealsLocalDataSource;
+import com.soha.foodplanner.domain.data.data_source.remote.MealsRemoteDataSource;
+import com.soha.foodplanner.data.data_source.data.MealsLocalDataSource;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -263,5 +263,10 @@ public class MealsRepositoryImpl implements MealsRepository {
     @Override
     public Single<CompleteMeal> getMealById(long id) {
         return remoteDataSource.getMealDetailsById(id);
+    }
+
+    @Override
+    public Flowable<CompleteMeal> getInspiration(int count){
+        return remoteDataSource.getInspiration(count);
     }
 }

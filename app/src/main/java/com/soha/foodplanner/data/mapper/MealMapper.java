@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface MealMapper {
     List<String> map(MealDto from);
+    MinMeal mapToMinMeal(MealDto from);
     List<Pair<Long, String>> mapToSearch(MealDto from);
 
     CompleteMeal mapToCompleteMeal(MealDto from);

@@ -2,6 +2,7 @@ package com.soha.foodplanner.ui.common.dialogs.retry;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -12,6 +13,7 @@ import java.util.Collections;
 
 public class RetryDialogFragment extends BaseDialogFragmentWithArgs<RetryDialogFragmentArgs> {
     private Button buttonCancel;
+    private TextView textViewMessage;
     public static final String RETRY = "retry";
     private Button buttonRetry;
 
@@ -27,7 +29,7 @@ public class RetryDialogFragment extends BaseDialogFragmentWithArgs<RetryDialogF
 
     @Override
     public void initViews(@NonNull View view) {
-        super.initViews(view);
+        textViewMessage=view.findViewById(R.id.textViewMessage);
         buttonRetry = view.findViewById(R.id.buttonYes);
         buttonCancel = view.findViewById(R.id.motionLabelCancel);
     }

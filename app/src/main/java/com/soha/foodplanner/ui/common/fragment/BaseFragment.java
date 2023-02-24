@@ -24,7 +24,7 @@ import com.soha.foodplanner.ui.common.presenter.store.PresenterStoreImpl;
 
 import java.util.Objects;
 
-public abstract class BaseFragment<P extends Presenter> extends Fragment {
+public abstract class BaseFragment<P extends Presenter> extends Fragment  {
     protected NavController navController;
     protected P presenter;
     private final PresenterFactory<P> factory = PresenterFactory.getInstance(PresenterStoreImpl.getInstance());
@@ -75,12 +75,16 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
         // Inflate the layout for this fragment
-        View view = inflater.inflate(getLayoutResource(), container, false);
+        return inflater.inflate(getLayoutResource(), container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initPresenter();
         initViews(view);
         updateUi();
         setListeners();
-        return view;
     }
 
     protected void initViews(View view) {
@@ -108,8 +112,4 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 }

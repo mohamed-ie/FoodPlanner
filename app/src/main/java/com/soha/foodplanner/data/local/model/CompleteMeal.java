@@ -2,9 +2,10 @@ package com.soha.foodplanner.data.local.model;
 
 import com.soha.foodplanner.data.local.entities.Meal;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CompleteMeal{
+public class CompleteMeal implements Serializable {
     private final Meal meal;
     private final List<CompleteIngredient> ingredients;
 

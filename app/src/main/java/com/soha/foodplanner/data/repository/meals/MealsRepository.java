@@ -64,4 +64,5 @@ public interface MealsRepository {
 
     Single<CompleteMeal> getMealById(long id);
 
+    Flowable<CompleteMeal> getInspiration(int count);
 }

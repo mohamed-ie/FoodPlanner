@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragmentWithArgs;
@@ -12,12 +13,13 @@ import java.util.Collections;
 
 public class ConfirmDialogFragment extends BaseDialogFragmentWithArgs<ConfirmDialogFragmentArgs> {
     private Button buttonYes;
+    private TextView textViewMessage;
     private Button buttonNo;
     public static final String YES = "yes";
 
     @Override
     public void initViews(@NonNull View view) {
-        super.initViews(view);
+        textViewMessage = view.findViewById(R.id.textViewMessage);
         buttonNo = view.findViewById(R.id.motionLabelCancel);
         buttonYes = view.findViewById(R.id.buttonYes);
     }

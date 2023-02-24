@@ -75,7 +75,7 @@ public class FilterAreaAdapter extends RecyclerView.Adapter<FilterAreaAdapter.Vi
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.textViewMealName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
         }
     }

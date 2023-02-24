@@ -9,6 +9,6 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/text_hint" />
+        android:color="?colorOnBackground" />
     <solid android:color="@android:color/transparent" />
 </shape>

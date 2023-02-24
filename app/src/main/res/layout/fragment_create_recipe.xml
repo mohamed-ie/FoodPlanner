@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.create_recipe.CreateRecipeFragment">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layoutDescription="@xml/fragment_create_recipe_xml_constraintlayout_scene">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSearch"
+            style="@style/Theme.FoodPlanner.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="@string/search_ingredient"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_baseline_arrow_back_24"
+            app:startIconTint="?colorOnBackground">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextSearch"
+                style="@style/Theme.FoodPlanner.TextInputEditText_Search"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@android:color/transparent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutMeasure"
+            style="@style/Theme.FoodPlanner.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:endIconMode="clear_text"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSearch"
+            app:placeholderText="@string/measure">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextMeasure"
+                style="@style/Theme.FoodPlanner.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonAdd"
+            style="@style/Theme.FoodPlanner.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/add"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayoutMeasure"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutMeasure" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonBack"
+            style="@style/Theme.FoodPlanner.ImageButton_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/Theme.FoodPlanner.TextView_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/create_recipe"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/imageButtonBack" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutRecipeTitle"
+            style="@style/Theme.FoodPlanner.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:counterMaxLength="2000"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:placeholderText="@string/type_your_recipe_name_here">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextRecipeTitle"
+                style="@style/Theme.FoodPlanner.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView14"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/recipe_title"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView15"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/add_cover_image"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRecipeTitle" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:elevation="-1dp"
+            android:src="@drawable/twotone_add_a_photo_24"
+            app:layout_constraintBottom_toTopOf="@id/textView16"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            app:layout_constraintStart_toStartOf="@+id/imageViewThumbnail"
+            app:layout_constraintTop_toTopOf="@+id/imageViewThumbnail"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:tint="?android:textColorHint" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="-1dp"
+            android:text="@string/add_cover_image"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewThumbnail"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            app:layout_constraintStart_toStartOf="@+id/imageViewThumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/imageViewThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_recipe_cover_background"
+            android:contentDescription="@null"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <ImageButton
+            android:id="@+id/imageButtonRemoveThumbnail"
+            style="@style/Theme.FoodPlanner.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="?android:textColorHint"
+            android:contentDescription="@null"
+            android:padding="4dp"
+            android:src="@drawable/round_close_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            app:layout_constraintTop_toTopOf="@+id/imageViewThumbnail"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/textView17"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/ingredients"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewThumbnail" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewIngredients"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"
+            tools:itemCount="2"
+            tools:listitem="@layout/recycler_view_add_ingredient_item" />
+
+        <TextView
+            android:id="@+id/textViewAddIngredient"
+            style="@style/Theme.FoodPlanner.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:paddingHorizontal="16dp"
+            android:text="@string/add_ingredients_to_recipe"
+            app:drawableStartCompat="@drawable/baseline_add_24"
+            app:drawableTint="?android:textColorHint"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredients">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/cooking_instructions"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAddIngredient" />
+
+        <TextView
+            android:id="@+id/textView19"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/at_least_one"
+            android:textColor="?android:textColorHint"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+        <TextView
+            android:id="@+id/textView29"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/at_least_one"
+            android:textColor="?android:textColorHint"
+            app:layout_constraintBottom_toBottomOf="@+id/textView17"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toTopOf="@+id/textView17" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewInstructions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
+            tools:itemCount="2"
+            tools:listitem="@layout/recycler_view_instruction_item" />
+
+        <TextView
+            android:id="@+id/textView20"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/author_notes"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutYoutubeLine" />
+
+        <TextView
+            android:id="@+id/textView26"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/add_video"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewInstructions" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutYoutubeLine"
+            style="@style/Theme.FoodPlanner.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:endIconMode="clear_text"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView26"
+            app:placeholderText="Add youtube link here">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextYoutubeLink"
+                style="@style/Theme.FoodPlanner.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textWebEditText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView21"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/optional"
+            android:textColor="?android:textColorHint"
+            app:layout_constraintBottom_toBottomOf="@+id/textView20"
+            app:layout_constraintStart_toEndOf="@+id/textView20"
+            app:layout_constraintTop_toTopOf="@+id/textView20" />
+
+        <TextView
+            android:id="@+id/textView25"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/optional"
+            android:textColor="?android:textColorHint"
+            app:layout_constraintBottom_toBottomOf="@+id/textView26"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutAuthorNotes"
+            style="@style/Theme.FoodPlanner.TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:counterMaxLength="2000"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textView20"
+            app:placeholderText="@string/add_tips_or_tricks_for_this_recipe">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEditTextAuthorNotes"
+                style="@style/Theme.FoodPlanner.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:inputType="textMultiLine" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView22"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/sharing_options"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutAuthorNotes" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupSharingOptions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            android:checkedButton="@id/radioButtonPrivate"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDone"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/textView22"
+            app:layout_constraintVertical_bias="0">
+
+            <RadioButton
+                android:id="@+id/radioButtonPrivate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/private_not_visible_to_others" />
+
+            <RadioButton
+                android:id="@+id/radioButtonPublic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/public_visible_to_others" />
+
+        </RadioGroup>
+
+
+        <Button
+            android:id="@+id/buttonDone"
+            style="@style/Theme.FoodPlanner.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart" />
+
+        <ImageButton
+            android:id="@+id/imageButtonAddInstruction"
+            style="@style/Theme.FoodPlanner.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@+id/textView18">
+
+        </ImageButton>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</ScrollView>

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.OnCategoryFilterItemClickListener;
-import com.soha.foodplanner.ui.search.adapter.category.CategoryAdapter;
 
 import java.util.List;
 import java.util.Locale;
@@ -79,7 +78,7 @@ public class FilterCategoryAdapter extends RecyclerView.Adapter<FilterCategoryAd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.textViewMealName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
         }
     }

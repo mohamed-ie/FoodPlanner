@@ -10,14 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.ui.common.AddToFavourite;
-import com.soha.foodplanner.ui.home.HomeFragmentDirections;
+import com.soha.foodplanner.ui.common.OnInspirationItemListener;
 
 import java.util.List;
 
@@ -25,13 +23,13 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     private List<MinMeal> minMeals;
     private static final String Tag = "Recycler";
     private OnItemClickListener<MinMeal> onItemClickListener;
-    private final AddToFavourite addToFavourite;
+    private final OnInspirationItemListener onInspirationItemListener;
     private Context context;
 
 
-    public MealAdapter(List<MinMeal> minMeals, AddToFavourite addToFavourite) {
+    public MealAdapter(List<MinMeal> minMeals, OnInspirationItemListener onInspirationItemListener) {
         this.minMeals = minMeals;
-        this.addToFavourite = addToFavourite;
+        this.onInspirationItemListener = onInspirationItemListener;
     }
 
     @NonNull
@@ -48,13 +46,13 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         MinMeal meal = minMeals.get(position);
 
         holder.mealName.setText(meal.getName());
-        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(com.soha.foodplanner.ui.home.HomeFragmentDirections
-                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId(),null));
-            }
-        });
+//        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(v).navigate(com.soha.foodplanner.ui.home.HomeFragmentDirections
+//                        .actionHomeFragmentToMealDetails(minMeals.get(position).getId(),null));
+//            }
+//        });
 
         if (meal.isFavoured())
             holder.favIcon.setImageResource(R.drawable.fav_checked);
@@ -66,7 +64,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addToFavourite.addFavouriteMeal(minMeals.get(position).getId());
+                onInspirationItemListener.addFavouriteMeal(minMeals.get(position).getId());
                 holder.favIcon.setImageResource(R.drawable.fav_checked);
             }
         });
@@ -85,7 +83,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
         public ViewHolder(View v) {
             super(v);
-            mealName = v.findViewById(R.id.textViewName);
+            mealName = v.findViewById(R.id.textViewMealName);
             mealImage = v.findViewById(R.id.imageViewThumbnail);
             favIcon = v.findViewById(R.id.imageButtonFavourite);
             itemLayout = v.findViewById(R.id.item_fav_layout);

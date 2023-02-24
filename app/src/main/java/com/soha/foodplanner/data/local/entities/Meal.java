@@ -5,7 +5,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "meal")
-public class Meal {
+public class Meal  {
     @PrimaryKey
     private long id;
     private String name;
@@ -16,7 +16,8 @@ public class Meal {
     private String instructions;
     private String photoUri;
     private String videoUri;
-
+    @Ignore
+    private String videoId;
 
     public Meal(long id, String name, String category, String area, String instructions, String photoUri, String videoUri) {
         this.id = id;
@@ -26,6 +27,14 @@ public class Meal {
         this.instructions = instructions;
         this.photoUri = photoUri;
         this.videoUri = videoUri;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
     public long getId() {

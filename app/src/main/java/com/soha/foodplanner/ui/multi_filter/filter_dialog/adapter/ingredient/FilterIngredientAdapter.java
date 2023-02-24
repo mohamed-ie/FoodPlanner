@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.target.Target;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.OnIngredientFilterItemClickListener;
@@ -72,7 +71,7 @@ public class FilterIngredientAdapter extends RecyclerView.Adapter<FilterIngredie
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.textViewMealName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
         }
     }

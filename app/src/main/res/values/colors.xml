@@ -6,18 +6,22 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black_5">#0D000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_35">#59FFFFFF</color>
     <color name="opacity">#80161414</color>
     <color name="card_view_background_auth">#B81F1919</color>
     <color name="text_hint">#A6FFFFFF</color>
     <color name="text_input_edit_text_stroke">#A6FFFFFF</color>
-    <color name="green">#8CC53F</color>
+    <color name="orange_700">#F57C00</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="orange_200">#FFCC80</color>
     <color name="start_screen_sign">#69F3EBEB</color>
     <color name="grey_text">#787272</color>
     <color name="off_white">#F2F3F5</color>
     <color name="search_view_background">#EAE9E9</color>
     <color name="instructions">#ECE9E9</color>
+    <color name="bookmark_background">@color/opacity</color>
+    <color name="rating_bar">#FFCC01</color>
 
-    <color name="accent">#C5E1A5</color>
 </resources>

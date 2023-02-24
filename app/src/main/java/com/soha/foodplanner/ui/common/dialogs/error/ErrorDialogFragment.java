@@ -2,6 +2,7 @@ package com.soha.foodplanner.ui.common.dialogs.error;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +12,7 @@ import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragmentWithArgs;
 
 public class ErrorDialogFragment extends BaseDialogFragmentWithArgs<ErrorDialogFragmentArgs> {
     protected Button buttonOk;
+    protected TextView textViewMessage;
 
     @Override
     public int getLayoutResource() {
@@ -34,7 +36,7 @@ public class ErrorDialogFragment extends BaseDialogFragmentWithArgs<ErrorDialogF
 
     @Override
     public void initViews(@NonNull View view) {
-        super.initViews(view);
+        textViewMessage=view.findViewById(R.id.textViewMessage);
         buttonOk = view.findViewById(R.id.buttonYes);
     }
 }

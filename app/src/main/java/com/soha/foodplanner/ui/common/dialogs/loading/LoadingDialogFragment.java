@@ -8,13 +8,14 @@ import android.widget.Button;
 
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragment;
+import com.soha.foodplanner.ui.common.dialogs.BaseDialogFragmentWithArgs;
 
 import java.util.Collections;
 
 
-public class LoadingDialogFragment extends BaseDialogFragment {
+public class LoadingDialogFragment extends BaseDialogFragmentWithArgs<LoadingDialogFragmentArgs> {
     public static final String CANCEL = "cancel";
-    Button button_cancel;
+    private Button buttonCancel;
 
     @Override
     public int getLayoutResource() {
@@ -23,11 +24,22 @@ public class LoadingDialogFragment extends BaseDialogFragment {
 
     @Override
     public void initViews(@NonNull View view) {
-        button_cancel = view.findViewById(R.id.btn_cancelling);
+        buttonCancel = view.findViewById(R.id.buttonCancel);
     }
 
     @Override
     public void setListeners() {
-        button_cancel.setOnClickListener((View v) -> sendDataViaBackStackEntry(Collections.singletonMap(CANCEL, true)));
+        buttonCancel.setOnClickListener((View v) -> sendDataViaBackStackEntry(Collections.singletonMap(CANCEL, true)));
+    }
+
+    @Override
+    public LoadingDialogFragmentArgs getSafeArgs() {
+        return LoadingDialogFragmentArgs.fromBundle(requireArguments());
+    }
+
+    @Override
+    public void updateUiFromSafeArgs(LoadingDialogFragmentArgs args) {
+        if(!args.getCancelable())
+            buttonCancel.setVisibility(View.GONE);
     }
 }

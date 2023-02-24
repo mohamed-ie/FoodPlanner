@@ -7,6 +7,7 @@ import com.soha.foodplanner.data.mapper.MealMapper;
 import com.soha.foodplanner.data.local.model.MinIngredient;
 import com.soha.foodplanner.data.local.model.MinMeal;
 import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
+import com.soha.foodplanner.domain.data.data_source.remote.MealsRemoteDataSource;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     private final TheMealDBWebService theMealDBWebService;
-    private  MealMapper mapper;
+    private final MealMapper mapper;
 
     public MealsRemoteDataSourceImpl(TheMealDBWebService theMealDBWebService, MealMapper mapper) {
         this.theMealDBWebService = theMealDBWebService;
@@ -113,5 +114,15 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
                 .subscribeOn(Schedulers.computation())
                 .map(mapper::mapToCompleteMeal)
                 .map(completeMeal -> new Pair<>(completeMeal, Float.valueOf((done[0] * 1f / count[0]) * 100).intValue()));
+    }
+
+    @Override
+    public Flowable<CompleteMeal> getInspiration(int count) {
+        int[] loadedMeals = {0};
+        return theMealDBWebService.getRandomMeal()
+                .repeatUntil(() -> loadedMeals[0] == count)
+                .map(mapper::mapToCompleteMeal)
+                .distinct()
+                .doOnNext(ignored -> loadedMeals[0]++);
     }
 }

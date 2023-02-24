@@ -1,13 +1,11 @@
 package com.soha.foodplanner.ui.filter;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -15,8 +13,8 @@ import com.soha.foodplanner.MyApp;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Factory;
 import com.soha.foodplanner.data.local.model.MinMeal;
-import com.soha.foodplanner.ui.common.fragment.BaseFragmentWithArgs;
 import com.soha.foodplanner.ui.common.TextWatcherAdapter;
+import com.soha.foodplanner.ui.common.fragment.BaseFragmentWithArgs;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterFactory;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenter;
 import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenterListener;
@@ -24,7 +22,7 @@ import com.soha.foodplanner.ui.filter.presenter.MealsFilterPresenterListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresenter, MealsFilterFragmentArgs>
+public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresenter, com.soha.foodplanner.ui.filter.MealsFilterFragmentArgs>
         implements
         OnMealItemClickListener,
         MealsFilterPresenterListener {
@@ -39,12 +37,13 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
 
     @Override
     protected Factory<MealsFilterPresenter> getPresenterFactory() {
-        return new MealsFilterFactory(((MyApp) requireActivity().getApplication()).getMealsRepository(), this);
+        return new MealsFilterFactory(((MyApp) requireActivity().getApplication()).getMealsRepository());
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        presenter.setListener(this);
         if (args.getCategory() != null)
             presenter.loadByCategory(args.getCategory());
         else if (args.getArea() != null)
@@ -90,14 +89,12 @@ public class MealsFilterFragment extends BaseFragmentWithArgs<MealsFilterPresent
 
     @Override
     public void onMealItemClick(long id) {
-//            navController.navigate();
-
-        Navigation.findNavController(getView()).navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id,null));
+//        navController.navigate(MealsFilterFragmentDirections.actionMealsFilterFragmentToMealDetails(id, true));
     }
 
     @Override
-    public MealsFilterFragmentArgs getSafeArgs() {
-        return MealsFilterFragmentArgs.fromBundle(requireArguments());
+    public com.soha.foodplanner.ui.filter.MealsFilterFragmentArgs getSafeArgs() {
+        return com.soha.foodplanner.ui.filter.MealsFilterFragmentArgs.fromBundle(requireArguments());
     }
 
 

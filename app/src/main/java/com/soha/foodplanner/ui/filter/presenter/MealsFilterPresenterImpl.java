@@ -15,14 +15,12 @@ import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class MealsFilterPresenterImpl implements MealsFilterPresenter {
+public class MealsFilterPresenterImpl extends MealsFilterPresenter {
     private final MealsRepository repository;
-    private final MealsFilterPresenterListener listener;
     private final MealsFilterState state = new MealsFilterState();
 
-    public MealsFilterPresenterImpl(MealsRepository repository, MealsFilterPresenterListener listener) {
+    public MealsFilterPresenterImpl(MealsRepository repository) {
         this.repository = repository;
-        this.listener = listener;
     }
 
 

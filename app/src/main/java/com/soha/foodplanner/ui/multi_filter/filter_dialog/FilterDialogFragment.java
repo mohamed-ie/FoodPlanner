@@ -28,12 +28,6 @@ import com.soha.foodplanner.ui.multi_filter.filter_dialog.presenter.FilterPresen
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.presenter.FilterPresenterFactory;
 import com.soha.foodplanner.ui.multi_filter.filter_dialog.presenter.FilterPresenterListener;
 
-import com.soha.foodplanner.ui.search.adapter.area.AreaAdapter;
-import com.soha.foodplanner.ui.search.adapter.area.OnAreaItemClickListener;
-import com.soha.foodplanner.ui.search.adapter.category.CategoryAdapter;
-import com.soha.foodplanner.ui.search.adapter.category.OnCategoryItemClickListener;
-import com.soha.foodplanner.ui.search.adapter.ingredient.IngredientAdapter;
-import com.soha.foodplanner.ui.search.adapter.ingredient.OnIngredientItemClickListener;
 import com.soha.foodplanner.utils.UiUtils;
 
 import java.util.ArrayList;
@@ -70,7 +64,7 @@ public class FilterDialogFragment extends BaseDialogFragmentWithArgs<FilterDialo
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_FoodPlanner_Dialog_Filter);
         initDependencies();
         int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
-        spanCount = (int) (width / UiUtils.dpTpPx(80f, getResources()));
+        spanCount = (int) (width / UiUtils.dpTpPx(80f));
     }
 
     @Override

@@ -1,12 +1,9 @@
 package com.soha.foodplanner.ui.common.dialogs;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -19,17 +16,13 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.soha.foodplanner.R;
-import com.soha.foodplanner.ui.login.LoginFragment;
 
 import org.jetbrains.annotations.Contract;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class BaseDialogFragment extends DialogFragment {
-    protected TextView textViewMessage;
     protected NavController navController;
-    private final Map<String, Object> data = new HashMap<>();
 
     @LayoutRes
     public abstract int getLayoutResource();
@@ -55,7 +48,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     }
 
     public void initViews(@NonNull View view) {
-        textViewMessage = view.findViewById(R.id.textViewMessage);
+
     }
 
     public abstract void setListeners();
@@ -64,35 +57,31 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @NonNull
     @Contract(pure = true)
     private LifecycleEventObserver createNavBackStackEntryObserver(NavBackStackEntry navBackStackEntry, Map<String, ?> data) {
-        return (LifecycleEventObserver) (source, event) -> {
+        return (source, event) -> {
             if (event.equals(Lifecycle.Event.ON_RESUME))
                 for (String key : data.keySet())
-                        navBackStackEntry.getSavedStateHandle().set(key, data.get(key));
+                    navBackStackEntry.getSavedStateHandle().set(key, data.get(key));
 
         };
     }
 
 
     protected void sendDataViaBackStackEntry(Map<String, Object> data) {
-//        NavBackStackEntry navBackStackEntry = navController.getBackStackEntry(R.id.loginFragment);
         NavBackStackEntry navBackStackEntry = navController.getPreviousBackStackEntry();
-        //data to be sent via backstack entry
-        //
-        //create observer
-        LifecycleEventObserver observer = createNavBackStackEntryObserver(navBackStackEntry, data);
-        //register observer
-        navBackStackEntry.getLifecycle().addObserver(observer);
-        //remove observer
-        removeNavStackEntryObserver(navBackStackEntry, observer);
-        navController.popBackStack();
+        if (navBackStackEntry != null) {
+            LifecycleEventObserver observer = createNavBackStackEntryObserver(navBackStackEntry, data);
+            navBackStackEntry.getLifecycle().addObserver(observer);
+            removeNavStackEntryObserver(navBackStackEntry, observer);
+            navController.popBackStack();
+        }
     }
 
     private void removeNavStackEntryObserver(NavBackStackEntry navBackStackEntry,
                                              LifecycleEventObserver observer) {
         getViewLifecycleOwner().getLifecycle().addObserver((LifecycleEventObserver) (source, event) -> {
-            if (event.equals(Lifecycle.Event.ON_DESTROY)) {
+            if (event.equals(Lifecycle.Event.ON_DESTROY))
                 navBackStackEntry.getLifecycle().removeObserver(observer);
-            }
+
         });
     }
 }

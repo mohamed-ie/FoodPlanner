@@ -1,5 +1,6 @@
 package com.soha.foodplanner.ui.multi_filter;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.data.local.entities.Meal;
 import com.soha.foodplanner.ui.filter.OnMealItemClickListener;
@@ -21,6 +23,7 @@ import java.util.List;
 public class CompleteMealAdapter extends RecyclerView.Adapter<CompleteMealAdapter.ViewHolder> {
     private List<Meal> meals;
     private final OnMealItemClickListener listener;
+    private RequestBuilder<Drawable> glideRequestBuilder;
 
     public CompleteMealAdapter(List<Meal> meals, OnMealItemClickListener listener) {
         this.meals = meals;
@@ -43,9 +46,14 @@ public class CompleteMealAdapter extends RecyclerView.Adapter<CompleteMealAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meal meal = meals.get(position);
-
-        Glide.with(holder.itemView)
-                .load(meal.getPhotoUri())
+        if (glideRequestBuilder == null)
+            glideRequestBuilder = Glide.with(holder.itemView)
+                    .load(R.drawable.unknown_meal)
+                    .override(holder.imageViewThumbnail.getWidth(), holder.imageViewThumbnail.getHeight())
+                    .error(R.drawable.unknown_meal)
+                    .placeholder(R.drawable.unknown_meal);
+        
+        glideRequestBuilder.load(meal.getPhotoUri())
                 .into(holder.imageViewThumbnail);
 
         holder.textViewName.setText(meal.getName());
@@ -73,7 +81,7 @@ public class CompleteMealAdapter extends RecyclerView.Adapter<CompleteMealAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.textViewMealName);
             imageViewThumbnail = itemView.findViewById(R.id.imageViewThumbnail);
             imageButtonFavourite = itemView.findViewById(R.id.imageButtonFavourite);
             constraintLayout = itemView.findViewById(R.id.constraintLayout);

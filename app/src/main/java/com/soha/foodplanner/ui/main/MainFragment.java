@@ -15,14 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.soha.foodplanner.R;
 import com.soha.foodplanner.common.Constants;
-import com.soha.foodplanner.data.mapper.MealMapper;
-import com.soha.foodplanner.data.mapper.MealMapperImpl;
-import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSource;
-import com.soha.foodplanner.data.data_source.remote.meals.MealsRemoteDataSourceImpl;
-import com.soha.foodplanner.data.data_source.remote.webservice.TheMealDBWebService;
-import com.soha.foodplanner.data.data_source.remote.webservice.Webservice;
-import com.soha.foodplanner.data.repository.meals.MealsRepository;
-import com.soha.foodplanner.data.repository.meals.MealsRepositoryImpl;
 
 public class MainFragment extends Fragment {
     private NavController navController;

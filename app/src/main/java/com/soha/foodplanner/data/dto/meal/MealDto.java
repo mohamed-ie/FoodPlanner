@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class MealDto {
 
 	@SerializedName("meals")
-	private List<MealsItem> meals;
+	private List<MealItem> meals;
 
-	public List<MealsItem> getMeals(){
+	public List<MealItem> getMeals(){
 		return meals;
 	}
 }

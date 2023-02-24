@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="0">
+       <KeyFrameSet>
+       </KeyFrameSet>
+        <OnClick motion:targetId="@+id/textViewAddIngredient" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/textInputLayoutSearch"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textInputLayoutMeasure"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textInputLayoutSearch"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/buttonAdd"
+            motion:layout_constraintEnd_toEndOf="@+id/textInputLayoutMeasure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textInputLayoutMeasure"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/imageButtonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/imageButtonBack"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textInputLayoutRecipeTitle"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textView14"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textView13"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textInputLayoutRecipeTitle"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/imageView"
+            android:elevation="-1dp"
+            motion:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            motion:layout_constraintBottom_toTopOf="@id/textView16"
+            motion:layout_constraintVertical_chainStyle="packed"
+            motion:layout_constraintTop_toTopOf="@+id/imageViewThumbnail"
+            motion:layout_constraintStart_toStartOf="@+id/imageViewThumbnail"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView16"
+            android:elevation="-1dp"
+            motion:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/imageViewThumbnail"
+            motion:layout_constraintTop_toBottomOf="@+id/imageView"
+            motion:layout_constraintStart_toStartOf="@+id/imageViewThumbnail"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/imageViewThumbnail"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            motion:layout_constraintTop_toBottomOf="@+id/textView15"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/imageViewThumbnail"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textViewAddIngredient"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            motion:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredients"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/textInputLayoutYoutubeLine"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/recyclerViewInstructions"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textInputLayoutYoutubeLine"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textView26"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView21"
+            motion:layout_constraintStart_toEndOf="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/textView20"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/textView20"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView25"
+            motion:layout_constraintStart_toEndOf="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/textView26"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/textView26"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textInputLayoutAuthorNotes"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textView20"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/textInputLayoutAuthorNotes"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/radioGroupSharingOptions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
+            motion:layout_constraintBottom_toTopOf="@+id/buttonDone"
+            motion:layout_constraintVertical_bias="0"
+            motion:layout_constraintTop_toBottomOf="@id/textView22"
+            motion:layout_constraintStart_toStartOf="@id/guidelineStart"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/buttonDone"
+            motion:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
+            motion:layout_constraintStart_toStartOf="@id/guidelineStart"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/imageButtonAddInstruction"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/textView18"
+            motion:layout_constraintTop_toTopOf="@+id/textView18"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/recyclerViewInstructions"
+            motion:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textView18"
+            motion:layout_constraintStart_toStartOf="@id/guidelineStart"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView29"
+            motion:layout_constraintStart_toEndOf="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/textView17"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/textView17"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView19"
+            motion:layout_constraintStart_toEndOf="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/textView18"
+            android:layout_marginStart="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/textView18"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textViewAddIngredient"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+        <Constraint
+            android:id="@+id/imageButtonRemoveThumbnail"
+            motion:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginEnd="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/imageViewThumbnail" />
+        <Constraint
+            android:id="@+id/recyclerViewIngredients"
+            motion:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toBottomOf="@id/buttonAdd"
+            motion:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            android:layout_marginTop="8dp"
+            motion:layout_constraintBottom_toBottomOf="@id/guidelineBottom" />
+    </ConstraintSet>
+    <ConstraintSet
+        android:id="@+id/imageButtonRemoveThumbnail_visible"
+        motion:deriveConstraintsFrom="@+id/start" >
+        <Constraint
+            android:id="@+id/imageButtonRemoveThumbnail"
+            motion:layout_constraintEnd_toEndOf="@+id/imageViewThumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            motion:layout_constraintTop_toTopOf="@+id/imageViewThumbnail" />
+
+    </ConstraintSet>
+    <Transition
+        motion:constraintSetStart="@+id/imageButtonRemoveThumbnail_visible"
+        motion:constraintSetEnd="@+id/end" >
+        <OnClick motion:targetId="@+id/textViewAddIngredient" />
+    </Transition>
+
+</MotionScene>

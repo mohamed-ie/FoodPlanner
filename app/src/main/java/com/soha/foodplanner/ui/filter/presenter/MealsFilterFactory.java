@@ -5,15 +5,13 @@ import com.soha.foodplanner.data.repository.meals.MealsRepository;
 
 public class MealsFilterFactory implements Factory<MealsFilterPresenter> {
     private final MealsRepository mealsRepository;
-    private final MealsFilterPresenterListener listener;
 
-    public MealsFilterFactory(MealsRepository mealsRepository, MealsFilterPresenterListener listener) {
+    public MealsFilterFactory(MealsRepository mealsRepository) {
         this.mealsRepository = mealsRepository;
-        this.listener = listener;
     }
 
     @Override
     public MealsFilterPresenter create() {
-        return new MealsFilterPresenterImpl(mealsRepository, listener);
+        return new MealsFilterPresenterImpl(mealsRepository);
     }
 }

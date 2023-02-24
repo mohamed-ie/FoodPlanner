@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="outlined_button_radius">32dp</dimen>
+    <dimen name="cardview_inspiration_corner_radius">16dp</dimen>
+    <dimen name="edit_text_single_line_corners">32dp</dimen>
+    <dimen name="edit_text_multiline_corners">16dp</dimen>
+</resources>

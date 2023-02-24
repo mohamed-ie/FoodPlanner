@@ -8,6 +8,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutSearch"
+        android:visibility="gone"
         style="@style/Theme.FoodPlanner.TextInputLayout_Search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
         android:id="@+id/imageButtonFilter"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
         android:background="@drawable/ripple_rounded_corners"
@@ -61,10 +63,12 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:progressTint="?colorPrimary"
         android:secondaryProgress="100"
         app:layout_constraintBottom_toBottomOf="@+id/textViewPercent"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutSearch"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPercent"
         app:layout_constraintStart_toStartOf="@+id/textInputLayoutSearch"
         app:layout_constraintTop_toTopOf="@+id/textViewPercent" />
 
@@ -73,8 +77,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/percent"
-        app:layout_constraintEnd_toEndOf="@+id/imageButtonFilter"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageButtonFilter"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonFilter" />
 

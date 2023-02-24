@@ -2,13 +2,12 @@ package com.soha.foodplanner.data.repository.auth;
 
 import android.content.SharedPreferences;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.soha.foodplanner.common.Constants;
-import com.soha.foodplanner.data.data_source.remote.auth.AuthRemoteDataSource;
+import com.soha.foodplanner.domain.data.data_source.remote.AuthRemoteDataSource;
 import com.soha.foodplanner.data.local.model.User;
+import com.soha.foodplanner.domain.data.repository.AuthRepository;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -25,7 +24,6 @@ public class AuthRepositoryImpl implements AuthRepository {
     public Completable loginWithEmailAndPassword(String email, String password) {
         return authRemoteDataSource.loginWithEmailAndPassword(email, password);
     }
-
 
     @Override
     public Completable loginWithGoogle(String idToken) {
@@ -52,5 +50,10 @@ public class AuthRepositoryImpl implements AuthRepository {
     @Override
     public User getUser() {
         return authRemoteDataSource.getUser();
+    }
+
+    @Override
+    public Completable signup(String name, String email, String password) {
+        return authRemoteDataSource.signup(name,email,password);
     }
 }

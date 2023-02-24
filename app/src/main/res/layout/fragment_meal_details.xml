@@ -1,147 +1,429 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
     tools:context=".ui.meal_details.MealDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_detail_img"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:cardCornerRadius="20dp"
+        <ImageView
+            android:id="@+id/imageViewThumbnail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
-            <ImageView
-                android:id="@+id/meal_img"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewThumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewThumbnail">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/backgrounds/scenic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                />
+                <TextView
+                    android:id="@+id/textViewMealName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:textColor="?colorOnBackground"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/textViewChefName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewArea"
+                    tools:text="Easy homemade pesto" />
 
+                <TextView
+                    android:id="@+id/textViewChefName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textView"
+                    app:layout_constraintTop_toBottomOf="@id/textViewMealName"
+                    tools:text="by live eat learn" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/by"
+                    android:textColor="?colorOnBackground"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewChefName"
+                    app:layout_constraintEnd_toStartOf="@id/textViewChefName"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textViewChefName" />
+
+                <TextView
+                    android:id="@+id/textViewArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:padding="4dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewMealName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewCategory"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Egyptian" />
+
+                <TextView
+                    android:id="@+id/textViewCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewArea"
+                    app:layout_constraintEnd_toStartOf="@id/textViewArea"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewArea"
+                    tools:text="Breakfast " />
+
+                <ImageView
+                    android:background="@drawable/shape_area_border"
+                    android:padding="2dp"
+                    android:id="@+id/imageViewArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewArea"
+                    app:layout_constraintEnd_toStartOf="@id/textViewArea"
+                    app:layout_constraintTop_toTopOf="@id/textViewArea"
+                    tools:src="@drawable/egyptian" />
+
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/groupArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="imageViewArea,textViewArea"
+                    tools:layout_editor_absoluteX="46dp"
+                    tools:layout_editor_absoluteY="100dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:id="@+id/textViewNumberOfRatings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/meal_detailed_name"
+            android:layout_marginTop="8dp"
+            android:textColor="?colorOnBackground"
+            app:layout_constraintEnd_toEndOf="@+id/ratingBar"
+            app:layout_constraintStart_toStartOf="@+id/textViewRatingValue"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            tools:text="3  Ratings" />
+
+        <TextView
+            android:id="@+id/textView29"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Meal Name"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@+id/card_detail_img"
+            android:text="@string/ingredients"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/meal_detailed_area"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/black"
-            android:text="Area"
-            android:textSize="24sp"
-            android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@+id/meal_detailed_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/meal_detailed_area"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/instructions"
-            android:elevation="20dp"
-            android:padding="20dp"
-            android:layout_marginTop="16dp"
-            android:id="@+id/instruction_cardview"
-            app:cardCornerRadius="20dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/meal_detailed_instructions"
-                android:textSize="18sp"
-                android:padding="20dp"
-                android:text="instructions"
-                />
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@id/textViewNumberOfRatings" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/recyclerViewIngredients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            tools:itemCount="1"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/rv_ingredients"
-            app:layout_constraintTop_toBottomOf="@id/instruction_cardview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView29"
+            tools:listitem="@layout/recycler_view_complete_ingredient_item" />
 
-
-            />
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/video"
-            android:layout_width="match_parent"
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Theme.FoodPlanner.RattingBar.Small"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_ingredients"
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.4"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="Plan"
-            android:id="@+id/plan_btn"
-            android:textAllCaps="false"
-            android:background="@drawable/add_plan_button"
-            android:layout_marginVertical="16dp"
-            android:textColor="@color/green"
-            app:layout_constraintTop_toBottomOf="@+id/video"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/calender_btn"
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintWidth_percent="0.4"
-            android:text="Calender"
-            android:id="@+id/calender_btn"
-            android:textAllCaps="false"
-            android:background="@drawable/add_plan_button"
-            android:layout_marginVertical="16dp"
-            android:textColor="@color/green"
-            app:layout_constraintTop_toBottomOf="@+id/video"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/plan_btn"
-            />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewRatingValue"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            tools:rating="4" />
 
+        <TextView
+            android:id="@+id/textViewRatingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="?colorOnBackground"
+            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
+            app:layout_constraintEnd_toStartOf="@+id/ratingBar"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ratingBar"
+            tools:text="4" />
+
+        <TextView
+            android:id="@+id/textView30"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/instructions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewIngredients" />
+
+        <TextView
+            android:paddingHorizontal="16dp"
+            android:id="@+id/textViewInstructions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView30"
+            tools:text="@tools:sample/lorem/random" />
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtubePlayerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInstructions" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ratingBar,textViewNumberOfRatings,textViewRatingValue" />
+
+        <TextView
+            android:id="@+id/textView24"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/rating_and_comments"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/youtubePlayerView" />
+
+        <TextView
+            android:id="@+id/textViewViewAllComments"
+            style="@style/Theme.FoodPlanner.TextView_ViewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/textView24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView24" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewComments"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24"
+            tools:listitem="@layout/recycler_view_comment_item" />
+
+        <TextView
+            android:id="@+id/textView25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/tap_to_rate"
+            android:textColor="?colorOnBackground"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ratingBarUserRating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ratingBarUserRating" />
+
+
+        <RatingBar
+            android:id="@+id/ratingBarUserRating"
+            style="@style/Theme.FoodPlanner.RattingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:isIndicator="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewComments" />
+
+        <ImageButton
+            android:id="@+id/imageButtonPickPicture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/selector_rounded_ripple"
+            android:backgroundTint="?colorOnBackground"
+            android:contentDescription="@null"
+            android:src="@drawable/twotone_add_a_photo_24"
+            app:layout_constraintEnd_toStartOf="@id/editTextComment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBarUserRating"
+            app:tint="?android:colorBackground" />
+
+        <EditText
+            android:id="@+id/editTextComment"
+            style="@style/Theme.FoodPlanner.EditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="@null"
+            android:hint="@string/leave_a_comment_or_photo"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/imageButtonPickPicture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageButtonPickPicture"
+            app:layout_constraintTop_toTopOf="@id/imageButtonPickPicture" />
+
+        <TextView
+            android:id="@+id/textView28"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/same_chef"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageButtonPickPicture" />
+
+
+        <TextView
+            android:id="@+id/textViewViewAllFromSameChef"
+            style="@style/Theme.FoodPlanner.TextView_ViewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/textView28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView28" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSameChefMeals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView28" />
+
+        <TextView
+            android:id="@+id/textView27"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/same_category"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewSameChefMeals" />
+
+
+        <TextView
+            android:id="@+id/textViewViewAllFromSameCategory"
+            style="@style/Theme.FoodPlanner.TextView_ViewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/textView27"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView27" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSameCategoryMeals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView27" />
+
+        <TextView
+            android:id="@+id/textView26"
+            style="@style/Theme.FoodPlanner.TextView_Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/same_area"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewSameCategoryMeals" />
+
+
+        <TextView
+            android:id="@+id/textViewViewAllFromSameArea"
+            style="@style/Theme.FoodPlanner.TextView_ViewAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/textView26"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView26" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSameAreaMeals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView26" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.core.widget.NestedScrollView>

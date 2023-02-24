@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:padding="8dp"
+android:layout_marginVertical="8dp"
+android:background="@drawable/shape_add_ingredient_background"
+android:backgroundTint="@color/black_5"
+android:layout_height="wrap_content">
+
+<ImageView
+    android:id="@+id/imageButtonRemoveThumbnail"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:contentDescription="@null"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/textViewMeasure"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:scaleType="centerCrop"
+    tools:src="@drawable/unknown_meal" />
+
+<TextView
+    android:id="@+id/textViewMeasure"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:gravity="center"
+    android:textColor="?colorOnBackground"
+    android:textStyle="bold"
+    app:layout_constraintWidth_percent=".3"
+    app:layout_constraintBottom_toBottomOf="@id/imageButtonRemoveThumbnail"
+    app:layout_constraintEnd_toStartOf="@id/textViewName"
+    app:layout_constraintStart_toEndOf="@id/imageButtonRemoveThumbnail"
+    app:layout_constraintTop_toTopOf="@id/imageButtonRemoveThumbnail"
+    tools:text="5" />
+
+<TextView
+    android:id="@+id/textViewName"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:gravity="center"
+    android:textColor="?colorOnBackground"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@id/imageButtonRemoveThumbnail"
+    app:layout_constraintEnd_toStartOf="@id/imageButtonDelete"
+    app:layout_constraintStart_toEndOf="@id/textViewMeasure"
+    app:layout_constraintTop_toTopOf="@id/imageButtonRemoveThumbnail"
+    tools:text="egg" />
+
+<ImageButton
+    android:id="@+id/imageButtonDelete"
+    style="@style/Theme.FoodPlanner.ImageButton"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:contentDescription="@null"
+    android:src="@drawable/twotone_delete_forever_24"
+    app:layout_constraintBottom_toBottomOf="@id/imageButtonRemoveThumbnail"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/textViewName"
+    app:layout_constraintTop_toTopOf="@id/imageButtonRemoveThumbnail" />
+</androidx.constraintlayout.widget.ConstraintLayout>

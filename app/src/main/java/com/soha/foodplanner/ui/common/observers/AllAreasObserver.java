@@ -1,6 +1,6 @@
 package com.soha.foodplanner.ui.common.observers;
 
-import com.soha.foodplanner.ui.search.presenter.AllAreasListener;
+import com.soha.foodplanner.ui.main.search.presenter.AllAreasListener;
 
 import java.util.List;
 
